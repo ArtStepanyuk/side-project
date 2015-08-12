@@ -1,0 +1,71 @@
+html {
+	overflow-x: hidden;
+}
+body * {
+	font-family: font-awesome;	
+}
+.dropButtons {
+	width: 110px;
+}
+.input-group {
+	width: 40%;
+	float: right;
+}
+
+/* media query*/
+@media (max-width:720px) {
+	#navbar > ul > li > button {
+		width: 220px;
+	}
+	#navbar > ul.nav.navbar-nav.navbar-right {
+		float: right;
+	}
+	.navbar-nav {
+		float: left;
+	}
+}
+
+/* media query END*/
+
+/* navbar style */
+
+#navbar {
+	position: relative;
+	top: 4px;
+	margin: 5px 0;
+}
+.nav>li {
+	position: relative;
+	display: block;
+	margin-right: 5px;
+}
+
+/* navbar style END*/
+.contentWrapper {
+	position: relative;
+	top: 6em;
+	text-align: center;
+}
+.contentWrapper, .btn-group {
+	margin-right: 5px;
+}
+div#categoryTittle {
+	padding: 1em;
+	font-size: 25px;
+}
+
+/* footer style */
+.footer {
+	position: fixed;
+	bottom: 0;
+	background-color: #FFFFFF;
+	width: 100%;
+}
+.text-muted {
+	text-align: center;
+}
+.text-muted span a {
+	margin-right: 1em;
+}
+
+/* footer style END */
