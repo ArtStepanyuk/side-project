@@ -69,3 +69,17 @@ div#categoryTittle {
 }
 
 /* footer style END */
+
+
+/* <--------------needs.html style--------> */
+.topLinks {padding-top: 8em; text-align: left; position: relative;
+    left: 5%;
+}
+.topLinks span {margin-right: 5px;}
+.topLinks span a {text-decoration: none; color:black;}
+.status {background-color: lightgray; padding:15px;}
+.status span {margin-right: 2em;}
+.status span a{color:black;}
+.status span a:hover{text-decoration: underline;}
+/* <--------------needs.html style END--------> */
+
