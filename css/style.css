@@ -65,8 +65,9 @@ div#categoryTittle {
 .footer {
 	position: fixed;
 	bottom: 0;
-	background-color: #FFFFFF;
 	width: 100%;
+	background-color: #f8f8f8;
+	border-color: #e7e7e7;
 }
 .text-muted {
 	text-align: center;
@@ -90,4 +91,7 @@ div#categoryTittle {
 .status span a{color:black;}
 .status span a:hover{text-decoration: underline;}
 /* <--------------needs.html style END--------> */
+
+
+#profileEdit {box-shadow: 5px 5px 2px #add8e6; margin-left: 1em;}
 

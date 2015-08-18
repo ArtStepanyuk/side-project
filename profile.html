@@ -41,7 +41,6 @@
 					</div>
 				</div>
 			</nav>
-			<h1>WORK IN PROGRESS</h1>
 			<div class="row">
 				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 col-xs-offset-2 col-sm-offset-2">
 					<div class="topLinks">
@@ -58,7 +57,7 @@
 				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 col-xs-offset-2 col-sm-offset-2">
 					<div class="container">
 						<span>Профіль</span> 
-						<span><button type="button" class="btn btn-default btn-md">Потреби
+						<span><button type="button" id="profileEdit" class="btn btn-default btn-md">Редагувати
 							</button></span>
 						
 					</div>
@@ -72,13 +71,16 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-								<span>Імя</span><span>Василь</span><br>
-								<span>email</span><span>sobaka@gmail.com</span><br>
-								<span>Телефон</span><span>911</span><br>
-								<span>Хто ви?</span><span>Волентер</span><br>
+								<span>Імя  {{user.name}}</span><br><hr>
+								<span>Email {{user.email}}</span><br><hr>
+								<span>Телефон  {{user.phone}}</span><br><hr>
+								<span>Хто ви?  {{user.status}}</span><br><hr>
 							</div>
 							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum unde fugit, esse nulla. Quasi rerum facere praesentium repellendus quis, mollitia hic ipsa eum, eveniet nesciunt id voluptate nulla velit, perspiciatis corporis quo expedita blanditiis sit error animi quaerat sint corrupti. Assumenda minima earum velit, nisi distinctio et, qui blanditiis perferendis.
+								<span>Підтримані потреби  {{user.supportedNeeds}}</span><br><hr>
+								<span>Опобліковані Пропозиції {{user.offers}}</span><br><hr>
+								<span>Опобліковані Потреби  {{user.needs}}</span><br><hr>
+								<span>Підтримані Пропозиції  {{user.supportedOffers}}</span><br><hr>
 							</div>
 						</div>
 						
@@ -87,9 +89,6 @@
 				</div>
 			</div>
 			<hr>
-
-			<hr>
-		
 			<footer class="footer">
 				<div class="container">
 					<p class="text-muted">
