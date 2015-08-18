@@ -5,7 +5,7 @@ body * {
 	font-family: font-awesome;	
 }
 .dropButtons {
-	width: 110px;
+	width: 90px;
 }
 .input-group {
 	width: 40%;
@@ -84,3 +84,10 @@ div#categoryTittle {
 .status span a:hover{text-decoration: underline;}
 /* <--------------needs.html style END--------> */
 
+/* <--------------login.html style--------> */
+#loginModal .loginFooter {margin-top: 35px;}
+/* <--------------login.html style END--------> */
+
+/* <--------------register.html style--------> */
+#registerModal .registrationForm {margin-bottom: 40px;}
+/* <--------------register.html style END--------> */
