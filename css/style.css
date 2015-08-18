@@ -1,11 +1,11 @@
 html {
-	overflow-x: hidden;
+    overflow-x: hidden;
 }
 body * {
 	font-family: font-awesome;	
 }
 .dropButtons {
-	width: 110px;
+	width: 105px;
 }
 .input-group {
 	width: 40%;
@@ -25,6 +25,13 @@ body * {
 	}
 }
 
+@media (max-width:1200px) {
+	.btn-group-lg>.btn, .btn-lg {
+    padding: 10px 4px;
+    font-size: 85%;
+    margin-top: 8px;
+	}
+}
 /* media query END*/
 
 /* navbar style */
