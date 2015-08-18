@@ -1,5 +1,5 @@
 html {
-	overflow-x: hidden;
+    overflow-x: hidden;
 }
 body * {
 	font-family: font-awesome;	
@@ -25,6 +25,13 @@ body * {
 	}
 }
 
+@media (max-width:1200px) {
+	.btn-group-lg>.btn, .btn-lg {
+    padding: 10px 4px;
+    font-size: 85%;
+    margin-top: 8px;
+	}
+}
 /* media query END*/
 
 /* navbar style */
@@ -58,8 +65,9 @@ div#categoryTittle {
 .footer {
 	position: fixed;
 	bottom: 0;
-	background-color: #FFFFFF;
 	width: 100%;
+	background-color: #f8f8f8;
+	border-color: #e7e7e7;
 }
 .text-muted {
 	text-align: center;
@@ -84,6 +92,13 @@ div#categoryTittle {
 .status span a:hover{text-decoration: underline;}
 /* <--------------needs.html style END--------> */
 
+
+#profileEdit {box-shadow: 5px 5px 2px #add8e6; margin-left: 1em;}
+
+/* New need steps styling */
+.text-heading {
+    margin-top: 70px;
+}
 /* <--------------login.html style--------> */
 #loginModal .loginFooter {margin-top: 35px;}
 /* <--------------login.html style END--------> */
