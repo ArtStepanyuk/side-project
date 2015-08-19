@@ -32,6 +32,9 @@ body > section {
     width: 100%;
 }
 
+#navbar ul li:hover {
+    background-color: #ccc;
+}
 @media (max-width:720px) {
     body {
         padding-bottom: 80px;
