@@ -1,9 +1,16 @@
 html {
     overflow-x: hidden;
 }
-body * {
-	font-family: font-awesome;	
+
+body {
+    padding-bottom: 75px;
 }
+
+/* section styling */
+body > section {
+    margin-top: 80px;
+}
+
 .dropButtons {
 	width: 90px;
 }
@@ -12,53 +19,29 @@ body * {
 	float: right;
 }
 
-/* media query*/
+.logo {
+    position: relative;
+    top: -4px;
+}
+
+.fw700 {
+    font-weight: 700;
+}
+
+#footer .navbar-text {
+    width: 100%;
+}
+
 @media (max-width:720px) {
-	#navbar > ul > li > button {
-		width: 220px;
-	}
-	#navbar > ul.nav.navbar-nav.navbar-right {
-		float: right;
-	}
-	.navbar-nav {
-		float: left;
-	}
+    body {
+        padding-bottom: 80px;
+    } 
 }
 
-@media (max-width:1200px) {
-	.btn-group-lg>.btn, .btn-lg {
-    padding: 10px 4px;
-    font-size: 85%;
-    margin-top: 8px;
-	}
-}
-/* media query END*/
-
-/* navbar style */
-
-#navbar {
-	position: relative;
-	top: 4px;
-	margin: 5px 0;
-}
-.nav>li {
-	position: relative;
-	display: block;
-	margin-right: 5px;
-}
-
-/* navbar style END*/
-.contentWrapper {
-	position: relative;
-	top: 6em;
-	text-align: center;
-}
-.contentWrapper, .btn-group {
-	margin-right: 5px;
-}
-div#categoryTittle {
-	padding: 1em;
-	font-size: 25px;
+@media (max-width:480px) {
+    body {
+        padding-bottom: 90px;
+    }
 }
 
 /* footer style */
@@ -68,16 +51,15 @@ div#categoryTittle {
 	width: 100%;
 	background-color: #f8f8f8;
 	border-color: #e7e7e7;
+    height: 60px;
 }
+
 .text-muted {
 	text-align: center;
 }
 .text-muted span a {
 	margin-right: 1em;
 }
-
-/* footer style END */
-
 
 /* <--------------needs.html style--------> */
 .topLinks {padding-top: 8em; text-align: left; position: relative;
@@ -92,13 +74,8 @@ div#categoryTittle {
 .status span a:hover{text-decoration: underline;}
 /* <--------------needs.html style END--------> */
 
-
 #profileEdit {box-shadow: 5px 5px 2px #add8e6; margin-left: 1em;}
 
-/* New need steps styling */
-.text-heading {
-    margin-top: 70px;
-}
 /* <--------------login.html style--------> */
 #loginModal .loginFooter {margin-top: 35px;}
 /* <--------------login.html style END--------> */

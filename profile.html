@@ -1,104 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<head>
-			<meta charset="UTF-8">
-			<title>Document</title>
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-			<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-			<link rel="stylesheet" type="text/css" href="css/style.css">
-		</head>
-		<body>
-			<nav class="navbar navbar-default navbar-fixed-top">
-				<div class="container">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="#"><img src="img/logo.png" alt="" class="responsive"></a>
-					</div>
-					<div id="navbar" class="navbar-collapse collapse">
-						<ul class="nav navbar-nav">
-							<li class="active"><button type="button" class="btn btn-default btn-lg">Потреби
-							</button></li>
-							<li><button type="button" class="btn btn-default btn-lg">Пропозиції
-							</button></li>
-							<li><button type="button" class="btn btn-default btn-lg">Додати Потребу
-							</button></li>
-							<li><button type="button" class="btn btn-default btn-lg">Додати Пропозицію
-							</button></li>
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href="../navbar/">Про нас</a></li>
-							<li><a href="../navbar-static-top/">Мій кабінет</a></li>
-							<li><a href="./">Вийти<span class="sr-only">(current)</span></a></li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-			<div class="row">
-				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 col-xs-offset-2 col-sm-offset-2">
-					<div class="topLinks">
-						<span class="topRow"><a href="#">Опобліковані потреби</a></span>
-						<span class="topRow"><a href="#">Підтримані потреби</a></span>
-						<span class="topRow"><a href="#">Опобліковані пропозиції</a></span>
-						<span class="topRow"><a href="#">Підтримані потреби</a></span>
-						<span class="topRow"><a href="#">Повідомлення</a></span>
-						<span class="topRow"><a href="#">Профіль</a></span>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 col-xs-offset-2 col-sm-offset-2">
-					<div class="container">
-						<span>Профіль</span> 
-						<span><button type="button" id="profileEdit" class="btn btn-default btn-md">Редагувати
-							</button></span>
-						
-					</div>
-					
-				</div>
-			</div>
-			<hr>
-			<div class="row">
+    <head>
+        <meta charset="UTF-8">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-default navbar-fixed-top fw700">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">
+                            <img alt="SoftServe" class="logo" src="img/logo.png">
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#">Потреби</a></li>
+                            <li><a href="#">Пропозиції</a></li>
+                            <li><a href="#">Додати Потребу</a></li>
+                            <li><a href="#">Додати Пропозицію</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <hr class="divider hidden-lg hidden-md hidden-sm"></li>
+                            <li><a href="../navbar/">Про нас</a></li>
+                            <li><a href="../navbar-static-top/">Мій кабінет</a></li>
+                            <li><a href="#">Вийти</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 col-xs-offset-2 col-sm-offset-2">
+                <div class="topLinks">
+                    <span class="topRow"><a href="#">Опобліковані потреби</a></span>
+                    <span class="topRow"><a href="#">Підтримані потреби</a></span>
+                    <span class="topRow"><a href="#">Опобліковані пропозиції</a></span>
+                    <span class="topRow"><a href="#">Підтримані потреби</a></span>
+                    <span class="topRow"><a href="#">Повідомлення</a></span>
+                    <span class="topRow"><a href="#">Профіль</a></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 col-xs-offset-2 col-sm-offset-2">
+                <div class="container">
+                    <span>Профіль</span> 
+                    <span><button type="button" id="profileEdit" class="btn btn-default btn-md">Редагувати
+                        </button></span>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <hr>
+        <div class="row">
 
-				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 col-xs-offset-2 col-sm-offset-2">
-					<div class="container">
-						<div class="row">
-							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-								<span>Імя  {{user.name}}</span><br><hr>
-								<span>Email {{user.email}}</span><br><hr>
-								<span>Телефон  {{user.phone}}</span><br><hr>
-								<span>Хто ви?  {{user.status}}</span><br><hr>
-							</div>
-							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-								<span>Підтримані потреби  {{user.supportedNeeds}}</span><br><hr>
-								<span>Опобліковані Пропозиції {{user.offers}}</span><br><hr>
-								<span>Опобліковані Потреби  {{user.needs}}</span><br><hr>
-								<span>Підтримані Пропозиції  {{user.supportedOffers}}</span><br><hr>
-							</div>
-						</div>
-						
-					</div>
-					
-				</div>
-			</div>
-			<hr>
-			<footer class="footer">
-				<div class="container">
-					<p class="text-muted">
-						<span>© SoftServe LTD, 2010-2014, 0 800 60 3000 (10.00 – 19.00 Пн.-Пт.</span>
-						<span><a href="">Контакти</a></span>
-						<span><a href="">Site Map</a></span>
-						<span><a href="">Privacy</a></span>
-						<span><a href="">Terms Of Use</a></span>
-					</p>
-				</div>
-			</footer>
-		</body>
-	</html>
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 col-xs-offset-2 col-sm-offset-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span>Імя  {{user.name}}</span><br><hr>
+                            <span>Email {{user.email}}</span><br><hr>
+                            <span>Телефон  {{user.phone}}</span><br><hr>
+                            <span>Хто ви?  {{user.status}}</span><br><hr>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span>Підтримані потреби  {{user.supportedNeeds}}</span><br><hr>
+                            <span>Опобліковані Пропозиції {{user.offers}}</span><br><hr>
+                            <span>Опобліковані Потреби  {{user.needs}}</span><br><hr>
+                            <span>Підтримані Пропозиції  {{user.supportedOffers}}</span><br><hr>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <hr>
+        <footer>
+            <nav id="footer" class="navbar navbar-default navbar-fixed-bottom">
+                <div class="container">
+                    <p class="navbar-text text-center">© SoftServe LTD, 2010-2014, 0 800 60 3000 (10.00 – 19.00 Пн.-Пт.
+                        <a href="#">Контакти</a>
+                        <a href="#">Site Map</a>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms Of Use</a>
+                    </p>
+                </div>
+            </nav>
+        </footer>
+    </body>
+</html>
