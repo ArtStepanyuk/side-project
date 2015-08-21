@@ -133,4 +133,7 @@ body > section {
 .marketing a {
     float: right;
 }
+.marketing img {
+    clear: both;
+}
 /* <--------------index.html style END--------> */
