@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Document</title>
+        <title>Профіль</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -47,35 +47,47 @@
         <section>
             <div class="row">
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 col-xs-offset-2 col-sm-offset-2">
-                    <div class="topLinks">
-                        <span class="topRow"><a href="#">Опобліковані потреби</a></span>
-                        <span class="topRow"><a href="#">Підтримані потреби</a></span>
-                        <span class="topRow"><a href="#">Опобліковані пропозиції</a></span>
-                        <span class="topRow"><a href="#">Підтримані пропозиції</a></span>
-                        <span class="topRow"><a href="#">Повідомлення</a></span>
-                        <span class="topRow"><a href="#">Профіль</a></span>
-                    </div>
+                    <ul class="secondaryNavigation">
+                        <li class="topRow">
+                            <a href="#">Опобліковані потреби</a>
+                        </li>
+                        <li class="topRow">
+                            <a href="#">Підтримані потреби</a>
+                        </li>
+                        <li class="topRow">
+                            <a href="#">Опобліковані пропозиції</a>
+                        </li>
+                        <li class="topRow">
+                            <a href="#">Підтримані пропозиції</a>
+                        </li>
+                        <li class="topRow">
+                            <a href="#">Повідомлення</a>
+                        </li>
+                        <li class="topRow">
+                            <a href="#" class="currneLink">Профіль</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 col-xs-offset-2 col-sm-offset-2">
                     <div class="container">
-                        <span>Профіль</span> 
-                        <span><button type="button" id="profileEdit" class="btn btn-default btn-md">Редагувати
-                            </button></span>  
-                    </div>    
+                        <h2 class="col-xs-2 col-sm-2 col-md-2 col-lg-2">Профіль</h2>
+                        <h2><button type="button" id="profileEdit" class="btn btn-default btn-md">Редагувати</button></h2>
+                    </div>  
+                      
                 </div>
             </div>
-            <hr>
             <div class="row">
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 col-xs-offset-2 col-sm-offset-2">
                     <div class="container">
+                        <hr>
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <span>Імя  {{user.name}}</span><br><hr>
-                                <span>Email {{user.email}}</span><br><hr>
-                                <span>Телефон  {{user.phone}}</span><br><hr>
-                                <span>Хто ви?  {{user.status}}</span><br><hr>
+                                <span>Ваше ім&#180;я  {{user.name}}</span><br><hr>
+                                <span>Електронна пошта: {{user.email}}</span><br><hr>
+                                <span>Телефон: {{user.phone}}</span><br><hr>
+                                <span>Хто Ви:  {{user.status}}</span><br><hr>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 <span>Підтримані потреби  {{user.supportedNeeds}}</span><br><hr>
@@ -83,11 +95,11 @@
                                 <span>Опобліковані Потреби  {{user.needs}}</span><br><hr>
                                 <span>Підтримані Пропозиції  {{user.supportedOffers}}</span><br><hr>
                             </div>
-                        </div>                   
-                    </div>          
+                        </div>  
+                        <hr>                 
+                    </div>
                 </div>
             </div>
-            <hr>
         </section>
         <footer>
             <nav id="footer" class="navbar navbar-default navbar-fixed-bottom">
