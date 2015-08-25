@@ -157,6 +157,22 @@
                     <stopPort/>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.16</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>6.9</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <configLocation>${basedir}/build/common/checkstyle/checkstyle_checks.xml</configLocation>
+                    <propertiesLocation>${basedir}/build/common/checkstyle/checkstyle.properties</propertiesLocation>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
