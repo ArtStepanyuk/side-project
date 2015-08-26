@@ -16,7 +16,7 @@
     </authentication-manager>
 
     <http auto-config='true'>
-        <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/WEB-INF" access="hasRole('ROLE_USER')" />
     </http>
 
 </beans:beans>
