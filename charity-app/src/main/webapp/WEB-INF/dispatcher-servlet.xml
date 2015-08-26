@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:s="http://www.springframework.org/schema/security"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
-
-    <s:global-method-security secured-annotations="enabled"/>
-    <s:authentication-manager>
-        <s:authentication-provider>
-            <s:user-service>
-                <s:user name="Test12" password="Test12" authorities="ROLE_USER"/>
-            </s:user-service>
-        </s:authentication-provider>
-    </s:authentication-manager>
-
-    <s:http auto-config='true'>
-        <s:intercept-url pattern="/**" access="ROLE_USER" />
-    </s:http>
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 </beans>

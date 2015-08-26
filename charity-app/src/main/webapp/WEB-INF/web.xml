@@ -20,6 +20,7 @@
             /WEB-INF/applicationContext.xml
             /WEB-INF/dispatcher-servlet.xml
             /WEB-INF/spring-mvc-config.xml
+            /WEB-INF/security.xml
         </param-value>
     </context-param>
 
