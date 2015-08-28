@@ -13,16 +13,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-//@EnableWebSecurity
-//@Configuration
-//@Order(1)
+@EnableWebSecurity
+@Configuration
+@Order(1)
 public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	//@Autowired
 	//private UserDetailsService userDetailsService;
 
 	@Autowired
-	private UserDetailsService inMemoryUserDetailsManager;
+	private UserDetailsService inMemoryManager;
 
 	@Autowired
 	private TokenAuthenticationService tokenAuthenticationService;
@@ -53,7 +53,7 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 				.anyRequest().hasRole("USER").and()
 
 				// custom JSON based authentication by POST of {"username":"<name>","password":"<password>"} which sets the token header upon authentication
-				.addFilterBefore(new StatelessLoginFilter("/api/auth", tokenAuthenticationService, inMemoryUserDetailsManager, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+				.addFilterBefore(new StatelessLoginFilter("/api/auth", tokenAuthenticationService, inMemoryManager, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
 
 				// custom Token based authentication based on the header previously given to the client
 				.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), UsernamePasswordAuthenticationFilter.class)
@@ -71,11 +71,11 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(inMemoryUserDetailsManager).passwordEncoder(new BCryptPasswordEncoder());
+		auth.userDetailsService(inMemoryManager).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
 	@Override
 	protected UserDetailsService userDetailsService() {
-		return inMemoryUserDetailsManager;
+		return inMemoryManager;
 	}
 }

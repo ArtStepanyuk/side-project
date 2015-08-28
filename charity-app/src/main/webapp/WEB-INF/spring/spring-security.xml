@@ -6,19 +6,22 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <global-method-security secured-annotations="enabled"/>
-    <authentication-manager id="authenticationManager">
-        <authentication-provider>
-            <user-service id="inMemoryUserDetailsManager">
-                <user name="Test12" password="Test12" authorities="ROLE_USER"/>
-            </user-service>
-        </authentication-provider>
-    </authentication-manager>
+    <!--<global-method-security secured-annotations="enabled"/>-->
+    <!--<authentication-manager id="authenticationManager">-->
+        <!--<authentication-provider>-->
+            <!--<user-service id="inMemoryUserDetailsManager">-->
+                <!--<user name="Test12" password="Test12" authorities="ROLE_USER"/>-->
+            <!--</user-service>-->
+        <!--</authentication-provider>-->
+    <!--</authentication-manager>-->
 
-    <http auto-config='true'>
-        <custom-filter before="FORM_LOGIN_FILTER" ref="statelessLoginFilter"/>
-        <custom-filter before="FORM_LOGIN_FILTER" ref="statelessAuthenticationFilter"/>
-        <intercept-url pattern="/WEB-INF" access="hasRole('ROLE_USER')" />
-    </http>
+    <beans:bean name="inMemoryManager" class="org.springframework.security.provisioning.InMemoryUserDetailsManager">
+        <beans:constructor-arg name="users" ref="testUser"/>
+    </beans:bean>
+
+    <beans:bean id="testUser" class="com.softservinc.charity.web.security.User">
+        <beans:property name="username" value="asd"/>
+        <beans:property name="password" value="Test12"/>
+    </beans:bean>
 
 </beans:beans>

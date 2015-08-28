@@ -16,7 +16,7 @@ public class UserController {
 	//@Autowired
 	//UserRepository userRepository;
 
-	@RequestMapping(value = "/api/auth", method = RequestMethod.GET)
+	@RequestMapping(value = "/auth", method = RequestMethod.GET)
 	public User getCurrent() {
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof UserAuthentication) {

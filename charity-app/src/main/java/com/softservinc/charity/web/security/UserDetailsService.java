@@ -5,17 +5,18 @@ import org.springframework.security.authentication.AccountStatusUserDetailsCheck
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-//@Service
+@Service
 public class UserDetailsService
 		implements org.springframework.security.core.userdetails.UserDetailsService {
 
-	@Autowired
-	private UserRepository userRepo;
+//	@Autowired
+//	private UserRepository userRepo;
 
 	private final AccountStatusUserDetailsChecker detailsChecker = new AccountStatusUserDetailsChecker();
 
 	public final User loadUserByUsername(String username) throws UsernameNotFoundException {
-		final User user = userRepo.findByUsername(username);
+//		final User user = userRepo.findByUsername(username);
+		final User user = new User("asd");
 		if (user == null) {
 			throw new UsernameNotFoundException("user not found");
 		}
