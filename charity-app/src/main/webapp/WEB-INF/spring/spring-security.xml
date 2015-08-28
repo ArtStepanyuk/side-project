@@ -9,13 +9,15 @@
     <global-method-security secured-annotations="enabled"/>
     <authentication-manager>
         <authentication-provider>
-            <user-service>
+            <user-service id="inMemoryUserDetailsManager">
                 <user name="Test12" password="Test12" authorities="ROLE_USER"/>
             </user-service>
         </authentication-provider>
     </authentication-manager>
 
     <http auto-config='true'>
+        <custom-filter before="FORM_LOGIN_FILTER" ref="statelessLoginFilter"/>
+        <custom-filter before="FORM_LOGIN_FILTER" ref="statelessAuthenticationFilter"/>
         <intercept-url pattern="/WEB-INF" access="hasRole('ROLE_USER')" />
     </http>
 
