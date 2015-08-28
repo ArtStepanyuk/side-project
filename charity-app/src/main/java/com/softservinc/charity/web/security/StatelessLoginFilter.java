@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+// custom JSON based authentication by POST of
+// {"username":"<name>","password":"<password>"}
+// which sets the token header upon authentication
 class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter {
 
 	private final TokenAuthenticationService tokenAuthenticationService;

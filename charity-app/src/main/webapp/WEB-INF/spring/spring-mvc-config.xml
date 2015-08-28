@@ -15,8 +15,12 @@
     <bean id="statelessLoginFilter" class="com.softservinc.charity.web.security.StatelessLoginFilter">
         <constructor-arg name="urlMapping" value="/api/auth"/>
         <constructor-arg name="tokenAuthenticationService" value="tokenAuthenticationService"/>
+        <constructor-arg name="userDetailsService" value="inMemoryUserDetailsManager"/>
+        <constructor-arg name="authManager" value="authenticationManager"/>
     </bean>
 
-    <bean id="statelessAuthenticationFilter" class="com.softservinc.charity.web.security.StatelessAuthenticationFilter"/>
+    <bean id="statelessAuthenticationFilter" class="com.softservinc.charity.web.security.StatelessAuthenticationFilter">
+        <constructor-arg name="tokenAuthenticationService" value="tokenAuthenticationService"/>
+    </bean>
 
 </beans>

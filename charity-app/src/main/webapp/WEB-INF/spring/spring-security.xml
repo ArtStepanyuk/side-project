@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
     <global-method-security secured-annotations="enabled"/>
-    <authentication-manager>
+    <authentication-manager id="authenticationManager">
         <authentication-provider>
             <user-service id="inMemoryUserDetailsManager">
                 <user name="Test12" password="Test12" authorities="ROLE_USER"/>
