@@ -1,4 +1,4 @@
-package com.softservinc.charity.web.security;
+package com.softservinc.charity.entity.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;

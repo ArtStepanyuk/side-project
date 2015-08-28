@@ -1,4 +1,4 @@
-package com.softservinc.charity.web.security;
+package com.softservinc.charity.entity.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

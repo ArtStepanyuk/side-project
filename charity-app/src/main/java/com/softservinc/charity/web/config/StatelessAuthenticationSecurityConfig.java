@@ -1,5 +1,9 @@
-package com.softservinc.charity.web.security;
+package com.softservinc.charity.web.config;
 
+import com.softservinc.charity.web.filter.security.StatelessAuthenticationFilter;
+import com.softservinc.charity.web.filter.security.StatelessLoginFilter;
+import com.softservinc.charity.service.security.TokenAuthenticationService;
+import com.softservinc.charity.service.security.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +14,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
@@ -22,7 +25,7 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 	//private UserDetailsService userDetailsService;
 
 	@Autowired
-	private UserDetailsService inMemoryManager;
+	private UserDetailsService userDetailsService;
 
 	@Autowired
 	private TokenAuthenticationService tokenAuthenticationService;
@@ -53,7 +56,7 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 				.anyRequest().hasRole("USER").and()
 
 				// custom JSON based authentication by POST of {"username":"<name>","password":"<password>"} which sets the token header upon authentication
-				.addFilterBefore(new StatelessLoginFilter("/api/auth", tokenAuthenticationService, inMemoryManager, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+				.addFilterBefore(new StatelessLoginFilter("/api/auth", tokenAuthenticationService, userDetailsService, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
 
 				// custom Token based authentication based on the header previously given to the client
 				.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), UsernamePasswordAuthenticationFilter.class)
@@ -62,7 +65,7 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 				.servletApi().and()
 				.headers().cacheControl();
 	}
-	
+
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -71,11 +74,14 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(inMemoryManager).passwordEncoder(new BCryptPasswordEncoder());
+		auth.userDetailsService(userDetailsService);
+                auth.inMemoryAuthentication()
+                .withUser("user").password("password").roles("USER").and()
+                .withUser("admin").password("password").roles("USER", "ADMIN");
 	}
 
 	@Override
 	protected UserDetailsService userDetailsService() {
-		return inMemoryManager;
+		return userDetailsService;
 	}
 }

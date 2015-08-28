@@ -1,6 +1,6 @@
-package com.softservinc.charity.web.security;
+package com.softservinc.charity.service.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.softservinc.charity.entity.security.User;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

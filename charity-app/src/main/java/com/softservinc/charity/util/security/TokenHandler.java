@@ -1,7 +1,8 @@
-package com.softservinc.charity.web.security;
+package com.softservinc.charity.util.security;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.softservinc.charity.entity.security.User;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
