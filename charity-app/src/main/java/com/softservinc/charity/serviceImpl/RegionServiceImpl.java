@@ -1,0 +1,31 @@
+package com.softservinc.charity.serviceImpl;
+
+import com.softservinc.charity.dao.CityDao;
+import com.softservinc.charity.dao.RegionDao;
+import com.softservinc.charity.model.City;
+import com.softservinc.charity.model.Region;
+import org.hibernate.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service("regionService")
+@Transactional
+public class RegionServiceImpl implements RegionDao{
+
+    @Autowired
+    private RegionDao regionDao;
+
+    @Autowired
+    private CityDao cityDao;
+
+    public List<Region> getAll() {
+        return regionDao.getAll();
+    }
+
+    public List<City> getCitiesByRegionId(int regionId){
+        return cityDao.getCitiesByRegionId(regionId);
+    }
+}
