@@ -1,4 +1,4 @@
-package com.softservinc.charity.web.security;
+package com.softservinc.charity.entity.security;
 
 public enum UserRole {
 	USER, ADMIN;

@@ -1,5 +1,6 @@
-package com.softservinc.charity.web.security;
+package com.softservinc.charity.web.filter.security;
 
+import com.softservinc.charity.service.security.TokenAuthenticationService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -13,7 +14,7 @@ public class StatelessAuthenticationFilter extends GenericFilterBean implements 
 
 	private final TokenAuthenticationService tokenAuthenticationService;
 
-	protected StatelessAuthenticationFilter(TokenAuthenticationService tokenAuthenticationService) {
+	public StatelessAuthenticationFilter(TokenAuthenticationService tokenAuthenticationService) {
 		this.tokenAuthenticationService = tokenAuthenticationService;
 	}
 

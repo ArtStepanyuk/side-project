@@ -1,6 +1,10 @@
-package com.softservinc.charity.web.security;
+package com.softservinc.charity.web.filter.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.softservinc.charity.entity.security.User;
+import com.softservinc.charity.entity.security.UserAuthentication;
+import com.softservinc.charity.service.security.TokenAuthenticationService;
+import com.softservinc.charity.service.security.UserDetailsService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,7 +22,7 @@ import java.io.IOException;
 // custom JSON based authentication by POST of
 // {"username":"<name>","password":"<password>"}
 // which sets the token header upon authentication
-class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter {
+public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter {
 
 	private final TokenAuthenticationService tokenAuthenticationService;
 	private final UserDetailsService userDetailsService;

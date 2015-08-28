@@ -1,5 +1,8 @@
-package com.softservinc.charity.web.security;
+package com.softservinc.charity.service.security;
 
+import com.softservinc.charity.util.security.TokenHandler;
+import com.softservinc.charity.entity.security.User;
+import com.softservinc.charity.entity.security.UserAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
