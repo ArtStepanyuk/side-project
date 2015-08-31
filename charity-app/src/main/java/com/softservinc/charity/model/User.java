@@ -5,6 +5,12 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@NamedQueries({
+        @NamedQuery(
+                name = "findUserByEmail",
+                query = "from User u where u.email = :email"
+        )
+})
 public class User {
 
     @Id
@@ -18,7 +24,7 @@ public class User {
     @Column
     private String name;
 
-    @Column
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column
