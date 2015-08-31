@@ -6,10 +6,12 @@ import com.softservinc.charity.model.Need;
 import com.softservinc.charity.model.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository("need")
+@Transactional
 public class NeedDaoImpl extends AbstractDao implements NeedDao {
     public void save(Need need) {
         persist(need);

@@ -6,12 +6,10 @@ import com.softservinc.charity.model.User;
 import com.softservinc.charity.service.NeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service("needService")
-@Transactional
 public class NeedServiceImpl implements NeedService{
 
     @Autowired
