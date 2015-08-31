@@ -1,14 +1,20 @@
-package com.softservinc.charity.entity.security;
+package com.softservinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
+import javax.persistence.*;
 
+@Entity(name = "user_authority")
+@IdClass(UserAuthority.class)
 public class UserAuthority implements GrantedAuthority {
 
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnore
+	@Id
 	private User user;
 
+	@Id
 	private String authority;
 
 	public User getUser() {

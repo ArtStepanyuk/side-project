@@ -1,8 +1,8 @@
 package com.softservinc.charity.web.filter.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.softservinc.charity.entity.security.User;
 import com.softservinc.charity.entity.security.UserAuthentication;
+import com.softservinc.charity.model.User;
 import com.softservinc.charity.service.security.TokenAuthenticationService;
 import com.softservinc.charity.service.security.UserDetailsService;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -1,14 +1,15 @@
 insert into users (name, email, password) VALUES ('admin', 'admin@gmail.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918')
 insert into users (name, email, password) VALUES ('volunteer', 'volunteer@gmail.com', 'dcbb0f3cafb30402d5ed4cb826e000bcae930c7ce60763e0458665150dffa879')
 insert into users (name, email, password) VALUES ('user', 'user@gmail.com', '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb')
-insert into user_roles (description, role) VALUES ('admin', 'ROLE_ADMIN')
-insert into user_roles (description, role) VALUES ('volunteer', 'ROLE_VOLUNTEER')
-insert into user_roles (description, role) VALUES ('user', 'ROLE_USER')
-insert into roles_users (user_id, role_id) VALUES (1, 1)
-insert into roles_users (user_id, role_id) VALUES (1, 2)
-insert into roles_users (user_id, role_id) VALUES (2, 2)
-insert into roles_users (user_id, role_id) VALUES (2, 3)
-insert into roles_users (user_id, role_id) VALUES (3, 3)
+insert into user_roles (description, role) VALUES ('admin', 'ADMIN')
+insert into user_roles (description, role) VALUES ('volunteer', 'VOLUNTEER')
+insert into user_roles (description, role) VALUES ('user', 'USER')
+insert into user_authority(user_id, authority) VALUES  (1, 'ROLE_USER')
+insert into user_authority(user_id, authority) VALUES  (2, 'ROLE_ADMIN')
+insert into user_authority(user_id, authority) VALUES  (2, 'ROLE_USER')
+insert into user_authority(user_id, authority) VALUES  (3, 'ROLE_USER')
+insert into user_authority(user_id, authority) VALUES  (3, 'ROLE_ADMIN')
+insert into user_authority(user_id, authority) VALUES  (3, 'ROLE_VOLUNTEER')
 
 
 insert into categories (name, parent_id) VALUES ('clothes', null);

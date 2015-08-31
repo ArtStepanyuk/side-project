@@ -2,7 +2,7 @@ package com.softservinc.charity.util.security;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.softservinc.charity.entity.security.User;
+import com.softservinc.charity.model.User;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.Date;
 
 public final class TokenHandler {
 
@@ -40,10 +39,7 @@ public final class TokenHandler {
 
 				boolean validHash = Arrays.equals(createHmac(userBytes), hash);
 				if (validHash) {
-					final User user = fromJSON(userBytes);
-					if (new Date().getTime() < user.getExpires()) {
-						return user;
-					}
+					return fromJSON(userBytes);
 				}
 			} catch (IllegalArgumentException e) {
 				//log tempering attempt here

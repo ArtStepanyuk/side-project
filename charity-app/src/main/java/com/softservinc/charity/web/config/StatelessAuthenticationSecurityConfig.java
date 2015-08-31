@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,8 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Order(1)
 public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	//@Autowired
-	//private UserDetailsService userDetailsService;
+	private static final int PASSWORD_STRENGTH = 256;
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -74,10 +74,7 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService);
-                auth.inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER").and()
-                .withUser("admin").password("password").roles("USER", "ADMIN");
+		auth.userDetailsService(userDetailsService).passwordEncoder(new ShaPasswordEncoder(PASSWORD_STRENGTH));
 	}
 
 	@Override
