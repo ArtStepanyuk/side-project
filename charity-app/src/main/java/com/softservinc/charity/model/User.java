@@ -2,11 +2,14 @@ package com.softservinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.softservinc.charity.entity.security.UserAuthentication;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -34,8 +37,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<UserAuthority> authorities;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "roles_users", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
+    private Set<UserRole> roles;
 
     @Column
     private String name;
@@ -62,7 +66,9 @@ public class User implements UserDetails {
     @Override
     @JsonIgnore
     public Set<UserAuthority> getAuthorities() {
-        return authorities;
+        return getRoles().stream().
+                map(userRole -> userRole.asAuthorityFor(this))
+                .collect(Collectors.toSet());
     }
 
     @JsonIgnore
@@ -141,5 +147,10 @@ public class User implements UserDetails {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    @JsonIgnore
+    public Set<UserRole> getRoles() {
+        return roles;
     }
 }

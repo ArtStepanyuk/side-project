@@ -4,12 +4,12 @@ insert into users (name, email, password) VALUES ('user', 'user@gmail.com', '04f
 insert into user_roles (description, role) VALUES ('admin', 'ADMIN')
 insert into user_roles (description, role) VALUES ('volunteer', 'VOLUNTEER')
 insert into user_roles (description, role) VALUES ('user', 'USER')
-insert into user_authority(user_id, authority) VALUES  (1, 'ROLE_USER')
-insert into user_authority(user_id, authority) VALUES  (2, 'ROLE_ADMIN')
-insert into user_authority(user_id, authority) VALUES  (2, 'ROLE_USER')
-insert into user_authority(user_id, authority) VALUES  (3, 'ROLE_USER')
-insert into user_authority(user_id, authority) VALUES  (3, 'ROLE_ADMIN')
-insert into user_authority(user_id, authority) VALUES  (3, 'ROLE_VOLUNTEER')
+insert into roles_users(user_id, role_id) VALUES  (1, 1)
+insert into roles_users(user_id, role_id) VALUES  (2, 1)
+insert into roles_users(user_id, role_id) VALUES  (2, 2)
+insert into roles_users(user_id, role_id) VALUES  (3, 1)
+insert into roles_users(user_id, role_id) VALUES  (3, 2)
+insert into roles_users(user_id, role_id) VALUES  (3, 3)
 
 
 insert into categories (name, parent_id) VALUES ('clothes', null);
