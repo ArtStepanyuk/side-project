@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController extends AbstractController {
-	
-	@RequestMapping(value = "/auth", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/users/current", method = RequestMethod.GET)
 	public User getCurrent() {
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof UserAuthentication) {

@@ -1,8 +1,6 @@
 package com.softservinc.charity;
 
 
-import com.softservinc.charity.dao.AbstractDao;
-import com.softservinc.charity.daoImpl.UserDaoImpl;
 import com.softservinc.charity.model.User;
 import com.softservinc.charity.service.UserService;
 import com.softservinc.charity.service.security.UserDetailsService;

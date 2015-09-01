@@ -110,7 +110,6 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    @JsonIgnore
     public String getName() {
         return name;
     }
