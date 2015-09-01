@@ -2,12 +2,10 @@ package com.softservinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.softservinc.charity.entity.security.*;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -25,6 +23,11 @@ public class User implements UserDetails {
 
     public User(String email) {
         this.email = email;
+    }
+
+    public User(String username, Date expires) {
+        this.username = username;
+        this.expires = expires.getTime();
     }
 
     @Id
@@ -45,6 +48,9 @@ public class User implements UserDetails {
 
     @Transient
     private String username;
+
+    @Transient
+    private long expires;
 
     public Integer getId() {
         return id;
@@ -116,5 +122,13 @@ public class User implements UserDetails {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getExpires() {
+        return expires;
+    }
+
+    public void setExpires(long expires) {
+        this.expires = expires;
     }
 }

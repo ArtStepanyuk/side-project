@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Date;
 
 public final class TokenHandler {
 
@@ -39,7 +40,10 @@ public final class TokenHandler {
 
 				boolean validHash = Arrays.equals(createHmac(userBytes), hash);
 				if (validHash) {
-					return fromJSON(userBytes);
+					User user = fromJSON(userBytes);
+					if (new Date().getTime() < user.getExpires()) {
+						return user;
+					}
 				}
 			} catch (IllegalArgumentException e) {
 				//log tempering attempt here
