@@ -5,6 +5,12 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "needs")
+@NamedQueries({
+        @NamedQuery(
+                name = "findNeedsByUser",
+                query = "from Need n where n.userCreated.id = :id"
+        )
+})
 public class Need {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -30,6 +36,12 @@ public class Need {
 
     @Column
     private Boolean pickup;
+
+    @OneToOne
+    private User userCreated;
+
+    @OneToOne
+    private Category category;
 
     public Integer getId() {
         return id;
@@ -89,5 +101,21 @@ public class Need {
 
     public void setPickup(Boolean pickup) {
         this.pickup = pickup;
+    }
+
+    public User getUserCreated() {
+        return userCreated;
+    }
+
+    public void setUserCreated(User userCreated) {
+        this.userCreated = userCreated;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
