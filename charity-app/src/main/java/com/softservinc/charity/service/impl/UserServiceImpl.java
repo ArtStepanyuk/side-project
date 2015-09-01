@@ -1,4 +1,4 @@
-package com.softservinc.charity.serviceImpl;
+package com.softservinc.charity.service.impl;
 
 import com.softservinc.charity.dao.UserDao;
 import com.softservinc.charity.model.User;

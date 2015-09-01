@@ -1,4 +1,4 @@
-package com.softservinc.charity.daoImpl;
+package com.softservinc.charity.dao.impl;
 
 import com.softservinc.charity.dao.AbstractDao;
 import com.softservinc.charity.dao.CityDao;
