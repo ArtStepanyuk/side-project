@@ -52,6 +52,9 @@ public class User implements UserDetails {
     @Transient
     private long expires;
 
+    @Transient
+    private String token;
+
     public Integer getId() {
         return id;
     }
@@ -130,5 +133,13 @@ public class User implements UserDetails {
 
     public void setExpires(long expires) {
         this.expires = expires;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
