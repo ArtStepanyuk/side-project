@@ -8,8 +8,11 @@
     <ctx:component-scan base-package="com.softservinc.charity.*"/>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location">
-            <value>classpath:jdbc.properties</value>
+        <property name="locations">
+            <list>
+                <value>classpath:local.properties</value>
+                <value>classpath:jdbc.properties</value>
+            </list>
         </property>
     </bean>
 

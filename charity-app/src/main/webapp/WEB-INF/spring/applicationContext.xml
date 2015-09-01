@@ -4,8 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location">
-            <value>classpath:jdbc.properties</value>
+        <property name="locations">
+            <list>
+                <value>classpath:local.properties</value>
+                <value>classpath:jdbc.properties</value>
+            </list>
         </property>
     </bean>
 
