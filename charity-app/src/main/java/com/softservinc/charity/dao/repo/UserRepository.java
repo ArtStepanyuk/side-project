@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Shishambe on 9/1/15.
  */
-@RepositoryRestResource(collectionResourceRel = "users", path = "users")
+@RepositoryRestResource(collectionResourceRel = "user", path = "users")
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     List<User> findByLastName(@Param("email") String email);
