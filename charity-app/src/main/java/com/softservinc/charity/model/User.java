@@ -39,7 +39,7 @@ public class User implements UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "roles_users", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
-    private Set<UserRole> roles;
+    private Set<UserRole> roles = new HashSet<>();
 
     @Column
     private String name;

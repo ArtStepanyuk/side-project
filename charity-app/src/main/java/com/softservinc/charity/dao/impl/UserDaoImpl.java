@@ -18,4 +18,8 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
                 .setString("email", email);
         return (User)query.uniqueResult();
     }
+    public void refresh(User user)
+    {
+        getSession().refresh(user);
+    }
 }

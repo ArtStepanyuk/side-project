@@ -1,7 +1,5 @@
 package com.softservinc.charity.model;
 
-import com.softservinc.charity.model.UserAuthority;
-
 import javax.persistence.*;
 
 @Entity
@@ -39,7 +37,7 @@ public class UserRole {
 
     public UserAuthority asAuthorityFor(final User user) {
         final UserAuthority authority = new UserAuthority();
-        authority.setAuthority("ROLE_" + toString());
+        authority.setAuthority("ROLE_" + role);
         authority.setUser(user);
         return authority;
     }

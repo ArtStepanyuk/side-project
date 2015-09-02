@@ -1,6 +1,7 @@
 package com.softservinc.charity.service.security;
 
 import com.softservinc.charity.model.User;
+import com.softservinc.charity.service.UserService;
 import com.softservinc.charity.util.security.TokenHandler;
 import com.softservinc.charity.entity.security.UserAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class TokenAuthenticationService {
 	private final TokenHandler tokenHandler;
 
 	@Autowired
+	private UserService userService;
+
+	@Autowired
 	public TokenAuthenticationService(@Value("${token.secret}") String secret) {
 		tokenHandler = new TokenHandler(DatatypeConverter.parseBase64Binary(secret));
 	}
@@ -36,6 +40,7 @@ public class TokenAuthenticationService {
 		if (token != null) {
 			final User user = tokenHandler.parseUserFromToken(token);
 			if (user != null) {
+				userService.refresh(user);
 				return new UserAuthentication(user);
 			}
 		}

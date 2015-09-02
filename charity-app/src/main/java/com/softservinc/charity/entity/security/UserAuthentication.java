@@ -1,6 +1,7 @@
 package com.softservinc.charity.entity.security;
 
 import com.softservinc.charity.model.User;
+import org.hibernate.Hibernate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
