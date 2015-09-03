@@ -4,6 +4,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user_roles")
+@NamedQueries({
+        @NamedQuery(
+                name = "findUserRoleByRole",
+                query = "from UserRole u where u.role = :role"
+        )
+})
 public class UserRole {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

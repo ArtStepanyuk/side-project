@@ -15,6 +15,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
@@ -22,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Order(1)
 public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final int PASSWORD_STRENGTH = 256;
+	private static final int PASSWORD_STRENGTH = 11;
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -45,6 +47,8 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 
 				//allow anonymous POSTs to login
 				.antMatchers(HttpMethod.POST, "/api/auth").permitAll()
+                //allow anonymous POSTs to register
+                .antMatchers(HttpMethod.POST, "/api/users/register").permitAll()
 
 				//allow anonymous GETs to API
 				.antMatchers(HttpMethod.GET, "/api/**").permitAll()
@@ -74,11 +78,16 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(new ShaPasswordEncoder(PASSWORD_STRENGTH));
+		auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
 	}
 
 	@Override
 	protected UserDetailsService userDetailsService() {
 		return userDetailsService;
 	}
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder(PASSWORD_STRENGTH);
+    }
 }

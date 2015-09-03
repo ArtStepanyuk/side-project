@@ -81,6 +81,7 @@ public class User implements UserDetails {
         return email;
     }
 
+    @JsonProperty
     public void setUsername(String username)
     {
         setEmail(username);
@@ -129,6 +130,7 @@ public class User implements UserDetails {
         return name;
     }
 
+    @JsonProperty
     public void setName(String name) {
         this.name = name;
     }
@@ -152,5 +154,9 @@ public class User implements UserDetails {
     @JsonIgnore
     public Set<UserRole> getRoles() {
         return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
     }
 }
