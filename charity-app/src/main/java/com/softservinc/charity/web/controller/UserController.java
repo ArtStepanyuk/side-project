@@ -1,33 +1,22 @@
 package com.softservinc.charity.web.controller;
 
-import com.google.common.collect.Sets;
-import com.softservinc.charity.entity.security.UserAuthentication;
+import com.softservinc.charity.facade.UserFacade;
+import com.softservinc.charity.model.UserAuthentication;
 import com.softservinc.charity.model.User;
-import com.softservinc.charity.model.UserRole;
-import com.softservinc.charity.service.UserRoleService;
-import com.softservinc.charity.service.UserService;
 import com.softservinc.charity.service.security.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class UserController extends AbstractController {
 
-	@Autowired
-    private UserService userService;
-
     @Autowired
-    private UserRoleService userRoleService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserFacade userFacade;
 
     @RequestMapping(value = "/users/current", method = RequestMethod.GET)
     public User getCurrent(final HttpServletRequest request) {
@@ -43,11 +32,8 @@ public class UserController extends AbstractController {
 
     @RequestMapping(value = "/users/register", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void register(@RequestBody final User user, final HttpServletResponse response) {
-        UserRole userRole = userRoleService.getByRole("USER");
-        user.setRoles(Sets.newHashSet(userRole));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.save(user);
+    public void register(@RequestBody final User user) {
+        userFacade.createNewAccount(user);
     }
 
 }

@@ -3,7 +3,7 @@ package com.softservinc.charity.service.security;
 import com.softservinc.charity.model.User;
 import com.softservinc.charity.service.UserService;
 import com.softservinc.charity.util.security.TokenHandler;
-import com.softservinc.charity.entity.security.UserAuthentication;
+import com.softservinc.charity.model.UserAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;

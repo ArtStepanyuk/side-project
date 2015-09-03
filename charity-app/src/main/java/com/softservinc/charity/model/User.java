@@ -2,7 +2,6 @@ package com.softservinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.softservinc.charity.entity.security.UserAuthentication;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
