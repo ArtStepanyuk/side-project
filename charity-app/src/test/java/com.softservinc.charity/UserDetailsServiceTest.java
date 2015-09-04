@@ -1,6 +1,7 @@
 package com.softservinc.charity;
 
 
+import com.softservinc.charity.config.TestConfig;
 import com.softservinc.charity.model.User;
 import com.softservinc.charity.service.UserService;
 import com.softservinc.charity.service.security.UserDetailsService;
@@ -15,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:appContext.xml")
+@ContextConfiguration(classes = TestConfig.class)
 public class UserDetailsServiceTest {
 
     @Autowired
