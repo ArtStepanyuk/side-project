@@ -1,9 +1,9 @@
 package com.softservinc.charity.web.controller;
 
+import com.softservinc.charity.Constants;
 import com.softservinc.charity.facade.UserFacade;
 import com.softservinc.charity.model.UserAuthentication;
 import com.softservinc.charity.model.User;
-import com.softservinc.charity.service.security.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -24,7 +24,7 @@ public class UserController extends AbstractController {
 		if (authentication instanceof UserAuthentication) {
 			User user =  ((UserAuthentication) authentication).getDetails();
 			// TODO: Added token to user for UI integration. Remove after.
-			user.setToken(request.getHeader(TokenAuthenticationService.AUTH_HEADER_NAME));
+			user.setToken(request.getHeader(Constants.AUTH_HEADER_NAME));
 			return user;
 		}
 		return new User(authentication.getName()); //anonymous user support
