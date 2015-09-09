@@ -2,7 +2,6 @@ package com.softservinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.softservinc.charity.entity.security.UserAuthentication;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -39,7 +38,7 @@ public class User implements UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "roles_users", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
-    private Set<UserRole> roles;
+    private Set<UserRole> roles = new HashSet<>();
 
     @Column
     private String name;
@@ -81,6 +80,7 @@ public class User implements UserDetails {
         return email;
     }
 
+    @JsonProperty
     public void setUsername(String username)
     {
         setEmail(username);
@@ -129,6 +129,7 @@ public class User implements UserDetails {
         return name;
     }
 
+    @JsonProperty
     public void setName(String name) {
         this.name = name;
     }
@@ -152,5 +153,9 @@ public class User implements UserDetails {
     @JsonIgnore
     public Set<UserRole> getRoles() {
         return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
     }
 }
