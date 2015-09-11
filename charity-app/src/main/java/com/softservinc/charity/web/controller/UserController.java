@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@RequestMapping(value = "/api")
 public class UserController extends AbstractController {
 
     private static final Logger LOG = LoggerFactory.getLogger("com.softservinc.charity");
