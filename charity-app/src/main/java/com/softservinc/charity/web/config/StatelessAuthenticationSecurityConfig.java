@@ -57,13 +57,9 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 				.antMatchers(HttpMethod.GET, "/api/**").permitAll()
 
 				//defined Admin only API area
-				.antMatchers("/admin/**").hasRole("ADMIN")
-
-				//all other request need to be authenticated
-				.anyRequest().hasRole("USER").and()
-				.exceptionHandling().and()
-				.anonymous().and()
+				.antMatchers("/admin/**").hasRole("ADMIN").and()
 				.servletApi().and()
+				.exceptionHandling().and()
 				.headers().cacheControl();
 
 		if (isSecurityAuthFiltersEnable()){
