@@ -58,6 +58,7 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 
 				//defined Admin only API area
 				.antMatchers("/admin/**").hasRole("ADMIN").and()
+				.anonymous().and()
 				.servletApi().and()
 				.exceptionHandling().and()
 				.headers().cacheControl();
