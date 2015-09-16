@@ -1,11 +1,9 @@
 package com.softservinc.charity.web.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -15,15 +13,18 @@ import java.io.FileOutputStream;
  * File upload controller.
  */
 @Controller
+@RequestMapping(value = "/api")
 public class FileUploadController {
     @RequestMapping(value="/upload", method=RequestMethod.GET)
     public @ResponseBody String provideUploadInfo() {
         return "You can upload a file by posting to this same URL.";
     }
 
-    @RequestMapping(value="/upload", method= RequestMethod.POST)
+    @RequestMapping(value="/upload", headers = "content-type=multipart/*", method= RequestMethod.POST)
     public @ResponseBody
-    String handleFileUpload(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+    String handleFileUpload(final MultipartHttpServletRequest request) {
+        final MultipartFile file = request.getFile("file");
+        final String name = request.getParameter("name");
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();

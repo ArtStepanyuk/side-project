@@ -1,15 +1,19 @@
-insert into users (name, email, password) VALUES ('admin', 'admin@gmail.com', '$2a$11$ilYAuWk/iKWJdF9INr0KIuVTKMUkfivrj840hSNzurkLuuaUtgmqq')
-insert into users (name, email, password) VALUES ('volunteer', 'volunteer@gmail.com', '$2a$11$xVEVTGKA5mtgfPMdPPCvDOuMARk75c1GwRLgKZhhhNm.59wuVeYCS')
-insert into users (name, email, password) VALUES ('user', 'user@gmail.com', '$2a$10$U.4xVs8hQ9HYPYm/u7uJOee/bGh41QFOhd/jWdD57cdSvlSQ6zfzG')
-insert into user_roles (description, role) VALUES ('admin', 'ADMIN')
-insert into user_roles (description, role) VALUES ('volunteer', 'VOLUNTEER')
-insert into user_roles (description, role) VALUES ('user', 'USER')
-insert into roles_users(user_id, role_id) VALUES  (1, 1)
-insert into roles_users(user_id, role_id) VALUES  (2, 1)
-insert into roles_users(user_id, role_id) VALUES  (2, 2)
-insert into roles_users(user_id, role_id) VALUES  (3, 1)
-insert into roles_users(user_id, role_id) VALUES  (3, 2)
-insert into roles_users(user_id, role_id) VALUES  (3, 3)
+insert into users (name, email, password) VALUES ('admin', 'admin@gmail.com', '$2a$11$ilYAuWk/iKWJdF9INr0KIuVTKMUkfivrj840hSNzurkLuuaUtgmqq');
+insert into users (name, email, password) VALUES ('volunteer', 'volunteer@gmail.com', '$2a$11$xVEVTGKA5mtgfPMdPPCvDOuMARk75c1GwRLgKZhhhNm.59wuVeYCS');
+insert into users (name, email, password) VALUES ('user', 'user@gmail.com', '$2a$10$U.4xVs8hQ9HYPYm/u7uJOee/bGh41QFOhd/jWdD57cdSvlSQ6zfzG');
+insert into users (name, email, password) VALUES ('root', 'root_email', '$2a$10$U.4xVs8hQ9HYPYm/u7uJOee/bGh41QFOhd/jWdD57cdSvlSQ6zfzG');
+insert into user_roles (description, role) VALUES ('admin', 'ADMIN');
+insert into user_roles (description, role) VALUES ('volunteer', 'VOLUNTEER');
+insert into user_roles (description, role) VALUES ('user', 'USER');
+insert into roles_users(user_id, role_id) VALUES  (1, 1);
+insert into roles_users(user_id, role_id) VALUES  (2, 1);
+insert into roles_users(user_id, role_id) VALUES  (2, 2);
+insert into roles_users(user_id, role_id) VALUES  (3, 1);
+insert into roles_users(user_id, role_id) VALUES  (3, 2);
+insert into roles_users(user_id, role_id) VALUES  (3, 3);
+insert into roles_users(user_id, role_id) VALUES  (4, 1);
+insert into roles_users(user_id, role_id) VALUES  (4, 2);
+insert into roles_users(user_id, role_id) VALUES  (4, 3);
 
 
 insert into categories (name, parent_id) VALUES ('clothes', null);
