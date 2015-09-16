@@ -23,4 +23,6 @@
         </bean>
     </mvc:interceptors>
 
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
 </beans>

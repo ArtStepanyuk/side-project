@@ -21,9 +21,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
     <base href="/">
 
-    <link rel="stylesheet" href="styles/lib-9667fbc443.css">
+    <link rel="stylesheet" href="resources/styles/lib-9667fbc443.css">
 
-    <link rel="stylesheet" href="styles/app-b2bf057b75.css">
+    <link rel="stylesheet" href="resources/styles/app-b2bf057b75.css">
 </head>
 <body>
     <header>
@@ -37,7 +37,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="/">
-                        <img alt="SoftServe" class="logo" src="images/logo.png">
+                        <img alt="SoftServe" class="logo" src="/resources/images/logo.png">
                     </a>
                 </div>
                 <div class="collapse navbar-collapse" collapse="isCollapsed" id="navbar">
@@ -73,10 +73,10 @@
         </nav>
     </footer>
 
-    <script src="js/lib-03b044dcbb.js"></script>
+    <script src="resources/js/lib-03b044dcbb.js"></script>
     <!-- added uk_ua localization manually for datepicker -->
-    <script src="/bower_components/angular-i18n/angular-locale_uk-ua.js"></script>
-    <script src="js/app-dd0d0e651c.js"></script>
+    <!--<script src="/bower_components/angular-i18n/angular-locale_uk-ua.js"></script>-->
+    <script src="resources/js/app-dd0d0e651c.js"></script>
 </body>
 </html>
 
