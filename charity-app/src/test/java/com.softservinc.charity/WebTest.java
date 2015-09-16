@@ -33,7 +33,7 @@ abstract public class WebTest {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .apply(springSecurity())
-                .apply(new ServletPathConfigurer("/api"))
+                //.apply(new ServletPathConfigurer("/"))
                 .build();
     }
 }

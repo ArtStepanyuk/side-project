@@ -39,7 +39,7 @@ public class RegistrationFlowTest extends WebTest{
     @Ignore
     public void login_existing_account_test() throws Exception{
         this.mockMvc
-                .perform(post("/auth")
+                .perform(post("/api/auth")
                         .content("{\"username\":\"user@gmail.com\",\"password\":\"user\"}"))
                 .andExpect(status().isOk());
     }
@@ -47,7 +47,7 @@ public class RegistrationFlowTest extends WebTest{
     @Test
     public void register1_with_new_account_test() throws Exception {
         this.mockMvc
-                .perform(post("/users/register")
+                .perform(post("/api/users/register")
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
@@ -56,7 +56,7 @@ public class RegistrationFlowTest extends WebTest{
     @Test
     public void register2_with_existing_account_test() throws Exception {
         this.mockMvc
-                .perform(post("/users/register")
+                .perform(post("/api/users/register")
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict());
@@ -65,7 +65,7 @@ public class RegistrationFlowTest extends WebTest{
     @Test
     public void register3_get_current_account_test() throws Exception {
         MvcResult mvcResult = this.mockMvc
-                .perform(post("/auth")
+                .perform(post("/api/auth")
                         .content(json))
                 .andReturn();
 
@@ -75,7 +75,7 @@ public class RegistrationFlowTest extends WebTest{
 
         //Thread.sleep(1000);
 
-        this.mockMvc.perform(get("/users/current")
+        this.mockMvc.perform(get("/api/users/current")
                 .header(Constants.AUTH_HEADER_NAME, token))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))

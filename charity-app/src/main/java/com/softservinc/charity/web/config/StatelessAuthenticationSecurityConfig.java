@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -31,6 +32,9 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 	@Autowired
 	private TokenAuthenticationService tokenAuthenticationService;
 
+	@Autowired
+	Environment env;
+
 	public StatelessAuthenticationSecurityConfig() {
 		super(true);
 	}
@@ -53,20 +57,22 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 				.antMatchers(HttpMethod.GET, "/api/**").permitAll()
 
 				//defined Admin only API area
-				.antMatchers("/admin/**").hasRole("ADMIN")
-
-				//all other request need to be authenticated
-				.anyRequest().hasRole("USER").and()
-
-				// custom JSON based authentication by POST of {"username":"<name>","password":"<password>"} which sets the token header upon authentication
-				.addFilterBefore(new StatelessLoginFilter("/api/auth", tokenAuthenticationService, userDetailsService, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
-
-				// custom Token based authentication based on the header previously given to the client
-				.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), UsernamePasswordAuthenticationFilter.class)
-				.exceptionHandling().and()
+				.antMatchers("/admin/**").hasRole("ADMIN").and()
 				.anonymous().and()
 				.servletApi().and()
+				.exceptionHandling().and()
 				.headers().cacheControl();
+
+		if (isSecurityAuthFiltersEnable()){
+			http
+					// custom JSON based authentication by POST of {"username":"<name>","password":"<password>"}
+					// which sets the token header upon authentication
+					.addFilterBefore(new StatelessLoginFilter("/api/auth", tokenAuthenticationService,
+							userDetailsService, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+					// custom Token based authentication based on the header previously given to the client
+					.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService),
+							UsernamePasswordAuthenticationFilter.class);
+		}
 	}
 
 	@Bean
@@ -89,4 +95,12 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder(PASSWORD_STRENGTH);
     }
+
+
+	private Boolean isSecurityAuthFiltersEnable(){
+		String value = env.getProperty("security.auth.filters.enable");
+		if (value == null)
+			return Boolean.TRUE;
+		return Boolean.valueOf(value);
+	}
 }
