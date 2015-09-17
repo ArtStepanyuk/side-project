@@ -1,0 +1,48 @@
+package com.softserveinc.charity.service.security;
+
+import com.softserveinc.charity.model.User;
+import com.softserveinc.charity.model.UserAuthentication;
+import com.softserveinc.charity.repository.UserRepository;
+import com.softserveinc.charity.util.Constants;
+import com.softserveinc.charity.util.security.TokenHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
+
+@Service
+public class TokenAuthenticationService {
+
+	private final TokenHandler tokenHandler;
+
+	@Autowired
+	private UserRepository userRepo;
+
+	@Autowired
+    //todo add top.secret to .properties file
+	public TokenAuthenticationService(@Value("secret") String secret) {
+		tokenHandler = new TokenHandler(DatatypeConverter.parseBase64Binary(secret));
+	}
+
+	public void addAuthentication(HttpServletResponse response, UserAuthentication authentication) {
+		final User user = authentication.getDetails();
+		user.setExpires(System.currentTimeMillis() + Constants.TEN_DAYS);
+		response.addHeader(Constants.AUTH_HEADER_NAME, tokenHandler.createTokenForUser(user));
+	}
+
+	public Authentication getAuthentication(HttpServletRequest request) {
+		final String token = request.getHeader(Constants.AUTH_HEADER_NAME);
+		if (token != null) {
+			final User user = tokenHandler.parseUserFromToken(token);
+			if (user != null) {
+				userRepo.save(user);
+				return new UserAuthentication(user);
+			}
+		}
+		return null;
+	}
+}
