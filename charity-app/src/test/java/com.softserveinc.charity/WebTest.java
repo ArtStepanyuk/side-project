@@ -11,8 +11,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.Filter;
 
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+//import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 /**
  * Basic abstract test class. All integration tests should extend from this.
@@ -27,11 +28,14 @@ abstract public class WebTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
+    @Autowired
+    private Filter springSecurityFilterChain;
+
     @PostConstruct
     void postConstruct() {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
-                .apply(springSecurity())
+                .addFilter(springSecurityFilterChain)
                 //.apply(new ServletPathConfigurer("/"))
                 .build();
     }
