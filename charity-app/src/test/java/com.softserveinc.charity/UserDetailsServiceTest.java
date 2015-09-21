@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-@WebIntegrationTest
+@WebIntegrationTest(value = "server.port=9000")
 public class UserDetailsServiceTest extends WebTest {
 
     @Autowired

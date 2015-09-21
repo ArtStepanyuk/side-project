@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
-@WebIntegrationTest
+@WebIntegrationTest(value = "server.port=9000")
 //@Ignore
 public class RegistrationFlowTest extends WebTest{
 

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 
 @Service
-@PropertySource("security.properties")
+@PropertySource("classpath:security.properties")
 public class TokenAuthenticationService {
 
 	private final TokenHandler tokenHandler;
