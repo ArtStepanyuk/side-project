@@ -1,4 +1,4 @@
-package com.softserveinc.charity.util.security;
+package com.softserveinc.charity.security.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

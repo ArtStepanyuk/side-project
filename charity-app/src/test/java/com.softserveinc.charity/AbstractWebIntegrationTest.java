@@ -21,7 +21,8 @@ import javax.servlet.Filter;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Application.class)
 @WebAppConfiguration
-abstract public class WebTest {
+@WebIntegrationTest(value = "server.port=9000")
+abstract public class AbstractWebIntegrationTest {
 
     protected MockMvc mockMvc;
 

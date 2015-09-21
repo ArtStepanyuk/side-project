@@ -1,6 +1,6 @@
-package com.softserveinc.charity.filter.security;
+package com.softserveinc.charity.security.filter;
 
-import com.softserveinc.charity.service.security.TokenAuthenticationService;
+import com.softserveinc.charity.security.service.TokenAuthenticationService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 

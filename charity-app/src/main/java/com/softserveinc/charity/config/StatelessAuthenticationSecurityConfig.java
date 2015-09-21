@@ -1,9 +1,9 @@
 package com.softserveinc.charity.config;
 
-import com.softserveinc.charity.filter.security.StatelessAuthenticationFilter;
-import com.softserveinc.charity.filter.security.StatelessLoginFilter;
-import com.softserveinc.charity.service.security.TokenAuthenticationService;
-import com.softserveinc.charity.service.security.UserDetailsService;
+import com.softserveinc.charity.security.filter.StatelessAuthenticationFilter;
+import com.softserveinc.charity.security.filter.StatelessLoginFilter;
+import com.softserveinc.charity.security.service.TokenAuthenticationService;
+import com.softserveinc.charity.security.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
