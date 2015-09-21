@@ -3,11 +3,18 @@ package com.softserveinc.charity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.softserveinc.charity.model.TestUser;
+import com.softserveinc.charity.model.User;
+import com.softserveinc.charity.repository.UserRepository;
 import com.softserveinc.charity.util.Constants;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -16,8 +23,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
-@Ignore
+@WebIntegrationTest
+//@Ignore
 public class RegistrationFlowTest extends WebTest{
+
+    @Autowired
+    private UserRepository userRepository;
 
     private TestUser user;
 
@@ -39,40 +50,57 @@ public class RegistrationFlowTest extends WebTest{
     @Test
     @Ignore
     public void login_existing_account_test() throws Exception{
-        this.mockMvc
+        MvcResult mvcResult = this.mockMvc
                 .perform(post("/api/auth")
                         .content("{\"username\":\"user@gmail.com\",\"password\":\"user\"}"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String token = mvcResult.getResponse().getHeader(Constants.AUTH_HEADER_NAME);
+        Assert.assertNotNull(token);
+        Assert.assertTrue(token.length() > 0 && token.length() < 170);
+
+        ResultActions resultActions = this.mockMvc.perform(get("/api/users/current")
+                .header(Constants.AUTH_HEADER_NAME, token));
+
+        mvcResult = resultActions.andReturn();
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$.username").value("user@gmail.com"));
     }
 
     @Test
-    public void register1_with_new_account_test() throws Exception {
+    public void register0_with_new_account_test_to_global_endpoint() throws Exception {
+        this.mockMvc
+                .perform(post("/api/users")
+                        .content(json)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void register1_with_new_account_test_to_custom_endpoint() throws Exception {
         this.mockMvc
                 .perform(post("/api/users/register")
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
-    }
 
-    @Test
-    public void register2_with_existing_account_test() throws Exception {
         this.mockMvc
                 .perform(post("/api/users/register")
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict());
-    }
 
-    @Test
-    public void register3_get_current_account_test() throws Exception {
         MvcResult mvcResult = this.mockMvc
                 .perform(post("/api/auth")
                         .content(json))
+                .andExpect(status().isOk())
                 .andReturn();
 
         String token = mvcResult.getResponse().getHeader(Constants.AUTH_HEADER_NAME);
         Assert.assertNotNull(token);
-        Assert.assertEquals(169, token.length());
 
         //Thread.sleep(1000);
 
@@ -82,6 +110,13 @@ public class RegistrationFlowTest extends WebTest{
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.username").value(user.getUsername()))
                 .andExpect(jsonPath("$.name").value(user.getName()));
-
     }
+
+    @After
+    public void close(){
+        User user1 = userRepository.findByEmail("test@gmail.com");
+        if (user1 != null)
+            userRepository.delete(user1.getId());
+    }
+
 }

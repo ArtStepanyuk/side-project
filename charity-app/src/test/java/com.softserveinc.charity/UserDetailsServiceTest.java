@@ -6,10 +6,12 @@ import com.softserveinc.charity.repository.UserRepository;
 import com.softserveinc.charity.service.security.UserDetailsService;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+@WebIntegrationTest
 public class UserDetailsServiceTest extends WebTest {
 
     @Autowired

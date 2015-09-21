@@ -4,20 +4,13 @@ public final class UserAlreadyExistException extends RuntimeException {
 
     private static final long serialVersionUID = 5861310537366287163L;
 
+    private static final String MESSAGE_TEMPLATE = "User with email { %s } already exist.";
+
     public UserAlreadyExistException() {
         super();
     }
 
-    public UserAlreadyExistException(final String message, final Throwable cause) {
-        super(message, cause);
+    public UserAlreadyExistException(final String email) {
+        super(String.format(MESSAGE_TEMPLATE, email));
     }
-
-    public UserAlreadyExistException(final String message) {
-        super(message);
-    }
-
-    public UserAlreadyExistException(final Throwable cause) {
-        super(cause);
-    }
-
 }
