@@ -1,9 +1,8 @@
 package com.softserveinc.charity.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.*;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
@@ -22,6 +21,8 @@ import java.util.Properties;
 
 import static org.hibernate.cfg.AvailableSettings.DIALECT;
 import static org.hibernate.cfg.AvailableSettings.HBM2DDL_AUTO;
+import static org.hibernate.cfg.AvailableSettings.SHOW_SQL;
+import static org.hibernate.cfg.AvailableSettings.FORMAT_SQL;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.softserveinc.charity.repository"})
@@ -29,7 +30,11 @@ import static org.hibernate.cfg.AvailableSettings.HBM2DDL_AUTO;
         @ComponentScan.Filter(value = Controller.class, type = FilterType.ANNOTATION),
         @ComponentScan.Filter(value = Configuration.class, type = FilterType.ANNOTATION)
 })
+@PropertySource(value = "classpath:db.properties")
 public class AppConfig extends RepositoryRestMvcConfiguration {
+
+    @Autowired
+    private Environment env;
 
     @Override
     protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
@@ -44,10 +49,10 @@ public class AppConfig extends RepositoryRestMvcConfiguration {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/charity");
-        dataSource.setUsername("charityAdmin");
-        dataSource.setPassword("CharServ2015");
+        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+        dataSource.setUrl(env.getProperty("jdbc.url"));
+        dataSource.setUsername(env.getProperty("jdbc.username"));
+        dataSource.setPassword(env.getProperty("jdbc.password"));
         return dataSource;
     }
 
@@ -82,8 +87,10 @@ public class AppConfig extends RepositoryRestMvcConfiguration {
     @Bean
     public Properties jpaProperties() {
         Properties properties = new Properties();
-        properties.put(HBM2DDL_AUTO, "create");
-        properties.put(DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+        properties.put(HBM2DDL_AUTO, env.getProperty("hibernate.hbm2ddl.auto"));
+        properties.put(DIALECT, env.getProperty("hibernate.dialect"));
+        properties.put(SHOW_SQL, env.getProperty("hibernate.show_sql"));
+        properties.put(FORMAT_SQL, env.getProperty("hibernate.format_sql"));
         return properties;
     }
 }

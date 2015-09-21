@@ -7,6 +7,7 @@ import com.softserveinc.charity.util.Constants;
 import com.softserveinc.charity.util.security.TokenHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 
 @Service
+@PropertySource("security.properties")
 public class TokenAuthenticationService {
 
 	private final TokenHandler tokenHandler;
@@ -23,8 +25,7 @@ public class TokenAuthenticationService {
 	private UserRepository userRepo;
 
 	@Autowired
-    //todo add top.secret to .properties file
-	public TokenAuthenticationService(@Value("secret") String secret) {
+	public TokenAuthenticationService(@Value("${token.secret}") String secret) {
 		tokenHandler = new TokenHandler(DatatypeConverter.parseBase64Binary(secret));
 	}
 
