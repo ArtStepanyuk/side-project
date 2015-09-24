@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <style>
+        /* This helps the ng-show/ng-hide animations start at the right place. */
+        /* Since Angular has this but needs to load, this gives us the class early. */
+        .ng-hide { display: none!important; }
+    </style>
+    <base href="/" />
+    <title ng-bind="title">Благодійний портал</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <base href="/">
+
+    <link rel="stylesheet" href="styles/lib-9667fbc443.css">
+
+    <link rel="stylesheet" href="styles/app-bed8af07d4.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-default navbar-fixed-top fw700">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" ng-click="isCollapsed = !isCollapsed" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <img alt="SoftServe" class="logo" src="images/logo.png">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" collapse="!isCollapsed" id="navbar">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/needs" class="navbar-link">Потреби</a></li>
+                        <li><a href="/offers" class="navbar-link">Пропозиції</a></li>
+                        <li><a href="/needs/newneedstep1" class="navbar-link">Додати Потребу</a></li>
+                        <li><a href="/offers/newofferstep1" class="navbar-link">Додати Пропозицію</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <hr class="divider hidden-lg hidden-md hidden-sm">
+                        </li>
+                        <li><a href="/about" class="navbar-link">Про нас</a></li>
+                        <li><a href="/profile" class="navbar-link">Мій кабінет</a></li>
+                        <li><a href="#" class="navbar-link">Вийти</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div ui-view></div>
+    <footer>
+        <nav id="footer" class="navbar navbar-default navbar-fixed-bottom">
+            <div class="container">
+                <p class="navbar-text text-center">© SoftServe LTD, 2010-2014, 0 800 60 3000 (10.00 – 19.00 Пн.-Пт.)
+                    <a href="/contacts">Контакти</a>
+                    <!--<a href="/sitemap">Site Map</a>-->
+                    <a href="/privacy">Конфіденційність</a>
+                    <a href="/terms">Умови користування</a>
+                </p>
+            </div>
+        </nav>
+    </footer>
+
+    <script src="js/lib-b0b0d3a431.js"></script>
+
+    <script src="js/app-1bc0e951ba.js"></script>
+</body>
+</html>
