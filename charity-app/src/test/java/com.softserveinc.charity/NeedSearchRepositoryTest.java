@@ -1,9 +1,6 @@
 package com.softserveinc.charity;
 
-import com.softserveinc.charity.model.Category;
-import com.softserveinc.charity.model.City;
-import com.softserveinc.charity.model.Need;
-import com.softserveinc.charity.model.User;
+import com.softserveinc.charity.model.*;
 import com.softserveinc.charity.repository.*;
 import com.softserveinc.charity.repository.search.CategorySearchRepository;
 import com.softserveinc.charity.repository.search.CitySearchRepository;
@@ -13,9 +10,9 @@ import com.softserveinc.charity.service.SearchService;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,13 +52,15 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     SearchService searchService;
 
     List<Need> needs = new ArrayList<>();
-    City city;
+    City city1;
+    City city2;
 
     @Before
     public void setup(){
 
         Category category = categoryRepository.findOne(1);
-        city = cityRepository.findByRegionId(1).get(0);
+        city1 = cityRepository.findByRegionId(1).get(0);
+        city2 = cityRepository.findByRegionId(1).get(1);
         /*
         TODO : create test user in sql
          */
@@ -71,7 +70,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         need1.setActualTo(LocalDate.now());
         need1.setAddress("Address xxx.xxx 1111");
         need1.setCategory(category);
-        need1.setCity(city);
+        need1.setCity(city1);
         need1.setConvenientTime("1442850355478");
         need1.setDescription("Description need #1");
         need1.setName("Name needYYY #1");
@@ -81,7 +80,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         need2.setActualTo(LocalDate.now());
         need2.setAddress("Address xxx.xxx 2222");
         need2.setCategory(category);
-        need2.setCity(city);
+        need2.setCity(city2);
         need2.setConvenientTime("1442853435478");
         need2.setDescription("Description need #2");
         need2.setName("Name needXXX #2");
@@ -94,6 +93,9 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         categorySearchRepository.deleteAll();
         citySearchRepository.deleteAll();
         regionSearchRepository.deleteAll();
+
+        citySearchRepository.save(Arrays.asList(city1, city2));
+        //regionSearchRepository.save(city.getRegion());
 
         needRepository.save(needs);
         needSearchRepository.save(needs);
@@ -111,16 +113,19 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         Assert.assertThat(needs1.size(), is(1));
     }
 
+    @Test
+    @Transactional(propagation= Propagation.REQUIRES_NEW)
+    public void find_by_some_input_city(){
+        List<Need> needs3 = searchService.findNeeds(city1.getName());
+        Assert.assertNotNull(needs3);
+        Assert.assertThat(needs3.size(), is(1));
+    }
 
     @Test
     @Transactional(propagation= Propagation.REQUIRES_NEW)
-    public void find_by_some_input(){
-        List<Need> needs2 = searchService.findNeeds("need");
-        Assert.assertNotNull(needs2);
-        Assert.assertThat(needs2.size(), is(2));
-
-        //List<Need> needs3 = searchService.findNeeds(city.getName());
-        //Assert.assertNotNull(needs3);
-        //Assert.assertThat(needs3.size(), is(2));
+     public void find_cities_by_some_input_region(){
+        List<City> cities = searchService.findCities(city1.getRegion().getName());
+        Assert.assertNotNull(cities);
+        Assert.assertThat(cities.size(), is(2));
     }
 }

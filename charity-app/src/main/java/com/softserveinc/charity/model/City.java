@@ -1,9 +1,10 @@
 package com.softserveinc.charity.model;
 
-import com.fasterxml.jackson.annotation.*;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.springframework.data.elasticsearch.annotations.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "cities")
 @Document(indexName = "cities", type = "city", shards = 1, replicas = 0, refreshInterval = "-1", indexStoreType = "fs")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class City implements Serializable{
     @Id
@@ -18,11 +20,12 @@ public class City implements Serializable{
     private Integer id;
 
     @Column
+    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id", nullable = false)
-    @JsonIgnore // brakes internal reference loop in json
+    //@JsonBackReference
     @Field(type = FieldType.Nested)
     private Region region;
 

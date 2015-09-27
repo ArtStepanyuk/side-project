@@ -40,7 +40,6 @@ public class TokenAuthenticationService {
 		if (token != null) {
 			final User user = tokenHandler.parseUserFromToken(token);
 			if (user != null) {
-				userRepo.save(user);
 				return new UserAuthentication(user);
 			}
 		}

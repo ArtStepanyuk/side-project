@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 public interface NeedSearchRepository
-        extends ElasticsearchRepository<Need, String>
+        extends ElasticsearchRepository<Need, Integer>
 {
     List<Need> findByName(String name);
     List<Need> findByName(String name, Pageable pageable);
