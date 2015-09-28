@@ -1,12 +1,21 @@
 package com.softserveinc.charity.model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "offers")
-public class Offer {
+public class Offer implements Serializable{
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
@@ -26,7 +35,9 @@ public class Offer {
     @Column
     private String address;
 
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     @Column
+    @JsonIgnore
     private LocalDate actualTo;
 
     @Column
@@ -34,6 +45,11 @@ public class Offer {
 
     @Column
     private Boolean pickup;
+
+    @JsonGetter
+    public String getFormattedActualTo() {
+        return DATE_TIME_FORMATTER.print(this.actualTo);
+    }
 
     public Integer getId() {
         return id;
