@@ -48,7 +48,7 @@ public class Offer implements Serializable{
 
     @JsonGetter
     public String getFormattedActualTo() {
-        return DATE_TIME_FORMATTER.print(this.actualTo);
+        return this.actualTo != null ? DATE_TIME_FORMATTER.print(this.actualTo) : null;
     }
 
     public Integer getId() {
