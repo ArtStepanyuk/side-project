@@ -1,9 +1,6 @@
 package com.softserveinc.charity.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.data.elasticsearch.annotations.*;
 
 import javax.persistence.*;
@@ -25,7 +22,6 @@ public class City implements Serializable{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id", nullable = false)
-    //@JsonBackReference
     @Field(type = FieldType.Nested)
     private Region region;
 
