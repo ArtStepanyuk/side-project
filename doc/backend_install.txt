@@ -10,7 +10,7 @@ check mysql: execute in cmd "mysql -v"
 create database and user:
 	execute in cmd 
 		"mysql -u root -p";
-		enter root password for mysql which was setted during installation;
+		enter root password for mysql which was set during installation;
 		CREATE DATABASE charity DEFAULT CHARACTER SET utf8;
   		CREATE USER 'charityAdmin'@'localhost' IDENTIFIED BY 'CharServ2015';
   		GRANT ALL PRIVILEGES ON * . * TO 'charityAdmin'@'localhost';
