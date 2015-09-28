@@ -1,0 +1,21 @@
+install git (https://git-scm.com/book/en/v2/Getting-Started-Installing-Git);
+install JDK (http://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html);
+check JDK: execute in cmd "java -version"
+	java version "1.8.0_45"
+	Java(TM) SE Runtime Environment (build 1.8.0_45-b14)
+	Java HotSpot(TM) 64-Bit Server VM (build 25.45-b02, mixed mode)
+install mysql (PORT 3306)
+check mysql: execute in cmd "mysql -v"
+	Server version: 5.6.26 MySQL Community Server (GPL)
+create database and user:
+	execute in cmd 
+		"mysql -u root -p";
+		enter root password for mysql which was setted during installation;
+		CREATE DATABASE charity DEFAULT CHARACTER SET utf8;
+  		CREATE USER 'charityAdmin'@'localhost' IDENTIFIED BY 'CharServ2015';
+  		GRANT ALL PRIVILEGES ON * . * TO 'charityAdmin'@'localhost';
+  		FLUSH PRIVILEGES;
+clone project 'repository' branch (https://github.com/ArtStepanyuk/side-project/tree/repository/charity-app);
+install maven (https://maven.apache.org/install.html);
+run cmd and go to project folder and run spring boot goal:
+	 .../side-project/charity-app$  mvn spring-boot:run
