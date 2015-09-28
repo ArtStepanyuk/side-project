@@ -9,12 +9,9 @@ import com.softserveinc.charity.util.Constants;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -23,9 +20,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
-@WebIntegrationTest(value = "server.port=9000")
 //@Ignore
-public class RegistrationFlowTest extends WebTest{
+public class RegistrationFlowTest extends AbstractWebIntegrationTest {
 
     @Autowired
     private UserRepository userRepository;

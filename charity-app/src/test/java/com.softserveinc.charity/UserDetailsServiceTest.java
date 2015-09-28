@@ -3,16 +3,14 @@ package com.softserveinc.charity;
 
 import com.softserveinc.charity.model.User;
 import com.softserveinc.charity.repository.UserRepository;
-import com.softserveinc.charity.service.security.UserDetailsService;
+import com.softserveinc.charity.security.service.UserDetailsService;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-@WebIntegrationTest(value = "server.port=9000")
-public class UserDetailsServiceTest extends WebTest {
+public class UserDetailsServiceTest extends AbstractWebIntegrationTest {
 
     @Autowired
     UserDetailsService userDetailsService;

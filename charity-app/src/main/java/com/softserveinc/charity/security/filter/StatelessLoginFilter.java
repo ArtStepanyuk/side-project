@@ -1,10 +1,10 @@
-package com.softserveinc.charity.filter.security;
+package com.softserveinc.charity.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.softserveinc.charity.model.User;
 import com.softserveinc.charity.model.UserAuthentication;
-import com.softserveinc.charity.service.security.TokenAuthenticationService;
-import com.softserveinc.charity.service.security.UserDetailsService;
+import com.softserveinc.charity.security.service.TokenAuthenticationService;
+import com.softserveinc.charity.security.service.UserDetailsService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

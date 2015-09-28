@@ -3,6 +3,7 @@ package com.softserveinc.charity.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
@@ -26,6 +27,7 @@ import static org.hibernate.cfg.AvailableSettings.FORMAT_SQL;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.softserveinc.charity.repository"})
+@EnableElasticsearchRepositories("com.softserveinc.charity.repository.search")
 @ComponentScan(basePackages = "com.softserveinc.charity", excludeFilters = {
         @ComponentScan.Filter(value = Controller.class, type = FilterType.ANNOTATION),
         @ComponentScan.Filter(value = Configuration.class, type = FilterType.ANNOTATION)

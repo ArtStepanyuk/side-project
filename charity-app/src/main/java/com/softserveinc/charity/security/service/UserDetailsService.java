@@ -1,4 +1,4 @@
-package com.softserveinc.charity.service.security;
+package com.softserveinc.charity.security.service;
 
 import com.softserveinc.charity.model.User;
 import com.softserveinc.charity.repository.UserRepository;

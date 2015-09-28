@@ -1,10 +1,10 @@
-package com.softserveinc.charity.service.security;
+package com.softserveinc.charity.security.service;
 
 import com.softserveinc.charity.model.User;
 import com.softserveinc.charity.model.UserAuthentication;
 import com.softserveinc.charity.repository.UserRepository;
+import com.softserveinc.charity.security.util.TokenHandler;
 import com.softserveinc.charity.util.Constants;
-import com.softserveinc.charity.util.security.TokenHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -40,7 +40,6 @@ public class TokenAuthenticationService {
 		if (token != null) {
 			final User user = tokenHandler.parseUserFromToken(token);
 			if (user != null) {
-				userRepo.save(user);
 				return new UserAuthentication(user);
 			}
 		}
