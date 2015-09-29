@@ -2,10 +2,15 @@ package com.softserveinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +18,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "offers")
+@Document(indexName = "offers",  type = "offer", shards = 1, replicas = 0, refreshInterval = "-1", indexStoreType = "fs")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public class Offer implements Serializable{
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 
@@ -27,9 +35,11 @@ public class Offer implements Serializable{
     private String description;
 
     @OneToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Image> images;
 
     @OneToOne
+    @Field( type = FieldType.Nested)
     private City city;
 
     @Column
