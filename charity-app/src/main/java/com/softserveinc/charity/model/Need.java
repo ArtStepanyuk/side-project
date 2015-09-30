@@ -3,12 +3,10 @@ package com.softserveinc.charity.model;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.springframework.data.elasticsearch.annotations.*;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;

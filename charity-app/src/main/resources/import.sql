@@ -1,15 +1,15 @@
-insert into users (name, email, password) VALUES ('admin', 'admin@gmail.com', '$2a$11$ilYAuWk/iKWJdF9INr0KIuVTKMUkfivrj840hSNzurkLuuaUtgmqq')
-insert into users (name, email, password) VALUES ('volunteer', 'volunteer@gmail.com', '$2a$11$xVEVTGKA5mtgfPMdPPCvDOuMARk75c1GwRLgKZhhhNm.59wuVeYCS')
-insert into users (name, email, password) VALUES ('user', 'user@gmail.com', '$2a$10$U.4xVs8hQ9HYPYm/u7uJOee/bGh41QFOhd/jWdD57cdSvlSQ6zfzG')
-insert into user_roles (description, role) VALUES ('admin', 'ADMIN')
-insert into user_roles (description, role) VALUES ('volunteer', 'VOLUNTEER')
-insert into user_roles (description, role) VALUES ('user', 'USER')
-insert into roles_users(user_id, role_id) VALUES  (1, 1)
-insert into roles_users(user_id, role_id) VALUES  (2, 1)
-insert into roles_users(user_id, role_id) VALUES  (2, 2)
-insert into roles_users(user_id, role_id) VALUES  (3, 1)
-insert into roles_users(user_id, role_id) VALUES  (3, 2)
-insert into roles_users(user_id, role_id) VALUES  (3, 3)
+insert into users (name, email, password) VALUES ('admin', 'admin@gmail.com', '$2a$11$ilYAuWk/iKWJdF9INr0KIuVTKMUkfivrj840hSNzurkLuuaUtgmqq');
+insert into users (name, email, password) VALUES ('volunteer', 'volunteer@gmail.com', '$2a$11$xVEVTGKA5mtgfPMdPPCvDOuMARk75c1GwRLgKZhhhNm.59wuVeYCS');
+insert into users (name, email, password) VALUES ('user', 'user@gmail.com', '$2a$10$U.4xVs8hQ9HYPYm/u7uJOee/bGh41QFOhd/jWdD57cdSvlSQ6zfzG');
+insert into user_roles (description, role) VALUES ('admin', 'ADMIN');
+insert into user_roles (description, role) VALUES ('volunteer', 'VOLUNTEER');
+insert into user_roles (description, role) VALUES ('user', 'USER');
+insert into roles_users(user_id, role_id) VALUES  (1, 1);
+insert into roles_users(user_id, role_id) VALUES  (2, 1);
+insert into roles_users(user_id, role_id) VALUES  (2, 2);
+insert into roles_users(user_id, role_id) VALUES  (3, 1);
+insert into roles_users(user_id, role_id) VALUES  (3, 2);
+insert into roles_users(user_id, role_id) VALUES  (3, 3);
 
 
 insert into categories (name, parent_id) VALUES ('clothes', null);
@@ -2635,15 +2635,15 @@ INSERT INTO needs(name, description, address, city_id, userCreated_id, category_
 INSERT INTO needs(name, description, address, city_id, userCreated_id, category_id, actualTo, convenientTime, pickup) VALUES ("trousers adidas","XL red","Poltavskaja 144 app 31", 11, 2, 4, now(), "1442850455478", false);
 INSERT INTO needs(name, description, address, city_id, userCreated_id, category_id, actualTo, convenientTime, pickup) VALUES ("trousers jordan","XL white","Poltavskaja 144 app 31", 11, 2, 4, now(), "1442850455478", true);
 
-INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup) VALUES ("outerwear columbia","XL black","Lvivskaja 2 house 12 ", 10, now(), "1442850455478", true);
-INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup) VALUES ("outerwear nike ","XL black","Lvivskaja 2 house 12 ", 10, now(), "1442850455478", true);
-INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup) VALUES ("outerwear adidas","XXL black","Lvivskaja 2 house 12 ", 10, now(), "1442850455478", true);
-INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup) VALUES ("outerwear puma","L red","Lvivskaja 2 house 12 ", 10, now(), "1442850455478", true);
-INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup) VALUES ("trousers columbia","S yellow","Kharkivska 4 dom 11", 11, now(), "1442850455478", false);
-INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup) VALUES ("trousers nike","M black","Kharkivska 4 dom 11", 11, now(), "1442850455478", false);
-INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup) VALUES ("trousers puma","L black","Kharkivska 4 dom 11", 11, now(), "1442850455478", true);
-INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup) VALUES ("trousers adidas","XL red","Kharkivska 4 dom 11", 11, now(), "1442850455478", false);
-INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup) VALUES ("trousers jordan","XL white","Kharkivska 4 dom 11", 11, now(), "1442850455478", true);
+INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup, userCreated_id) VALUES ("outerwear columbia","XL black","Lvivskaja 2 house 12 ", 10, now(), "1442850455478", true, 1);
+INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup, userCreated_id) VALUES ("outerwear nike ","XL black","Lvivskaja 2 house 12 ", 10, now(), "1442850455478", true, 1);
+INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup, userCreated_id) VALUES ("outerwear adidas","XXL black","Lvivskaja 2 house 12 ", 10, now(), "1442850455478", true, 1);
+INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup, userCreated_id) VALUES ("outerwear puma","L red","Lvivskaja 2 house 12 ", 10, now(), "1442850455478", true, 1);
+INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup, userCreated_id) VALUES ("trousers columbia","S yellow","Kharkivska 4 dom 11", 11, now(), "1442850455478", false, 1);
+INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup, userCreated_id) VALUES ("trousers nike","M black","Kharkivska 4 dom 11", 11, now(), "1442850455478", false, 2);
+INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup, userCreated_id) VALUES ("trousers puma","L black","Kharkivska 4 dom 11", 11, now(), "1442850455478", true, 2);
+INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup, userCreated_id) VALUES ("trousers adidas","XL red","Kharkivska 4 dom 11", 11, now(), "1442850455478", false, 2);
+INSERT INTO offers(name, description, address, city_id, actualTo, convenientTime, pickup, userCreated_id) VALUES ("trousers jordan","XL white","Kharkivska 4 dom 11", 11, now(), "1442850455478", true, 2);
 
 --INSERT INTO offers(name, description, address, city_id, userCreated_id, category_id, actualTo, convenientTime, pickup) VALUES ("outerwear columbia","XL black","Lvivskaja 2 house 12 ", 10, 1, 2, now(), "1442850455478", true);
 --INSERT INTO offers(name, description, address, city_id, userCreated_id, category_id, actualTo, convenientTime, pickup) VALUES ("outerwear nike ","XL black","Lvivskaja 2 house 12 ", 10, 1, 2, now(), "1442850455478", true);

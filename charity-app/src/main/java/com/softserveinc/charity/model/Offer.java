@@ -3,14 +3,10 @@ package com.softserveinc.charity.model;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,11 +15,11 @@ import java.util.Set;
 @Entity
 @Table(name = "offers")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Offer implements Serializable{
+public class Offer implements Serializable {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column
@@ -52,6 +48,9 @@ public class Offer implements Serializable{
 
     @Column
     private Boolean pickup;
+
+    @OneToOne
+    private User userCreated;
 
     @JsonGetter
     public String getFormattedActualTo() {
@@ -124,5 +123,13 @@ public class Offer implements Serializable{
 
     public void setPickup(Boolean pickup) {
         this.pickup = pickup;
+    }
+
+    public User getUserCreated() {
+        return userCreated;
+    }
+
+    public void setUserCreated(User userCreated) {
+        this.userCreated = userCreated;
     }
 }
