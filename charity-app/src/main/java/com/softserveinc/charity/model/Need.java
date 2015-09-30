@@ -15,9 +15,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "needs")
-@Document(indexName = "needs",  type = "need", shards = 1, replicas = 0, refreshInterval = "-1", indexStoreType = "fs")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public class Need implements Serializable{
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 
@@ -32,7 +30,6 @@ public class Need implements Serializable{
     private String description;
 
     @OneToOne
-    @Field( type = FieldType.Nested)
     private City city;
 
     @Column
@@ -50,11 +47,9 @@ public class Need implements Serializable{
     private Boolean pickup;
 
     @OneToOne
-    @Field( type = FieldType.Nested)
     private User userCreated;
 
     @OneToOne
-    @Field( type = FieldType.Nested)
     private Category category;
 
     @JsonGetter

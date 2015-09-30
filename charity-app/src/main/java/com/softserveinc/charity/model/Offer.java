@@ -18,9 +18,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "offers")
-@Document(indexName = "offers",  type = "offer", shards = 1, replicas = 0, refreshInterval = "-1", indexStoreType = "fs")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public class Offer implements Serializable{
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 
@@ -39,7 +37,6 @@ public class Offer implements Serializable{
     private Set<Image> images;
 
     @OneToOne
-    @Field( type = FieldType.Nested)
     private City city;
 
     @Column

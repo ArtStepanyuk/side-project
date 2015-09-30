@@ -11,7 +11,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "regions")
-@Document(indexName = "regions", type = "region", shards = 1, replicas = 0, refreshInterval = "-1", indexStoreType = "fs")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Region implements Serializable {

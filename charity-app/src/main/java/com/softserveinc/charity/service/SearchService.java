@@ -21,10 +21,10 @@ import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 @Transactional
 public class SearchService {
 
-    @Autowired
+    //@Autowired
     NeedSearchRepository needSearchRepository;
 
-    public List<Need> findNeeds(String userInput){
+    /*public List<Need> findNeeds(String userInput){
         BoolQueryBuilder builder = boolQuery();
         builder
                 .should(matchQuery("name", userInput))
@@ -41,5 +41,5 @@ public class SearchService {
 
         Page<Need> page = needSearchRepository.search(searchQuery);
         return page.getContent();
-    }
+    }*/
 }

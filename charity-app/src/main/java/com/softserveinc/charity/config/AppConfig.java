@@ -27,7 +27,7 @@ import static org.hibernate.cfg.AvailableSettings.FORMAT_SQL;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.softserveinc.charity.repository"})
-@EnableElasticsearchRepositories("com.softserveinc.charity.repository.search")
+//@EnableElasticsearchRepositories("com.softserveinc.charity.repository.search")
 @ComponentScan(basePackages = "com.softserveinc.charity", excludeFilters = {
         @ComponentScan.Filter(value = Controller.class, type = FilterType.ANNOTATION),
         @ComponentScan.Filter(value = Configuration.class, type = FilterType.ANNOTATION)
