@@ -3,7 +3,6 @@ package com.softserveinc.charity.model;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -18,9 +17,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "offers")
+@NamedEntityGraph(name = "Offer.detail", includeAllAttributes = true)
 @Document(indexName = "offers",  type = "offer", shards = 1, replicas = 0, refreshInterval = "-1", indexStoreType = "fs")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public class Offer implements Serializable{
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 
