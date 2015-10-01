@@ -10,6 +10,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "needs")
@@ -49,6 +50,38 @@ public class Need implements Serializable{
 
     @OneToOne
     private Category category;
+
+    @Column
+    private Date created;
+
+    @Column
+    private Date updated;
+
+    @PrePersist
+    protected void onCreate() {
+        created = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated = new Date();
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
 
     @JsonGetter
     public String getFormattedActualTo() {
