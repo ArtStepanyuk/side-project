@@ -1,7 +1,6 @@
 package com.softserveinc.charity.repository.jpa;
 
-import com.softserveinc.charity.model.Offer;
-import org.springframework.context.annotation.DependsOn;
+import com.softserveinc.charity.model.offer.Offer;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

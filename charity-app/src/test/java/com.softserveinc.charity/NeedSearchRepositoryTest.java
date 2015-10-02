@@ -1,6 +1,9 @@
 package com.softserveinc.charity;
 
 import com.softserveinc.charity.model.*;
+import com.softserveinc.charity.model.need.Need;
+import com.softserveinc.charity.model.need.NeedDetails;
+import com.softserveinc.charity.repository.converter.Converter;
 import com.softserveinc.charity.repository.jpa.CategoryRepository;
 import com.softserveinc.charity.repository.jpa.CityRepository;
 import com.softserveinc.charity.repository.jpa.NeedRepository;
@@ -10,7 +13,7 @@ import com.softserveinc.charity.service.SearchService;
 import org.joda.time.LocalDate;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
+import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -19,8 +22,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 
-//@Ignore
-@Transactional(propagation= Propagation.REQUIRES_NEW)
+@Transactional
 public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
     @Resource
@@ -42,6 +44,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     SearchService searchService;
 
     List<Need> needs = new ArrayList<>();
+    List<NeedDetails> needDetailses = new ArrayList<>();
     City city1;
     City city2;
     @Before
@@ -93,7 +96,11 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         needSearchRepository.deleteAll();
 
         needRepository.save(needs);
-        needSearchRepository.save(needs);
+
+        needDetailses.add(Converter.convert(need1));
+        needDetailses.add(Converter.convert(need2));
+        needDetailses.add(Converter.convert(need3));
+        needSearchRepository.save(needDetailses);
     }
 
     @Test
@@ -101,38 +108,42 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
         List<Need> needs_ = needRepository.findAll();
         Assert.assertNotNull(needs_);
-        //Assert.assertThat(needs_.size(), is(3));
+        //Assert.assertThat(needs_.size(), is(12));
 
-        List<Need> needs1_= needSearchRepository.findByName("needYYY");
+        List<NeedDetails> needs1_= needSearchRepository.findByName("needYYY");
         Assert.assertThat(needs1_.size(), is(1));
     }
 
     @Test
     public void find_by_some_input_name(){
-        List<Need> needs_ = searchService.findNeeds("need");
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds("need");
         Assert.assertNotNull(needs_);
-        Assert.assertThat(needs_.size(), is(3));
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(3));
     }
 
     @Test
     public void find_by_some_input_address(){
-        List<Need> needs_ = searchService.findNeeds("Address 2222");// TODO
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds("Address 2222");// TODO
         Assert.assertNotNull(needs_);
-        Assert.assertThat(needs_.size(), is(3));
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(3));
     }
 
     @Test
     public void find_by_some_input_city(){
-        List<Need> needs_ = searchService.findNeeds(city2.getName());
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(city2.getName());
         Assert.assertNotNull(needs_);
-        Assert.assertThat(needs_.size(), is(2));
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(2));
     }
 
     @Test
     public void find_by_some_input_region(){
-        List<Need> needs_ = searchService.findNeeds(city1.getRegion().getName());
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(city1.getRegion().getName());
         Assert.assertNotNull(needs_);
-        Assert.assertThat(needs_.size(), is(3));
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(3));
     }
 
     @After
