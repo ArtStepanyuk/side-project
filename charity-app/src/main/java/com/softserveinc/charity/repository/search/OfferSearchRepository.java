@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface OfferSearchRepository extends ElasticsearchRepository<Offer, Integer>
 {
-    //List<Offer> findByName(String name);
+    List<Offer> findByName(String name);
 }

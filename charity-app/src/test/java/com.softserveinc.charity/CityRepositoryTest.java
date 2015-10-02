@@ -2,7 +2,7 @@ package com.softserveinc.charity;
 
 import com.softserveinc.charity.model.City;
 import com.softserveinc.charity.model.Region;
-import com.softserveinc.charity.repository.CityRepository;
+import com.softserveinc.charity.repository.jpa.CityRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

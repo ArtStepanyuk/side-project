@@ -1,5 +1,6 @@
 package com.softserveinc.charity.model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
@@ -7,11 +8,12 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "categories")
-@Document(indexName = "categories", type = "category", shards = 1, replicas = 0, refreshInterval = "-1", indexStoreType = "fs")
+@Document(indexName = "category")
 //@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Category implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @javax.persistence.Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     @Column

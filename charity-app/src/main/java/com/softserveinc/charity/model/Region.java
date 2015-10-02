@@ -1,6 +1,7 @@
 package com.softserveinc.charity.model;
 
 import com.fasterxml.jackson.annotation.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
@@ -11,12 +12,13 @@ import java.util.Set;
 
 @Entity
 @Table(name = "regions")
-@Document(indexName = "regions", type = "region", shards = 1, replicas = 0, refreshInterval = "-1", indexStoreType = "fs")
+@Document(indexName = "region")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Region implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @javax.persistence.Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     @Column

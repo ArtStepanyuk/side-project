@@ -1,13 +1,15 @@
 package com.softserveinc.charity;
 
 import com.softserveinc.charity.model.*;
-import com.softserveinc.charity.repository.*;
+import com.softserveinc.charity.repository.jpa.CategoryRepository;
+import com.softserveinc.charity.repository.jpa.CityRepository;
+import com.softserveinc.charity.repository.jpa.NeedRepository;
+import com.softserveinc.charity.repository.jpa.UserRepository;
 import com.softserveinc.charity.repository.search.NeedSearchRepository;
 import com.softserveinc.charity.service.SearchService;
 import org.joda.time.LocalDate;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 
 //@Ignore
+@Transactional(propagation= Propagation.REQUIRES_NEW)
 public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
     @Resource
@@ -94,20 +97,17 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     }
 
     @Test
-    @Ignore
-    @Transactional(propagation= Propagation.REQUIRES_NEW)
     public void find_by_name_test() {
 
-        //List<Need> needs_ = needRepository.findAll();
-        //Assert.assertNotNull(needs_);
+        List<Need> needs_ = needRepository.findAll();
+        Assert.assertNotNull(needs_);
         //Assert.assertThat(needs_.size(), is(3));
 
-        //List<Need> needs1_= needSearchRepository.findByName("needYYY");
-        //Assert.assertThat(needs1_.size(), is(1));
+        List<Need> needs1_= needSearchRepository.findByName("needYYY");
+        Assert.assertThat(needs1_.size(), is(1));
     }
 
     @Test
-    @Transactional(propagation= Propagation.REQUIRES_NEW)
     public void find_by_some_input_name(){
         List<Need> needs_ = searchService.findNeeds("need");
         Assert.assertNotNull(needs_);
@@ -115,7 +115,6 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     }
 
     @Test
-    @Transactional(propagation= Propagation.REQUIRES_NEW)
     public void find_by_some_input_address(){
         List<Need> needs_ = searchService.findNeeds("Address 2222");// TODO
         Assert.assertNotNull(needs_);
@@ -123,7 +122,6 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     }
 
     @Test
-    @Transactional(propagation= Propagation.REQUIRES_NEW)
     public void find_by_some_input_city(){
         List<Need> needs_ = searchService.findNeeds(city2.getName());
         Assert.assertNotNull(needs_);
@@ -131,7 +129,6 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     }
 
     @Test
-    @Transactional(propagation= Propagation.REQUIRES_NEW)
     public void find_by_some_input_region(){
         List<Need> needs_ = searchService.findNeeds(city1.getRegion().getName());
         Assert.assertNotNull(needs_);

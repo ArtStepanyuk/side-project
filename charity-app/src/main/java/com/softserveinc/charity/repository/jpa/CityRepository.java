@@ -1,4 +1,4 @@
-package com.softserveinc.charity.repository;
+package com.softserveinc.charity.repository.jpa;
 
 import com.softserveinc.charity.model.City;
 

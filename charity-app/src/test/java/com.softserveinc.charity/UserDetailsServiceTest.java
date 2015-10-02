@@ -2,7 +2,7 @@ package com.softserveinc.charity;
 
 
 import com.softserveinc.charity.model.User;
-import com.softserveinc.charity.repository.UserRepository;
+import com.softserveinc.charity.repository.jpa.UserRepository;
 import com.softserveinc.charity.security.service.UserDetailsService;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;

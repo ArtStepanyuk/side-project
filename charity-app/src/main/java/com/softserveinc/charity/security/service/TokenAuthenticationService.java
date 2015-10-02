@@ -2,7 +2,7 @@ package com.softserveinc.charity.security.service;
 
 import com.softserveinc.charity.model.User;
 import com.softserveinc.charity.model.UserAuthentication;
-import com.softserveinc.charity.repository.UserRepository;
+import com.softserveinc.charity.repository.jpa.UserRepository;
 import com.softserveinc.charity.security.util.TokenHandler;
 import com.softserveinc.charity.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
