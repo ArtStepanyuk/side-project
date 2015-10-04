@@ -1,33 +1,55 @@
 package com.softserveinc.charity.controller;
 
 
-import com.softserveinc.charity.service.SearchService;
+import com.softserveinc.charity.model.need.NeedDetails;
+import com.softserveinc.charity.elasticsearch.ElasticSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.PersistentEntityResource;
-import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.data.elasticsearch.core.FacetedPage;
+import org.springframework.data.rest.webmvc.RepositoryLinksResource;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.ResourceProcessor;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.web.bind.annotation.*;
 
-@RepositoryRestController
-public class SearchController {
+import javax.websocket.server.PathParam;
+
+@RestController
+@RequestMapping("/search")
+@ExposesResourceFor(NeedDetails.class)
+public class SearchController implements ResourceProcessor<RepositoryLinksResource>
+{
 
     @Autowired
-    private SearchService searchService;
+    private ElasticSearchService elasticSearchService;
 
     @ResponseBody
-    @RequestMapping(value = "/needs/search",method = RequestMethod.GET, produces = "application/hal+json")
-    public PersistentEntityResource searchNeeds(PersistentEntityResourceAssembler assembler)
+    @RequestMapping(value = "/{type}",method = RequestMethod.GET, produces = "application/hal+json")
+    public FacetedPage searchNeeds(@PathVariable("type") String type,
+                                   @RequestParam(value = "wirecard",required = false) boolean wirecard,
+                                   @RequestParam(value = "query",required = true) String query,
+                                   @RequestParam(value = "region",required = false) String region,
+                                   @RequestParam(value = "city",required = false) String city,
+                                   @RequestParam(value = "category",required = false) String category)
     {
-        return assembler.toFullResource(searchService.findNeeds("some"));
+        switch (type){
+            case "needs":
+                return elasticSearchService.findNeeds(wirecard, query, region, city, category);
+            case "offers":
+                return elasticSearchService.findOffers(wirecard, query, region, city, category);
+            default:
+                throw new ResourceNotFoundException(String.format("Resource with type {%s} was not found", type));
+        }
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/offers/search",method = RequestMethod.GET, produces = "application/hal+json")
-    public PersistentEntityResource searchOffers(PersistentEntityResourceAssembler assembler)
-    {
-        return assembler.toFullResource(searchService.findOffers("offer"));
+    @Override
+    public RepositoryLinksResource process(RepositoryLinksResource resource) {
+        resource
+                .add(ControllerLinkBuilder.linkTo(SearchController.class)
+                        .withRel("/api/search/needs"));
+        resource
+                .add(ControllerLinkBuilder.linkTo(SearchController.class)
+                        .withRel("/api/search/offers"));
+        return resource;
     }
-
 }
