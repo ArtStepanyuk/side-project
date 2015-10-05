@@ -11,15 +11,17 @@ import org.joda.time.format.DateTimeFormatter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "needs")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Need implements Serializable{
+public class Need implements Serializable {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column
@@ -47,6 +49,10 @@ public class Need implements Serializable{
 
     @OneToOne
     private User userCreated;
+
+    /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="need")
+    private Set<NeedResponse> needResponses;
 
     @OneToOne
     private Category category;
@@ -90,6 +96,10 @@ public class Need implements Serializable{
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -162,5 +172,13 @@ public class Need implements Serializable{
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Set<NeedResponse> getNeedResponses() {
+        return needResponses;
+    }
+
+    public void setNeedResponses(Set<NeedResponse> needResponses) {
+        this.needResponses = needResponses;
     }
 }
