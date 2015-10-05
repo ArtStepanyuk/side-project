@@ -3,8 +3,7 @@ package com.softserveinc.charity.model.offer;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.softserveinc.charity.model.City;
-import com.softserveinc.charity.model.Image;
+import com.softserveinc.charity.model.*;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -14,13 +13,15 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 
 @NamedEntityGraph(name = "Offer.detail", includeAllAttributes = true)
 @MappedSuperclass
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class BaseOffer {
+public class BaseOffer implements Serializable{
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 
     @Id
@@ -56,11 +57,58 @@ public class BaseOffer {
     @Column
     private Boolean pickup;
 
+    @OneToOne
+    @Field( type = FieldType.Nested)
+    private Category category;
+
+    @OneToOne
+    @Field( type = FieldType.Nested)
+    private User userCreated;
+
+    /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "offer")
+    private Set<OfferResponse> offerResponses;
+
+    @Column
+    private Date created;
+
+    @Column
+    private Date updated;
+
+    @PrePersist
+    protected void onCreate() {
+        created = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated = new Date();
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
     @JsonGetter
     public String getFormattedActualTo() {
         return this.actualTo != null ? DATE_TIME_FORMATTER.print(this.actualTo) : null;
     }
 
+    /**
+     * Access methods
+     */
     public Integer getId() {
         return id;
     }
@@ -127,5 +175,29 @@ public class BaseOffer {
 
     public void setPickup(Boolean pickup) {
         this.pickup = pickup;
+    }
+
+    public User getUserCreated() {
+        return userCreated;
+    }
+
+    public void setUserCreated(User userCreated) {
+        this.userCreated = userCreated;
+    }
+
+    public Set<OfferResponse> getOfferResponses() {
+        return offerResponses;
+    }
+
+    public void setOfferResponses(Set<OfferResponse> offerResponses) {
+        this.offerResponses = offerResponses;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

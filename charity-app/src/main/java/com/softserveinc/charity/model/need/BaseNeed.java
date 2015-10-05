@@ -3,18 +3,17 @@ package com.softserveinc.charity.model.need;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.softserveinc.charity.model.Category;
-import com.softserveinc.charity.model.City;
-import com.softserveinc.charity.model.User;
+import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
 @NamedEntityGraph(name = "Need.detail", includeAllAttributes = true)
 @MappedSuperclass
@@ -59,13 +58,53 @@ public class BaseNeed implements Serializable{
     @Field( type = FieldType.Nested)
     private User userCreated;
 
+    /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="need")
+    private Set<NeedResponse> needResponses;
+
     @OneToOne
     @Field( type = FieldType.Nested)
     private Category category;
 
+    @Column
+    private Date created;
+
+    @Column
+    private Date updated;
+
+    @PrePersist
+    protected void onCreate() {
+        created = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated = new Date();
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
     @JsonGetter
     public String getFormattedActualTo() {
         return this.actualTo != null ? DATE_TIME_FORMATTER.print(this.actualTo) : null;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -138,5 +177,13 @@ public class BaseNeed implements Serializable{
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Set<NeedResponse> getNeedResponses() {
+        return needResponses;
+    }
+
+    public void setNeedResponses(Set<NeedResponse> needResponses) {
+        this.needResponses = needResponses;
     }
 }

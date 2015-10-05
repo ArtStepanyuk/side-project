@@ -24,7 +24,10 @@ public class Region implements Serializable {
     @Column
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
+    /**
+     * Do not put Lazy fetch
+     */
+    @OneToMany(mappedBy = "region")
     @JsonIgnore
     private Set<City> cities;
 

@@ -22,7 +22,10 @@ public class City implements Serializable{
     @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    /**
+     * Do not put Lazy fetch
+     */
+    @ManyToOne
     @JoinColumn(name = "region_id", nullable = false)
     @Field(type = FieldType.Nested)
     private Region region;
