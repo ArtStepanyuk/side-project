@@ -53,8 +53,8 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
         Category category_parent = categoryRepository.findOne(1);
         Category category_child = categoryRepository.findOne(2);
-        city1 = cityRepository.findByRegionId(1).get(0);
-        city2 = cityRepository.findByRegionId(1).get(1);
+        city1 = cityRepository.findByRegionId(6).get(0);
+        city2 = cityRepository.findByRegionId(6).get(1);
         /*
         TODO : create test user in sql
          */
@@ -127,7 +127,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
     @Test
     public void find_by_some_input_address(){
-        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, "Address 2222", null, null, null);// TODO
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, "Address", null, null, null);// TODO
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(3));
@@ -135,7 +135,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
     @Test
     public void find_by_some_input_city(){
-        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, "need", null, city2.getName(), null);
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, null, null, city2.getName(), null);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(2));
@@ -144,6 +144,15 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     @Test
     public void find_by_some_input_region(){
         FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, null);
+        Assert.assertNotNull(needs_);
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(3));
+    }
+
+    @Test
+    @Ignore
+    public void find_by_some_input_wildcard(){
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(true, "Na", null, null, null);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(3));

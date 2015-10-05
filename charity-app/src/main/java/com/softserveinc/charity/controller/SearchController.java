@@ -12,8 +12,6 @@ import org.springframework.hateoas.ResourceProcessor;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-
 @RestController
 @RequestMapping("/search")
 @ExposesResourceFor(NeedDetails.class)
@@ -26,7 +24,7 @@ public class SearchController implements ResourceProcessor<RepositoryLinksResour
     @ResponseBody
     @RequestMapping(value = "/{type}",method = RequestMethod.GET, produces = "application/hal+json")
     public FacetedPage searchNeeds(@PathVariable("type") String type,
-                                   @RequestParam(value = "wirecard",required = false) boolean wirecard,
+                                   @RequestParam(value = "wildcard",required = false) boolean wildcard,
                                    @RequestParam(value = "query",required = true) String query,
                                    @RequestParam(value = "region",required = false) String region,
                                    @RequestParam(value = "city",required = false) String city,
@@ -34,9 +32,9 @@ public class SearchController implements ResourceProcessor<RepositoryLinksResour
     {
         switch (type){
             case "needs":
-                return elasticSearchService.findNeeds(wirecard, query, region, city, category);
+                return elasticSearchService.findNeeds(wildcard, query, region, city, category);
             case "offers":
-                return elasticSearchService.findOffers(wirecard, query, region, city, category);
+                return elasticSearchService.findOffers(wildcard, query, region, city, category);
             default:
                 throw new ResourceNotFoundException(String.format("Resource with type {%s} was not found", type));
         }
