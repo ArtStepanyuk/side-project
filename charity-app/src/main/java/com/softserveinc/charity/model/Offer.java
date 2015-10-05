@@ -53,6 +53,10 @@ public class Offer implements Serializable {
     @OneToOne
     private User userCreated;
 
+    /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "offer")
+    private Set<OfferResponse> offerResponses;
+
     @Column
     private Date created;
 
@@ -90,6 +94,9 @@ public class Offer implements Serializable {
         return this.actualTo != null ? DATE_TIME_FORMATTER.print(this.actualTo) : null;
     }
 
+    /**
+     * Access methods
+     */
     public Integer getId() {
         return id;
     }
@@ -164,5 +171,13 @@ public class Offer implements Serializable {
 
     public void setUserCreated(User userCreated) {
         this.userCreated = userCreated;
+    }
+
+    public Set<OfferResponse> getOfferResponses() {
+        return offerResponses;
+    }
+
+    public void setOfferResponses(Set<OfferResponse> offerResponses) {
+        this.offerResponses = offerResponses;
     }
 }

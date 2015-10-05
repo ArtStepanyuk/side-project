@@ -7,8 +7,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "needs_responses")
-public class NeedResponse implements Serializable {
+@Table(name = "offers_responses")
+public class OfferResponse implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +20,10 @@ public class NeedResponse implements Serializable {
     @Column
     private Date created;
 
-    /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
+    /* Do not put lazy fetch case offerResponses/1/offer will fail (https://jira.spring.io/browse/DATAJPA-630) */
     @ManyToOne
-    @JoinColumn(name = "need_id")
-    private Need need;
+    @JoinColumn(name = "offer_id")
+    private Offer offer;
 
     @ManyToOne
     private User user;
@@ -72,12 +72,12 @@ public class NeedResponse implements Serializable {
         this.created = created;
     }
 
-    public Need getNeed() {
-        return need;
+    public Offer getOffer() {
+        return offer;
     }
 
-    public void setNeed(Need need) {
-        this.need = need;
+    public void setOffer(Offer need) {
+        this.offer = offer;
     }
 
     public User getUser() {
