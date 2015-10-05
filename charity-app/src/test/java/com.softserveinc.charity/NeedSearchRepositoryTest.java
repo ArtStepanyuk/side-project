@@ -150,7 +150,6 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     }
 
     @Test
-    @Ignore
     public void find_by_some_input_wildcard(){
         FacetedPage<NeedDetails> needs_ = searchService.findNeeds(true, "Na", null, null, null);
         Assert.assertNotNull(needs_);

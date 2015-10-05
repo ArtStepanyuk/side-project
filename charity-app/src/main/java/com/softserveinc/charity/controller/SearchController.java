@@ -13,7 +13,7 @@ import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/search")
+@RequestMapping("/api/search")
 @ExposesResourceFor(NeedDetails.class)
 public class SearchController implements ResourceProcessor<RepositoryLinksResource>
 {

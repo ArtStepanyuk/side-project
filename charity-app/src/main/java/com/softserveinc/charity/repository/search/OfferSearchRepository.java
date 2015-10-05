@@ -7,7 +7,6 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import java.util.List;
 
 @RestResource(exported = false)
-public interface OfferSearchRepository extends ElasticsearchRepository<OfferDetails, Integer>
-{
+public interface OfferSearchRepository extends ElasticsearchRepository<OfferDetails, Integer> {
     List<OfferDetails> findByName(String name);
 }

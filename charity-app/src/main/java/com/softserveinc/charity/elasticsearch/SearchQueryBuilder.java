@@ -10,6 +10,8 @@ import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
 public class SearchQueryBuilder {
 
+    private static final String WILDCARD_POSTFIX = "*";
+
     private String city;
     private String region;
     private String category;
@@ -59,16 +61,23 @@ public class SearchQueryBuilder {
      */
     private QueryBuilder buildWildcardQuery(){
         BoolQueryBuilder builder = boolQuery();
+
+        String wildcardQuery = query;
+
+        if (!wildcardQuery.endsWith(WILDCARD_POSTFIX)){
+            wildcardQuery += WILDCARD_POSTFIX;
+        }
+
         builder.should(
-                queryStringQuery(query)
+                queryStringQuery(wildcardQuery)
                         .analyzeWildcard(true)
                         .field("name", 2.0f)
-                        .field("description"));
+                        .field("description", 1.0f));
 
         builder
                 .should(nestedQuery("userCreated",
-                        queryStringQuery(query)
-                                .field("userCreated.name")));
+                        queryStringQuery(wildcardQuery)
+                                .field("userCreated.name", 3.0f)));
 
         return builder;
     }
@@ -78,21 +87,18 @@ public class SearchQueryBuilder {
         BoolQueryBuilder builder = boolQuery();
 
         if (query != null && StringUtils.isNotEmpty(query)){
-            builder
-                .should(matchQuery("name", query))
-                .should(matchQuery("description", query))
-                .should(matchQuery("address", query))
+            builder.should(multiMatchQuery(query, "name", "description", "address"))
                 .should(nestedQuery("userCreated", termQuery("userCreated.name", query)));
         }
 
         if (category != null && StringUtils.isNotEmpty(category)){
-            builder.should(nestedQuery("category", termQuery("category.name", category)));
+            builder.must(nestedQuery("category", termQuery("category.name", category)));
         }
         if (city != null && StringUtils.isNotEmpty(city)) {
-            builder.should(nestedQuery("city", termQuery("city.name", city)));
+            builder.must(nestedQuery("city", termQuery("city.name", city)));
         }
         if (region != null && StringUtils.isNotEmpty(region)) {
-            builder.should(nestedQuery("city.region", queryString(region).field("city.region.name")));
+            builder.must(nestedQuery("city.region", queryString(region).field("city.region.name")));
         }
         return builder;
     }
