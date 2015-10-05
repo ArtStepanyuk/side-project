@@ -1,6 +1,7 @@
 package com.softserveinc.charity.model;
 
 import com.softserveinc.charity.model.support.ResponseStatus;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +19,7 @@ public class NeedResponse implements Serializable {
     private String description;
 
     @Column
-    private Date created; //TODO: ignore on update(PUT)
+    private Date created;
 
     /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
     @ManyToOne
@@ -29,15 +30,15 @@ public class NeedResponse implements Serializable {
     private User user;
 
     @Column
-    private ResponseStatus responseStatus; //TODO: show only not DELETED
+    private ResponseStatus status = ResponseStatus.NEW; //TODO: show only not DELETED;
 
     @Enumerated(EnumType.ORDINAL)
-    public ResponseStatus getResponseStatus() {
-        return responseStatus;
+    public ResponseStatus getStatus() {
+        return status;
     }
 
-    public void setResponseStatus(ResponseStatus responseStatus) {
-        this.responseStatus = responseStatus;
+    public void setStatus(ResponseStatus status) {
+        this.status = status;
     }
 
     @PrePersist
@@ -45,7 +46,9 @@ public class NeedResponse implements Serializable {
         created = new Date();
     }
 
-    /** Access Methods */
+    /**
+     * Access Methods
+     */
     public Integer getId() {
         return id;
     }
