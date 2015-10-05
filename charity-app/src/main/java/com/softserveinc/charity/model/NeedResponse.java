@@ -1,5 +1,6 @@
 package com.softserveinc.charity.model;
 
+import com.softserveinc.charity.model.need.Need;
 import com.softserveinc.charity.model.support.ResponseStatus;
 
 import javax.persistence.*;
