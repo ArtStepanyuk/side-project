@@ -1,7 +1,7 @@
 package com.softserveinc.charity.model;
 
-import com.fasterxml.jackson.annotation.*;
-import org.springframework.data.elasticsearch.annotations.Document;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,13 +15,16 @@ import java.util.Set;
 //@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Region implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
+    /**
+     * Do not put Lazy fetch
+     */
+    @OneToMany(mappedBy = "region")
     @JsonIgnore
     private Set<City> cities;
 

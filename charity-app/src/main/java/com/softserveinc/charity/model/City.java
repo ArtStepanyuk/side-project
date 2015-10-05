@@ -1,7 +1,9 @@
 package com.softserveinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.elasticsearch.annotations.*;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldIndex;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,7 +21,10 @@ public class City implements Serializable{
     @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    /**
+     * Do not put Lazy fetch
+     */
+    @ManyToOne
     @JoinColumn(name = "region_id", nullable = false)
     private Region region;
 

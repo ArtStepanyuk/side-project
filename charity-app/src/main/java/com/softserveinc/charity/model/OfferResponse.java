@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Entity for offer responses.
+ */
 @Entity
 @Table(name = "offers_responses")
 public class OfferResponse implements Serializable {
@@ -29,8 +32,12 @@ public class OfferResponse implements Serializable {
     private User user;
 
     @Column
-    private ResponseStatus status = ResponseStatus.NEW; //TODO: show only not DELETED;
+    private ResponseStatus status = ResponseStatus.NEW;
 
+    /**
+     * Status saved as int value (0 -> NEW, 1 -> DELETED, 2 -> APPROVED).
+     * @return offer status as {@link ResponseStatus} object.
+     */
     @Enumerated(EnumType.ORDINAL)
     public ResponseStatus getStatus() {
         return status;

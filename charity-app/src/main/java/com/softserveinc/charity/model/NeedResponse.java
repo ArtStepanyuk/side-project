@@ -29,7 +29,7 @@ public class NeedResponse implements Serializable {
     private User user;
 
     @Column
-    private ResponseStatus status = ResponseStatus.NEW; //TODO: show only not DELETED;
+    private ResponseStatus status = ResponseStatus.NEW;
 
     @Enumerated(EnumType.ORDINAL)
     public ResponseStatus getStatus() {
