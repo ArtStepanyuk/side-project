@@ -51,6 +51,9 @@ public class Offer implements Serializable {
     private Boolean pickup;
 
     @OneToOne
+    private Category category;
+
+    @OneToOne
     private User userCreated;
 
     /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
@@ -179,5 +182,13 @@ public class Offer implements Serializable {
 
     public void setOfferResponses(Set<OfferResponse> offerResponses) {
         this.offerResponses = offerResponses;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
