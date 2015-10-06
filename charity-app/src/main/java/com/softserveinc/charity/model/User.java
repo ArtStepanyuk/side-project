@@ -45,6 +45,10 @@ public class User implements UserDetails {
     @Column
     private String password;
 
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
     @Transient
     private String username;
 
@@ -153,5 +157,13 @@ public class User implements UserDetails {
 
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+    @JsonProperty
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
