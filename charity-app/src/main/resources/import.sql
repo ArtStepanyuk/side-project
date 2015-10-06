@@ -1,17 +1,3 @@
-insert into users (name, email, password) VALUES ('admin', 'admin@gmail.com', '$2a$11$ilYAuWk/iKWJdF9INr0KIuVTKMUkfivrj840hSNzurkLuuaUtgmqq');
-insert into users (name, email, password) VALUES ('volunteer', 'volunteer@gmail.com', '$2a$11$xVEVTGKA5mtgfPMdPPCvDOuMARk75c1GwRLgKZhhhNm.59wuVeYCS');
-insert into users (name, email, password) VALUES ('user', 'user@gmail.com', '$2a$10$U.4xVs8hQ9HYPYm/u7uJOee/bGh41QFOhd/jWdD57cdSvlSQ6zfzG');
-insert into user_roles (description, role) VALUES ('admin', 'ADMIN');
-insert into user_roles (description, role) VALUES ('volunteer', 'VOLUNTEER');
-insert into user_roles (description, role) VALUES ('user', 'USER');
-insert into roles_users(user_id, role_id) VALUES  (1, 1);
-insert into roles_users(user_id, role_id) VALUES  (2, 1);
-insert into roles_users(user_id, role_id) VALUES  (2, 2);
-insert into roles_users(user_id, role_id) VALUES  (3, 1);
-insert into roles_users(user_id, role_id) VALUES  (3, 2);
-insert into roles_users(user_id, role_id) VALUES  (3, 3);
-
-
 insert into categories (name, parent_id) VALUES ('clothes', null);
 set @parent1 = LAST_INSERT_ID();
     insert into categories (name, parent_id) VALUES ('child''s', @parent1);
@@ -2624,6 +2610,24 @@ INSERT INTO cities (region_id, name) VALUES (7, 'Jasinja');
 INSERT INTO cities (region_id, name) VALUES (17, 'Jasnogorka');
 INSERT INTO cities (region_id, name) VALUES (10, 'Jasnogorodka');
 INSERT INTO cities (region_id, name) VALUES (1, 'Jasnoe');
+
+insert into addresses(description, phone, city_id) VALUES ("House 4 appartment 2", "077-213-44-44", 1);
+insert into addresses(description, phone, city_id) VALUES ("House 14 appartment 2", "077-213-44-44", 2);
+insert into addresses(description, phone, city_id) VALUES ("Skycraper 43 appartment 2", "077-213-44-44", 3);
+
+insert into users (name, email, password, address_id) VALUES ('admin', 'admin@gmail.com', '$2a$11$ilYAuWk/iKWJdF9INr0KIuVTKMUkfivrj840hSNzurkLuuaUtgmqq', 1);
+insert into users (name, email, password, address_id) VALUES ('volunteer', 'volunteer@gmail.com', '$2a$11$xVEVTGKA5mtgfPMdPPCvDOuMARk75c1GwRLgKZhhhNm.59wuVeYCS', 2);
+insert into users (name, email, password, address_id) VALUES ('user', 'user@gmail.com', '$2a$10$U.4xVs8hQ9HYPYm/u7uJOee/bGh41QFOhd/jWdD57cdSvlSQ6zfzG', 3);
+
+insert into user_roles (description, role) VALUES ('admin', 'ADMIN');
+insert into user_roles (description, role) VALUES ('volunteer', 'VOLUNTEER');
+insert into user_roles (description, role) VALUES ('user', 'USER');
+insert into roles_users(user_id, role_id) VALUES  (1, 1);
+insert into roles_users(user_id, role_id) VALUES  (2, 1);
+insert into roles_users(user_id, role_id) VALUES  (2, 2);
+insert into roles_users(user_id, role_id) VALUES  (3, 1);
+insert into roles_users(user_id, role_id) VALUES  (3, 2);
+insert into roles_users(user_id, role_id) VALUES  (3, 3);
 
 INSERT INTO needs(name, description, address, city_id, userCreated_id, category_id, actualTo, convenientTime, pickup, created) VALUES ("outerwear columbia","XL black","Sumskaja 12 app 2 ", 10, 1, 2, now(), "1442850455478", true, NOW());
 INSERT INTO needs(name, description, address, city_id, userCreated_id, category_id, actualTo, convenientTime, pickup, created) VALUES ("outerwear nike ","XL black","Sumskaja 12 app 2 ", 10, 1, 2, now(), "1442850455478", true, NOW());

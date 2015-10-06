@@ -45,6 +45,10 @@ public class User implements UserDetails {
     @Column
     private String password;
 
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
     @Transient
     private String username;
 
