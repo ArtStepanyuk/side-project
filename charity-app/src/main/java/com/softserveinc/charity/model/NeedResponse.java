@@ -1,5 +1,6 @@
 package com.softserveinc.charity.model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.softserveinc.charity.model.need.Need;
 import com.softserveinc.charity.model.support.ResponseStatus;
 
@@ -8,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "needs_responses")
+@Table(name = "needs_responses", uniqueConstraints = @UniqueConstraint(columnNames={"need_id", "user_id"}))
 public class NeedResponse implements Serializable {
 
     @Id
@@ -31,6 +32,11 @@ public class NeedResponse implements Serializable {
 
     @Column
     private ResponseStatus status = ResponseStatus.NEW;
+
+    @JsonGetter
+    public Integer getUserId() {
+        return this.user != null ? user.getId() : null;
+    }
 
     @Enumerated(EnumType.ORDINAL)
     public ResponseStatus getStatus() {

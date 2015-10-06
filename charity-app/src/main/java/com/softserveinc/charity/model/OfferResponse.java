@@ -1,5 +1,6 @@
 package com.softserveinc.charity.model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.softserveinc.charity.model.offer.Offer;
 import com.softserveinc.charity.model.support.ResponseStatus;
 
@@ -11,7 +12,7 @@ import java.util.Date;
  * Entity for offer responses.
  */
 @Entity
-@Table(name = "offers_responses")
+@Table(name = "offers_responses", uniqueConstraints = @UniqueConstraint(columnNames={"offer_id", "user_id"}))
 public class OfferResponse implements Serializable {
 
     @Id
@@ -34,6 +35,11 @@ public class OfferResponse implements Serializable {
 
     @Column
     private ResponseStatus status = ResponseStatus.NEW;
+
+    @JsonGetter
+    public Integer getUserId() {
+        return this.user != null ? user.getId() : null;
+    }
 
     /**
      * Status saved as int value (0 -> NEW, 1 -> DELETED, 2 -> APPROVED).
