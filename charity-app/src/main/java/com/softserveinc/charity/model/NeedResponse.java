@@ -1,5 +1,6 @@
 package com.softserveinc.charity.model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.softserveinc.charity.model.support.ResponseStatus;
 
 import javax.persistence.*;
@@ -30,6 +31,11 @@ public class NeedResponse implements Serializable {
 
     @Column
     private ResponseStatus status = ResponseStatus.NEW;
+
+    @JsonGetter
+    public Integer getUserId() {
+        return this.user != null ? user.getId() : null;
+    }
 
     @Enumerated(EnumType.ORDINAL)
     public ResponseStatus getStatus() {
