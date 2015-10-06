@@ -50,9 +50,6 @@ public class StatelessAuthenticationSecurityConfig extends WebSecurityConfigurer
 
 				//allow anonymous POSTs to login
 				.antMatchers(HttpMethod.POST, "/api/auth").permitAll()
-                //allow anonymous POSTs to register
-                .antMatchers(HttpMethod.POST, "/api/users/register").permitAll()
-
 				//allow anonymous GETs to API
 				.antMatchers(HttpMethod.GET, "/api/**").permitAll()
 

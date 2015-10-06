@@ -67,24 +67,15 @@ public class RegistrationFlowTest extends AbstractWebIntegrationTest {
     }
 
     @Test
-    public void register0_with_new_account_test_to_global_endpoint() throws Exception {
-        this.mockMvc
-                .perform(post("/api/users")
-                        .content(json)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is4xxClientError());
-    }
-
-    @Test
     public void register1_with_new_account_test_to_custom_endpoint() throws Exception {
         this.mockMvc
-                .perform(post("/api/users/register")
+                .perform(post("/api/users")
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
 
         this.mockMvc
-                .perform(post("/api/users/register")
+                .perform(post("/api/users")
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict());

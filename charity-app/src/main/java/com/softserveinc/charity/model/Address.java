@@ -1,11 +1,15 @@
 package com.softserveinc.charity.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "addresses")
-public class Address {
+public class Address implements Serializable{
 
+    @org.springframework.data.annotation.Id
     @javax.persistence.Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
@@ -15,7 +19,8 @@ public class Address {
     private String phone;
     @OneToOne
     private City city;
-    @OneToOne
+    @OneToOne(mappedBy = "address")
+    @JsonIgnore
     private User user;
 
     public Integer getId() {

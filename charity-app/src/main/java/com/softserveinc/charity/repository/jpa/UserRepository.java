@@ -10,7 +10,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByEmail(@Param("email") String email);
 
+    // TODO fix security
     @Override
-    @RestResource(exported = false)
     User save(User user);
 }

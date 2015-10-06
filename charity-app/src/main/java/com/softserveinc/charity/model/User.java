@@ -158,4 +158,12 @@ public class User implements UserDetails {
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
     }
+
+    public Address getAddress() {
+        return address;
+    }
+    @JsonProperty
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }
