@@ -1,29 +1,32 @@
 package com.softserveinc.charity;
 
 import com.softserveinc.charity.model.*;
-import com.softserveinc.charity.repository.*;
+import com.softserveinc.charity.model.need.Need;
+import com.softserveinc.charity.model.need.NeedDetails;
+import com.softserveinc.charity.repository.converter.Converter;
+import com.softserveinc.charity.repository.jpa.CategoryRepository;
+import com.softserveinc.charity.repository.jpa.CityRepository;
+import com.softserveinc.charity.repository.jpa.NeedRepository;
+import com.softserveinc.charity.repository.jpa.UserRepository;
 import com.softserveinc.charity.repository.search.NeedSearchRepository;
-import com.softserveinc.charity.service.SearchService;
+import com.softserveinc.charity.elasticsearch.ElasticSearchService;
 import org.joda.time.LocalDate;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.transaction.annotation.Propagation;
+import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 
-@Ignore
+@Transactional
 public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
-    //@Resource
+    @Resource
     private NeedSearchRepository needSearchRepository;
 
     @Resource
@@ -39,9 +42,10 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     private UserRepository userRepository;
 
     @Autowired
-    SearchService searchService;
+    ElasticSearchService searchService;
 
     List<Need> needs = new ArrayList<>();
+    List<NeedDetails> needDetailses = new ArrayList<>();
     City city1;
     City city2;
     @Before
@@ -49,8 +53,8 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
         Category category_parent = categoryRepository.findOne(1);
         Category category_child = categoryRepository.findOne(2);
-        city1 = cityRepository.findByRegionId(1).get(0);
-        city2 = cityRepository.findByRegionId(1).get(1);
+        city1 = cityRepository.findByRegionId(6).get(0);
+        city2 = cityRepository.findByRegionId(6).get(1);
         /*
         TODO : create test user in sql
          */
@@ -90,53 +94,71 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         needs.add(need2);
         needs.add(need3);
 
-        //needSearchRepository.deleteAll();
+        needSearchRepository.deleteAll();
 
         needRepository.save(needs);
-        //needSearchRepository.save(needs);
+
+        needSearchRepository.save(
+                needs
+                        .stream()
+                        .map(Converter::convert)
+                        .collect(Collectors.toList())
+        );
     }
 
-    /*@Test
-    @Transactional(propagation= Propagation.REQUIRES_NEW)
+    @Test
     public void find_by_name_test() {
 
         List<Need> needs_ = needRepository.findAll();
         Assert.assertNotNull(needs_);
-        //Assert.assertThat(needs_.size(), is(3));
+        //Assert.assertThat(needs_.size(), is(12));
 
-        List<Need> needs1_= needSearchRepository.findByName("needYYY");
+        List<NeedDetails> needs1_= needSearchRepository.findByName("needYYY");
         Assert.assertThat(needs1_.size(), is(1));
     }
 
     @Test
-    @Transactional(propagation= Propagation.REQUIRES_NEW)
     public void find_by_some_input_name(){
-        List<Need> needs_ = searchService.findNeeds("need");
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, "need", null, null, null);
         Assert.assertNotNull(needs_);
-        Assert.assertThat(needs_.size(), is(3));
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(3));
     }
 
     @Test
-    @Transactional(propagation= Propagation.REQUIRES_NEW)
     public void find_by_some_input_address(){
-        List<Need> needs_ = searchService.findNeeds("Address 2222");// TODO
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, "Address", null, null, null);// TODO
         Assert.assertNotNull(needs_);
-        Assert.assertThat(needs_.size(), is(3));
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(3));
     }
 
     @Test
-    @Transactional(propagation= Propagation.REQUIRES_NEW)
     public void find_by_some_input_city(){
-        List<Need> needs_ = searchService.findNeeds(city2.getName());
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, null, null, city2.getName(), null);
         Assert.assertNotNull(needs_);
-        Assert.assertThat(needs_.size(), is(2));
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(2));
     }
 
     @Test
-    @Transactional(propagation= Propagation.REQUIRES_NEW)
     public void find_by_some_input_region(){
-        List<Need> needs_ = searchService.findNeeds(city1.getRegion().getName());
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, null);
         Assert.assertNotNull(needs_);
-        Assert.assertThat(needs_.size(), is(3));
-    }*/
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(3));
+    }
+
+    @Test
+    public void find_by_some_input_wildcard(){
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(true, "Na", null, null, null);
+        Assert.assertNotNull(needs_);
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(3));
+    }
+
+    @After
+    public void close(){
+       needSearchRepository.deleteAll();
+    }
 }

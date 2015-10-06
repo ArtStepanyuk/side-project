@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.softserveinc.charity.model.TestUser;
 import com.softserveinc.charity.model.User;
-import com.softserveinc.charity.repository.UserRepository;
+import com.softserveinc.charity.repository.jpa.UserRepository;
 import com.softserveinc.charity.util.Constants;
 import org.junit.*;
 import org.junit.runners.MethodSorters;

@@ -1,12 +1,18 @@
 package com.softserveinc.charity;
 
+import com.softserveinc.charity.elasticsearch.ElasticSearchInitializer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class Application extends SpringBootServletInitializer {
+public class Application extends SpringBootServletInitializer implements CommandLineRunner {
+
+    @Autowired
+    private ElasticSearchInitializer elasticSearchInitializer;
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -15,5 +21,10 @@ public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+    }
+
+    @Override
+    public void run(String... strings) throws Exception {
+        elasticSearchInitializer.init();
     }
 }

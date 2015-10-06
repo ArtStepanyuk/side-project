@@ -2,6 +2,7 @@ package com.softserveinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -27,7 +28,8 @@ public class User implements UserDetails {
     }
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @javax.persistence.Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     @ManyToMany(fetch = FetchType.EAGER)

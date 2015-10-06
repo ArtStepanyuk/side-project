@@ -1,7 +1,7 @@
 package com.softserveinc.charity.controller;
 
 import com.softserveinc.charity.exceptions.UserAlreadyExistException;
-import com.softserveinc.charity.repository.UserRepository;
+import com.softserveinc.charity.repository.jpa.UserRepository;
 import com.softserveinc.charity.util.Constants;
 import com.softserveinc.charity.model.User;
 import com.softserveinc.charity.model.UserAuthentication;

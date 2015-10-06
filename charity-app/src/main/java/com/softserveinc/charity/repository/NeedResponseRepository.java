@@ -1,7 +1,7 @@
 package com.softserveinc.charity.repository;
 
-import com.softserveinc.charity.model.Need;
 import com.softserveinc.charity.model.NeedResponse;
+import com.softserveinc.charity.model.need.Need;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

@@ -1,20 +1,21 @@
 package com.softserveinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldIndex;
-import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "cities")
+@Document(indexName = "city")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class City implements Serializable{
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @javax.persistence.Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     @Column
@@ -26,6 +27,7 @@ public class City implements Serializable{
      */
     @ManyToOne
     @JoinColumn(name = "region_id", nullable = false)
+    @Field(type = FieldType.Nested)
     private Region region;
 
     public Integer getId() {

@@ -1,7 +1,8 @@
 package com.softserveinc.charity.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,11 +10,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "regions")
+@Document(indexName = "region")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Region implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @javax.persistence.Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     @Column

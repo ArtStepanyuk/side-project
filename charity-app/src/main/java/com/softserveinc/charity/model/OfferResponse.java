@@ -1,6 +1,7 @@
 package com.softserveinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.softserveinc.charity.model.offer.Offer;
 import com.softserveinc.charity.model.support.ResponseStatus;
 
 import javax.persistence.*;

@@ -1,5 +1,7 @@
 package com.softserveinc.charity.config;
 
+import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
+import com.softserveinc.charity.repository.handler.NeedEventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
@@ -14,10 +16,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Properties;
 
 import static org.hibernate.cfg.AvailableSettings.DIALECT;
@@ -26,12 +27,13 @@ import static org.hibernate.cfg.AvailableSettings.SHOW_SQL;
 import static org.hibernate.cfg.AvailableSettings.FORMAT_SQL;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.softserveinc.charity.repository"})
-//@EnableElasticsearchRepositories("com.softserveinc.charity.repository.search")
+@EnableJpaRepositories(basePackages = "com.softserveinc.charity.repository.jpa")
+@EnableElasticsearchRepositories(basePackages = "com.softserveinc.charity.repository.search")
 @ComponentScan(basePackages = "com.softserveinc.charity", excludeFilters = {
         @ComponentScan.Filter(value = Controller.class, type = FilterType.ANNOTATION),
         @ComponentScan.Filter(value = Configuration.class, type = FilterType.ANNOTATION)
 })
+@EnableTransactionManagement
 @PropertySource(value = "classpath:db.properties")
 public class AppConfig extends RepositoryRestMvcConfiguration {
 
@@ -41,11 +43,7 @@ public class AppConfig extends RepositoryRestMvcConfiguration {
     @Override
     protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         super.configureRepositoryRestConfiguration(config);
-        try {
-            config.setBaseUri(new URI("/api"));
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        config.setBasePath("/api");
     }
 
     @Bean
@@ -94,5 +92,10 @@ public class AppConfig extends RepositoryRestMvcConfiguration {
         properties.put(SHOW_SQL, env.getProperty("hibernate.show_sql"));
         properties.put(FORMAT_SQL, env.getProperty("hibernate.format_sql"));
         return properties;
+    }
+
+    @Bean
+    public Hibernate4Module hibernate4Module() {
+        return new Hibernate4Module();
     }
 }

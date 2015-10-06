@@ -1,27 +1,33 @@
-package com.softserveinc.charity.model;
+package com.softserveinc.charity.model.offer;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.softserveinc.charity.model.*;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-@Entity
-@Table(name = "offers")
+
+@NamedEntityGraph(name = "Offer.detail", includeAllAttributes = true)
+@MappedSuperclass
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Offer implements Serializable {
+public class BaseOffer implements Serializable{
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @javax.persistence.Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    protected Integer id;
 
     @Column
     private String name;
@@ -34,6 +40,7 @@ public class Offer implements Serializable {
     private Set<Image> images;
 
     @OneToOne
+    @Field( type = FieldType.Nested)
     private City city;
 
     @Column
@@ -51,9 +58,11 @@ public class Offer implements Serializable {
     private Boolean pickup;
 
     @OneToOne
+    @Field( type = FieldType.Nested)
     private Category category;
 
     @OneToOne
+    @Field( type = FieldType.Nested)
     private User userCreated;
 
     /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */

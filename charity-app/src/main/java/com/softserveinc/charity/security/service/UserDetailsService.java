@@ -1,7 +1,7 @@
 package com.softserveinc.charity.security.service;
 
 import com.softserveinc.charity.model.User;
-import com.softserveinc.charity.repository.UserRepository;
+import com.softserveinc.charity.repository.jpa.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -1,27 +1,38 @@
-package com.softserveinc.charity.model;
+package com.softserveinc.charity.model.need;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.softserveinc.charity.model.Category;
+import com.softserveinc.charity.model.City;
+import com.softserveinc.charity.model.NeedResponse;
+import com.softserveinc.charity.model.User;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-@Entity
-@Table(name = "needs")
+@NamedEntityGraph(name = "Need.detail", includeAllAttributes = true)
+@MappedSuperclass
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Need implements Serializable {
+public class BaseNeed implements Serializable{
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @javax.persistence.Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    protected Integer id;
+
+    public Integer getId() {
+        return id;
+    }
 
     @Column
     private String name;
@@ -30,6 +41,7 @@ public class Need implements Serializable {
     private String description;
 
     @OneToOne
+    @Field( type = FieldType.Nested)
     private City city;
 
     @Column
@@ -47,6 +59,7 @@ public class Need implements Serializable {
     private Boolean pickup;
 
     @OneToOne
+    @Field( type = FieldType.Nested)
     private User userCreated;
 
     /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
@@ -54,6 +67,7 @@ public class Need implements Serializable {
     private Set<NeedResponse> needResponses;
 
     @OneToOne
+    @Field( type = FieldType.Nested)
     private Category category;
 
     @Column
@@ -91,10 +105,6 @@ public class Need implements Serializable {
     @JsonGetter
     public String getFormattedActualTo() {
         return this.actualTo != null ? DATE_TIME_FORMATTER.print(this.actualTo) : null;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public void setId(Integer id) {
