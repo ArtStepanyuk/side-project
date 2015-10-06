@@ -1,6 +1,10 @@
-package com.softserveinc.charity.model.projection;
+package com.softserveinc.charity.model.need.projection;
 
-import com.softserveinc.charity.model.*;
+import com.softserveinc.charity.model.Category;
+import com.softserveinc.charity.model.City;
+import com.softserveinc.charity.model.OfferResponse;
+import com.softserveinc.charity.model.User;
+import com.softserveinc.charity.model.offer.Offer;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.util.Date;
