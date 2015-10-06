@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "needs_responses")
+@Table(name = "needs_responses", uniqueConstraints = @UniqueConstraint(columnNames={"need_id", "user_id"}))
 public class NeedResponse implements Serializable {
 
     @Id

@@ -10,7 +10,7 @@ import java.util.Date;
  * Entity for offer responses.
  */
 @Entity
-@Table(name = "offers_responses")
+@Table(name = "offers_responses", uniqueConstraints = @UniqueConstraint(columnNames={"offer_id", "user_id"}))
 public class OfferResponse implements Serializable {
 
     @Id
