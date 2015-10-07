@@ -2,6 +2,7 @@ package com.softserveinc.charity;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.softserveinc.charity.model.Address;
 import com.softserveinc.charity.model.TestUser;
 import com.softserveinc.charity.model.User;
 import com.softserveinc.charity.repository.jpa.UserRepository;
@@ -36,6 +37,7 @@ public class RegistrationFlowTest extends AbstractWebIntegrationTest {
         user.setUsername("test@gmail.com");
         user.setPassword("test");
         user.setName("testushka");
+        user.setAddress(new Address());
         try {
             json = new ObjectMapper().writeValueAsString(user);
         } catch (JsonProcessingException e) {

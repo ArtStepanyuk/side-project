@@ -1,5 +1,9 @@
 package com.softserveinc.charity.exceptions;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value= HttpStatus.CONFLICT, reason="User already exist")
 public final class UserAlreadyExistException extends RuntimeException {
 
     private static final long serialVersionUID = 5861310537366287163L;

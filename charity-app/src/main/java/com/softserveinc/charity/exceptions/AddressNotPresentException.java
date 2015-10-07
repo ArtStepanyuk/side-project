@@ -1,7 +1,8 @@
 package com.softserveinc.charity.exceptions;
 
-/**
- * Created by aleksandrionov on 10/7/15.
- */
-public class AddressNotPresentException {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value= HttpStatus.BAD_REQUEST, reason="Address object should be present in JSON.")
+public class AddressNotPresentException extends RuntimeException {
 }

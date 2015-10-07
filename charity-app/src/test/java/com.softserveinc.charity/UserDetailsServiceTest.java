@@ -1,6 +1,7 @@
 package com.softserveinc.charity;
 
 
+import com.softserveinc.charity.model.Address;
 import com.softserveinc.charity.model.User;
 import com.softserveinc.charity.repository.jpa.UserRepository;
 import com.softserveinc.charity.security.service.UserDetailsService;
@@ -28,6 +29,7 @@ public class UserDetailsServiceTest extends AbstractWebIntegrationTest {
         userExpected = new User();
         userExpected.setEmail("testAlibaba123@gmail.com");
         userExpected.setName("test");
+        userExpected.setAddress(new Address());
         userRepository.save(userExpected);
     }
 

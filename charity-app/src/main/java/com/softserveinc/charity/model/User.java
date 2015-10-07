@@ -3,6 +3,7 @@ package com.softserveinc.charity.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -45,7 +46,8 @@ public class User implements UserDetails {
     @Column
     private String password;
 
-    @OneToOne
+    @RestResource(exported = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 
