@@ -1,6 +1,8 @@
 package com.softserveinc.charity.config;
 
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
+import com.softserveinc.charity.model.NeedResponse;
+import com.softserveinc.charity.model.OfferResponse;
 import com.softserveinc.charity.model.User;
 import com.softserveinc.charity.repository.handler.NeedEventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,8 @@ public class AppConfig extends RepositoryRestMvcConfiguration {
         super.configureRepositoryRestConfiguration(config);
         config.setBasePath("/api");
         config.exposeIdsFor(User.class);
+        config.exposeIdsFor(NeedResponse.class);
+        config.exposeIdsFor(OfferResponse.class);
     }
 
     @Bean
