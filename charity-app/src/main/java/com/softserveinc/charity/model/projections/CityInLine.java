@@ -7,8 +7,8 @@ import org.springframework.data.rest.core.config.Projection;
 /**
  * This project is excerpted projection in city repository.
  */
-@Projection(name="InlineCity", types = {City.class})
-public interface InlineCity {
+@Projection(name="CityInLine", types = {City.class})
+public interface CityInLine {
 
     String getName();
 
