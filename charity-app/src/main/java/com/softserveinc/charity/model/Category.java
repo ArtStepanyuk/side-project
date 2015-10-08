@@ -1,10 +1,18 @@
 package com.softserveinc.charity.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
+import java.awt.event.HierarchyListener;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "categories")
@@ -19,8 +27,12 @@ public class Category implements Serializable {
     @Column
     private String name;
 
-    @OneToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Category parent;
+
+    @OneToMany(mappedBy="parent")
+    @JsonIgnore // Ignore in ElasticSearch
+    public List<Category> children = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -40,5 +52,13 @@ public class Category implements Serializable {
 
     public void setParent(Category parent) {
         this.parent = parent;
+    }
+
+    public List<Category> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Category> children) {
+        this.children = children;
     }
 }
