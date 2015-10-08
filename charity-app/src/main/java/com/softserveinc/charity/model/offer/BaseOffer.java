@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.softserveinc.charity.model.*;
+import com.softserveinc.charity.model.support.ResponseStatus;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -21,12 +22,12 @@ import java.util.Set;
 @NamedEntityGraph(name = "Offer.detail", includeAllAttributes = true)
 @MappedSuperclass
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class BaseOffer implements Serializable{
+public class BaseOffer implements Serializable {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 
     @Id
     @javax.persistence.Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Integer id;
 
     @Column
@@ -40,7 +41,7 @@ public class BaseOffer implements Serializable{
     private Set<Image> images;
 
     @OneToOne
-    @Field( type = FieldType.Nested)
+    @Field(type = FieldType.Nested)
     private City city;
 
     @Column
@@ -58,11 +59,11 @@ public class BaseOffer implements Serializable{
     private Boolean pickup;
 
     @OneToOne
-    @Field( type = FieldType.Nested)
+    @Field(type = FieldType.Nested)
     private Category category;
 
     @OneToOne
-    @Field( type = FieldType.Nested)
+    @Field(type = FieldType.Nested)
     private User userCreated;
 
     /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
@@ -104,6 +105,18 @@ public class BaseOffer implements Serializable{
     @JsonGetter
     public String getFormattedActualTo() {
         return this.actualTo != null ? DATE_TIME_FORMATTER.print(this.actualTo) : null;
+    }
+
+    @JsonGetter
+    public boolean getOpen() {
+        if (this.offerResponses != null) {
+            for (final OfferResponse response : offerResponses) {
+                if (response.getStatus().equals(ResponseStatus.APPROVED)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**

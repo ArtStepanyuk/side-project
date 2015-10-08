@@ -37,4 +37,6 @@ public interface OfferInLine {
     Category getCategory();
 
     Set<OfferResponse> getOfferResponses();
+
+    boolean getOpen();
 }

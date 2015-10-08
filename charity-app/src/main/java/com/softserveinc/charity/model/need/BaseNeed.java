@@ -7,12 +7,14 @@ import com.softserveinc.charity.model.Category;
 import com.softserveinc.charity.model.City;
 import com.softserveinc.charity.model.NeedResponse;
 import com.softserveinc.charity.model.User;
+import com.softserveinc.charity.model.support.ResponseStatus;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.*;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,12 +24,12 @@ import java.util.Set;
 @NamedEntityGraph(name = "Need.detail", includeAllAttributes = true)
 @MappedSuperclass
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class BaseNeed implements Serializable{
+public class BaseNeed implements Serializable {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 
     @Id
     @javax.persistence.Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
     public Integer getId() {
@@ -41,7 +43,7 @@ public class BaseNeed implements Serializable{
     private String description;
 
     @OneToOne
-    @Field( type = FieldType.Nested)
+    @Field(type = FieldType.Nested)
     private City city;
 
     @Column
@@ -59,15 +61,15 @@ public class BaseNeed implements Serializable{
     private Boolean pickup;
 
     @OneToOne
-    @Field( type = FieldType.Nested)
+    @Field(type = FieldType.Nested)
     private User userCreated;
 
     /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="need")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "need")
     private Set<NeedResponse> needResponses;
 
     @OneToOne
-    @Field( type = FieldType.Nested)
+    @Field(type = FieldType.Nested)
     private Category category;
 
     @Column
@@ -106,6 +108,19 @@ public class BaseNeed implements Serializable{
     public String getFormattedActualTo() {
         return this.actualTo != null ? DATE_TIME_FORMATTER.print(this.actualTo) : null;
     }
+
+    @JsonGetter
+    public boolean getOpen() {
+        if (this.needResponses != null) {
+            for (final NeedResponse response : needResponses) {
+                if (response.getStatus().equals(ResponseStatus.APPROVED)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     public void setId(Integer id) {
         this.id = id;

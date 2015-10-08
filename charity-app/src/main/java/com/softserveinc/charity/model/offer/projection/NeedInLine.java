@@ -37,4 +37,6 @@ public interface NeedInLine {
     Category getCategory();
 
     Set<NeedResponse> getNeedResponses();
+
+    boolean getOpen();
 }
