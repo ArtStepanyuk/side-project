@@ -32,20 +32,25 @@ public class ElasticSearchInitializer {
 
     public void init(){
         needSearchRepository.deleteAll();
-        offerSearchRepository.deleteAll();
 
+        if (needRepository.count() > 0){
         List<NeedDetails> needs = needRepository.findAll()
                 .stream()
                 .map(Converter::convert)
                 .collect(Collectors.toList());
 
-        needSearchRepository.save(needs);
+            needSearchRepository.save(needs);
+        }
 
+        offerSearchRepository.deleteAll();
+
+        if (offerRepository.count() > 0){
         List<OfferDetails> offers = offerRepository.findAll()
                 .stream()
                 .map(Converter::convert)
                 .collect(Collectors.toList());
 
-        offerSearchRepository.save(offers);
+            offerSearchRepository.save(offers);
+        }
     }
 }

@@ -48,11 +48,15 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     List<NeedDetails> needDetailses = new ArrayList<>();
     City city1;
     City city2;
+    Category category_parent;
+    Category category_child;
+
+
     @Before
     public void setup(){
 
-        Category category_parent = categoryRepository.findOne(1);
-        Category category_child = categoryRepository.findOne(2);
+        category_parent = categoryRepository.findOne(1);
+        category_child = categoryRepository.findOne(2);
         city1 = cityRepository.findByRegionId(6).get(0);
         city2 = cityRepository.findByRegionId(6).get(1);
         /*
@@ -143,10 +147,25 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
     @Test
     public void find_by_some_input_region(){
-        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, null);
+        FacetedPage<NeedDetails> needs_
+                = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, null);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(3));
+    }
+
+    @Test
+    public void find_by_some_input_category_and_region(){
+        FacetedPage<NeedDetails> needs_
+                = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, category_parent.getName());
+        Assert.assertNotNull(needs_);
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(2));
+
+        needs_ = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, category_child.getName());
+        Assert.assertNotNull(needs_);
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(1));
     }
 
     @Test
