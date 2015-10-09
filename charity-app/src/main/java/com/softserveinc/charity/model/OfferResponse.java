@@ -90,7 +90,7 @@ public class OfferResponse implements Serializable {
         return offer;
     }
 
-    public void setOffer(Offer need) {
+    public void setOffer(Offer offer) {
         this.offer = offer;
     }
 
