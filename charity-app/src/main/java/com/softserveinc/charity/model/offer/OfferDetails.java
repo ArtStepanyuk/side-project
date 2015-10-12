@@ -1,5 +1,6 @@
 package com.softserveinc.charity.model.offer;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.elasticsearch.annotations.Document;
 
@@ -9,5 +10,10 @@ public class OfferDetails extends BaseOffer{
     @JsonIgnore
     public void setId(Integer id){
         this.id = id;
+    }
+
+    @JsonGetter
+    public Integer getId(){
+        return this.id;
     }
 }

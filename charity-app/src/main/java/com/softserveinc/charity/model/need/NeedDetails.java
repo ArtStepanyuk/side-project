@@ -1,5 +1,6 @@
 package com.softserveinc.charity.model.need;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.elasticsearch.annotations.Document;
 
@@ -8,5 +9,10 @@ public class NeedDetails extends BaseNeed {
     @JsonIgnore
     public void setId(Integer id){
         this.id = id;
+    }
+
+    @JsonGetter
+    public Integer getId(){
+        return this.id;
     }
 }

@@ -5,6 +5,10 @@ import com.softserveinc.charity.model.NeedResponse;
 import com.softserveinc.charity.model.OfferResponse;
 import com.softserveinc.charity.model.Region;
 import com.softserveinc.charity.model.User;
+import com.softserveinc.charity.model.need.Need;
+import com.softserveinc.charity.model.need.NeedDetails;
+import com.softserveinc.charity.model.offer.Offer;
+import com.softserveinc.charity.model.offer.OfferDetails;
 import com.softserveinc.charity.repository.handler.NeedEventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
@@ -52,6 +56,8 @@ public class AppConfig extends RepositoryRestMvcConfiguration {
         config.exposeIdsFor(Region.class);
         config.exposeIdsFor(NeedResponse.class);
         config.exposeIdsFor(OfferResponse.class);
+        config.exposeIdsFor(Need.class);
+        config.exposeIdsFor(Offer.class);
     }
 
     @Bean
