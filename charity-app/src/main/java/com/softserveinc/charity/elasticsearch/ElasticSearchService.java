@@ -6,6 +6,7 @@ import com.softserveinc.charity.repository.search.NeedSearchRepository;
 import com.softserveinc.charity.repository.search.OfferSearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
@@ -22,17 +23,17 @@ public class ElasticSearchService {
     @Autowired
     OfferSearchRepository offerSearchRepository;
 
-    public FacetedPage<NeedDetails> findNeeds(Boolean wildcard, String query, String region, String city, String category) {
-        SearchQuery searchQuery = createSearchQuery(wildcard, query, region, city, category);
+    public FacetedPage<NeedDetails> findNeeds(Boolean wildcard, String query, String region, String city, String category, Pageable pageable) {
+        SearchQuery searchQuery = createSearchQuery(wildcard, query, region, city, category, pageable);
         return needSearchRepository.search(searchQuery);
     }
 
-    public FacetedPage<OfferDetails> findOffers(Boolean wildcard, String query, String region, String city, String category) {
-        SearchQuery searchQuery = createSearchQuery(wildcard, query, region, city, category);
+    public FacetedPage<OfferDetails> findOffers(Boolean wildcard, String query, String region, String city, String category, Pageable pageable) {
+        SearchQuery searchQuery = createSearchQuery(wildcard, query, region, city, category, pageable);
         return offerSearchRepository.search(searchQuery);
     }
 
-    private SearchQuery createSearchQuery(Boolean wildcard, String query, String region, String city, String category) {
+    private SearchQuery createSearchQuery(Boolean wildcard, String query, String region, String city, String category, Pageable pageable) {
         SearchQueryBuilder searchQueryBuilder;
 
         if (wildcard.equals(Boolean.TRUE)){
@@ -43,7 +44,7 @@ public class ElasticSearchService {
 
         return new NativeSearchQueryBuilder()
                 .withQuery(searchQueryBuilder.build())
-                .withPageable(new PageRequest(0, 10))
+                .withPageable(pageable)
                 .build();
     }
 }

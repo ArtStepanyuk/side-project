@@ -4,6 +4,7 @@ package com.softserveinc.charity.controller;
 import com.softserveinc.charity.model.need.NeedDetails;
 import com.softserveinc.charity.elasticsearch.ElasticSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.data.rest.webmvc.RepositoryLinksResource;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -28,13 +29,14 @@ public class SearchController implements ResourceProcessor<RepositoryLinksResour
                                    @RequestParam(value = "query",required = true) String query,
                                    @RequestParam(value = "region",required = false) String region,
                                    @RequestParam(value = "city",required = false) String city,
-                                   @RequestParam(value = "category",required = false) String category)
+                                   @RequestParam(value = "category",required = false) String category,
+                                   Pageable pageable)
     {
         switch (type){
             case "needs":
-                return elasticSearchService.findNeeds(wildcard, query, region, city, category);
+                return elasticSearchService.findNeeds(wildcard, query, region, city, category, pageable);
             case "offers":
-                return elasticSearchService.findOffers(wildcard, query, region, city, category);
+                return elasticSearchService.findOffers(wildcard, query, region, city, category, pageable);
             default:
                 throw new ResourceNotFoundException(String.format("Resource with type {%s} was not found", type));
         }

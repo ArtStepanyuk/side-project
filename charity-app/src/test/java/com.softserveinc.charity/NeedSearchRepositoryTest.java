@@ -13,6 +13,8 @@ import com.softserveinc.charity.elasticsearch.ElasticSearchService;
 import org.joda.time.LocalDate;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.FacetedPage;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,7 +52,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     City city2;
     Category category_parent;
     Category category_child;
-
+    Pageable pageable;
 
     @Before
     public void setup(){
@@ -108,6 +110,8 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
                         .map(Converter::convert)
                         .collect(Collectors.toList())
         );
+
+        pageable = new PageRequest(0 , 10);
     }
 
     @Test
@@ -123,7 +127,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
     @Test
     public void find_by_some_input_name(){
-        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, "need", null, null, null);
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, "need", null, null, null, pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(3));
@@ -131,7 +135,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
     @Test
     public void find_by_some_input_address(){
-        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, "Address", null, null, null);// TODO
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, "Address", null, null, null, pageable);// TODO
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(3));
@@ -139,7 +143,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
     @Test
     public void find_by_some_input_city(){
-        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, null, null, city2.getName(), null);
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(false, null, null, city2.getName(), null, pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(2));
@@ -148,7 +152,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     @Test
     public void find_by_some_input_region(){
         FacetedPage<NeedDetails> needs_
-                = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, null);
+                = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, null, pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(3));
@@ -157,12 +161,12 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     @Test
     public void find_by_some_input_category_and_region(){
         FacetedPage<NeedDetails> needs_
-                = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, category_parent.getName());
+                = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, category_parent.getName(), pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(2));
 
-        needs_ = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, category_child.getName());
+        needs_ = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, category_child.getName(), pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(1));
@@ -170,7 +174,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
     @Test
     public void find_by_some_input_wildcard(){
-        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(true, "Na", null, null, null);
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(true, "Na", null, null, null, pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(3));
