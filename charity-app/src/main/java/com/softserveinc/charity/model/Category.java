@@ -1,6 +1,6 @@
 package com.softserveinc.charity.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
@@ -23,10 +23,11 @@ public class Category implements Serializable {
     private String name;
 
     @ManyToOne(cascade = {CascadeType.ALL})
+    @JsonIgnoreProperties(value = "children")
     private Category parent;
 
     @OneToMany(mappedBy="parent")
-    @JsonIgnore // Ignore in ElasticSearch
+    @JsonIgnoreProperties(value = "parent")
     public List<Category> children = new ArrayList<>();
 
     public Integer getId() {

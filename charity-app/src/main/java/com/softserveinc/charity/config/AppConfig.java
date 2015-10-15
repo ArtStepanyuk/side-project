@@ -1,6 +1,5 @@
 package com.softserveinc.charity.config;
 
-import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.softserveinc.charity.model.*;
 import com.softserveinc.charity.model.need.Need;
 import com.softserveinc.charity.model.offer.Offer;
@@ -101,10 +100,5 @@ public class AppConfig extends RepositoryRestMvcConfiguration {
         properties.put(SHOW_SQL, env.getProperty("hibernate.show_sql"));
         properties.put(FORMAT_SQL, env.getProperty("hibernate.format_sql"));
         return properties;
-    }
-
-    @Bean
-    public Hibernate4Module hibernate4Module() {
-        return new Hibernate4Module();
     }
 }
