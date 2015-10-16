@@ -36,11 +36,8 @@ public class ElasticSearchService {
     private SearchQuery createSearchQuery(Boolean wildcard, String query, String region, String city, String category, Pageable pageable) {
         SearchQueryBuilder searchQueryBuilder;
 
-        if (wildcard.equals(Boolean.TRUE)){
-            searchQueryBuilder = new SearchQueryBuilder(query);
-        } else {
-            searchQueryBuilder = new SearchQueryBuilder(query, region, city, category);
-        }
+        boolean isWildcard = wildcard.equals(Boolean.TRUE);
+        searchQueryBuilder = new SearchQueryBuilder(isWildcard, query, region, city, category);
 
         return new NativeSearchQueryBuilder()
                 .withQuery(searchQueryBuilder.build())

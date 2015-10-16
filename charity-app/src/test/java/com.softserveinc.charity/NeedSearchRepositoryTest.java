@@ -50,15 +50,15 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     List<NeedDetails> needDetailses = new ArrayList<>();
     City city1;
     City city2;
-    Category category_parent;
-    Category category_child;
+    Category subCategory1;
+    Category subCategory2;
     Pageable pageable;
 
     @Before
     public void setup(){
 
-        category_parent = categoryRepository.findOne(1);
-        category_child = categoryRepository.findOne(2);
+        subCategory1 = categoryRepository.findOne(4);
+        subCategory2 = categoryRepository.findOne(5);
         city1 = cityRepository.findByRegionId(6).get(0);
         city2 = cityRepository.findByRegionId(6).get(1);
         /*
@@ -69,7 +69,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         Need need1 = new Need();
         need1.setActualTo(LocalDate.now());
         need1.setAddress("Address xxx.xxx 1111");
-        need1.setCategory(category_parent);
+        need1.setCategory(subCategory1);
         need1.setCity(city1);
         need1.setConvenientTime("1442850355478");
         need1.setDescription("Description need #1");
@@ -79,7 +79,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         Need need2 = new Need();
         need2.setActualTo(LocalDate.now());
         need2.setAddress("Address xxx.xxx 2222");
-        need2.setCategory(category_parent);
+        need2.setCategory(subCategory1);
         need2.setCity(city2);
         need2.setConvenientTime("1442853435478");
         need2.setDescription("Description need #2");
@@ -89,7 +89,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         Need need3 = new Need();
         need3.setActualTo(LocalDate.now());
         need3.setAddress("Address xxx.xxx 2222");
-        need3.setCategory(category_child);
+        need3.setCategory(subCategory2);
         need3.setCity(city2);
         need3.setConvenientTime("1442850455478");
         need3.setDescription("Description need #3");
@@ -161,12 +161,12 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     @Test
     public void find_by_some_input_category_and_region(){
         FacetedPage<NeedDetails> needs_
-                = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, category_parent.getName(), pageable);
+                = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, subCategory1.getName(), pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(2));
 
-        needs_ = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, category_child.getName(), pageable);
+        needs_ = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, subCategory2.getName(), pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(1));
@@ -178,6 +178,14 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(3));
+    }
+
+    @Test
+    public void find_by_some_input_wildcard_with_city_and_category(){
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(true, "Na", null, city2.getName(), subCategory1.getName(), pageable);
+        Assert.assertNotNull(needs_);
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(1));
     }
 
     @After
