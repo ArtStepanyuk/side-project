@@ -1,6 +1,8 @@
 package com.softserveinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
@@ -12,7 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "categories")
 @Document(indexName = "category")
-//@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "categories")
 public class Category implements Serializable {
     @Id
     @javax.persistence.Id
@@ -27,6 +29,7 @@ public class Category implements Serializable {
     private Category parent;
 
     @OneToMany(mappedBy="parent")
+    @Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "categories")
     @JsonIgnoreProperties(value = "parent")
     public List<Category> children = new ArrayList<>();
 

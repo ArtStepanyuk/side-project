@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Table(name = "cities")
 @Document(indexName = "city")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "cities")
 public class City implements Serializable{
     @Id
     @javax.persistence.Id
@@ -29,7 +29,7 @@ public class City implements Serializable{
      */
     @ManyToOne
     @JoinColumn(name = "region_id", nullable = false)
-    @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+    @Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "regions")
     @Field(type = FieldType.Nested)
     private Region region;
 

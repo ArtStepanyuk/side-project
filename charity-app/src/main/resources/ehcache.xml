@@ -11,4 +11,19 @@
             eternal="false"
             overflowToDisk="false"
             />
+
+    <cache name="regions"
+           eternal="false"
+           overflowToDisk="false"
+            />
+
+    <cache name="categories"
+           eternal="false"
+           overflowToDisk="false"
+            />
+
+    <cache name="cities"
+           eternal="false"
+           overflowToDisk="false"
+            />
 </ehcache>

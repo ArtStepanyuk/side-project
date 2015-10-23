@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "regions")
 @Document(indexName = "region")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "regions")
 public class Region implements Serializable {
     @Id
     @javax.persistence.Id
@@ -28,7 +28,7 @@ public class Region implements Serializable {
      * Do not put Lazy fetch
      */
     @OneToMany(mappedBy = "region")
-    @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+    @Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "cities")
     @JsonIgnore
     private List<City> cities;
 
