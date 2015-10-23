@@ -61,6 +61,16 @@ public class User implements UserDetails {
     @Transient
     private String token;
 
+    @RestResource(exported = true)
+    @OneToMany(mappedBy="user")
+    private Set<OfferResponse>  offerResponse;
+
+
+    @RestResource(exported = true)
+    @OneToMany(mappedBy="user")
+    private Set<NeedResponse> needResponse;
+
+
     public Integer getId() {
         return id;
     }
@@ -169,4 +179,20 @@ public class User implements UserDetails {
     public void setAddress(Address address) {
         this.address = address;
     }
+    @JsonProperty
+    public void setOfferResponse(Set<OfferResponse> offerResponse) {
+        this.offerResponse = offerResponse;
+    }
+    @JsonProperty
+    public void setNeedResponse(Set<NeedResponse> needResponse) {
+        this.needResponse = needResponse;
+    }
+
+    public Set<NeedResponse> getNeedResponse() {
+        return needResponse;
+    }
+
+    public Set<OfferResponse> getOfferResponse() {
+        return offerResponse;
+   }
 }

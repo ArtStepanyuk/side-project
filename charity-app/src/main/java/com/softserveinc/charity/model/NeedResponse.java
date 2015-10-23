@@ -28,6 +28,7 @@ public class NeedResponse implements Serializable {
     private Need need;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column
