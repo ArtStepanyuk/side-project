@@ -1,11 +1,12 @@
 package com.softserveinc.charity.model;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.softserveinc.charity.model.offer.Offer;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.security.core.userdetails.UserDetails;
+import com.softserveinc.charity.model.need.Need;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -38,6 +39,13 @@ public class User implements UserDetails {
     @JoinTable(name = "roles_users", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private Set<UserRole> roles = new HashSet<>();
 
+
+    @OneToMany(mappedBy = "userCreated")
+    private Set<Need> createdNeeds;
+
+    @OneToMany(mappedBy = "userCreated")
+    private Set<Offer> createdOffers;
+
     @Column
     private String name;
 
@@ -61,12 +69,10 @@ public class User implements UserDetails {
     @Transient
     private String token;
 
-    @RestResource(exported = true)
     @OneToMany(mappedBy="user")
     private Set<OfferResponse>  offerResponse;
 
 
-    @RestResource(exported = true)
     @OneToMany(mappedBy="user")
     private Set<NeedResponse> needResponse;
 
@@ -192,7 +198,23 @@ public class User implements UserDetails {
         return needResponse;
     }
 
+    public Set<Need> getCreatedNeeds() {
+        return createdNeeds;
+    }
+
+    public void setCreatedNeeds(Set<Need> createdNeeds) {
+        this.createdNeeds = createdNeeds;
+    }
+
     public Set<OfferResponse> getOfferResponse() {
         return offerResponse;
    }
+
+    public Set<Offer> getCreatedOffers() {
+        return createdOffers;
+    }
+
+    public void setCreatedOffers(Set<Offer> createdOffers) {
+        this.createdOffers = createdOffers;
+    }
 }
