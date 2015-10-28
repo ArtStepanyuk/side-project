@@ -4,6 +4,7 @@ import com.softserveinc.charity.model.need.NeedDetails;
 import com.softserveinc.charity.model.offer.OfferDetails;
 import com.softserveinc.charity.repository.search.NeedSearchRepository;
 import com.softserveinc.charity.repository.search.OfferSearchRepository;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,9 +40,13 @@ public class ElasticSearchService {
         boolean isWildcard = wildcard.equals(Boolean.TRUE);
         searchQueryBuilder = new SearchQueryBuilder(isWildcard, query, region, city, category);
 
-        return new NativeSearchQueryBuilder()
-                .withQuery(searchQueryBuilder.build())
+        QueryBuilder queryBuilder = searchQueryBuilder.build();
+
+        SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(queryBuilder)
                 .withPageable(pageable)
                 .build();
+
+        return searchQuery;
     }
 }
