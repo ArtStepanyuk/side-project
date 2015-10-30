@@ -23,13 +23,9 @@ public class CreateNeedController {
     @RequestMapping(value = "/api//createNeed", method = RequestMethod.POST)
     public
     @ResponseBody
-    String handleFileUpload(@RequestParam("file") final MultipartFile file) {
+    String handleFileUpload(final MultipartHttpServletRequest request, @RequestParam(name = "image1") final MultipartFile file) {
 
         LOG.info("Creating New Need");
-
-
-
-
 
 
         LOG.info("New Need Created");
