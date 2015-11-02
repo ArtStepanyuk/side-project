@@ -1,8 +1,10 @@
 package com.softserveinc.charity;
 
+import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.restdocs.RestDocumentation;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -12,6 +14,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.Filter;
+
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 
 //import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
@@ -26,6 +30,9 @@ abstract public class AbstractWebIntegrationTest {
 
     protected MockMvc mockMvc;
 
+    @Rule
+    public final RestDocumentation restDocumentation = new RestDocumentation("build/generated-snippets");
+
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -37,7 +44,7 @@ abstract public class AbstractWebIntegrationTest {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .addFilter(springSecurityFilterChain)
-                //.apply(new ServletPathConfigurer("/"))
+                .apply(documentationConfiguration(this.restDocumentation))
                 .build();
     }
 }
