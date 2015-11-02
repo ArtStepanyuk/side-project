@@ -2619,11 +2619,11 @@ insert into addresses(description, phone, city_id) VALUES ("Skycraper 43 appartm
 
 insert into users (name, email, password, address_id) VALUES ('admin', 'admin@gmail.com', '$2a$11$ilYAuWk/iKWJdF9INr0KIuVTKMUkfivrj840hSNzurkLuuaUtgmqq', 1);
 insert into users (name, email, password, address_id) VALUES ('volunteer', 'volunteer@gmail.com', '$2a$11$xVEVTGKA5mtgfPMdPPCvDOuMARk75c1GwRLgKZhhhNm.59wuVeYCS', 2);
-insert into users (name, email, password, address_id) VALUES ('userCreated', 'userCreated@gmail.com', '$2a$10$U.4xVs8hQ9HYPYm/u7uJOee/bGh41QFOhd/jWdD57cdSvlSQ6zfzG', 3);
+insert into users (name, email, password, address_id) VALUES ('user', 'user@gmail.com', '$2a$10$U.4xVs8hQ9HYPYm/u7uJOee/bGh41QFOhd/jWdD57cdSvlSQ6zfzG', 3);
 
 insert into user_roles (description, role) VALUES ('admin', 'ADMIN');
 insert into user_roles (description, role) VALUES ('volunteer', 'VOLUNTEER');
-insert into user_roles (description, role) VALUES ('userCreated', 'USER');
+insert into user_roles (description, role) VALUES ('user', 'USER');
 insert into roles_users(user_id, role_id) VALUES  (1, 1);
 insert into roles_users(user_id, role_id) VALUES  (2, 1);
 insert into roles_users(user_id, role_id) VALUES  (2, 2);

@@ -64,7 +64,7 @@ public class BaseOffer implements Serializable {
 
     @ManyToOne
     @Field(type = FieldType.Nested)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userCreated_id")
     private User userCreated;
 
     /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
