@@ -62,7 +62,7 @@ public class BaseOffer implements Serializable {
     @Field(type = FieldType.Nested)
     private Category category;
 
-    @OneToOne
+    @ManyToOne
     @Field(type = FieldType.Nested)
     @JoinColumn(name = "user_id")
     private User userCreated;

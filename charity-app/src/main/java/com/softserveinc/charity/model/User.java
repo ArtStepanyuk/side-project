@@ -1,7 +1,10 @@
 package com.softserveinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.softserveinc.charity.model.need.BaseNeed;
+import com.softserveinc.charity.model.offer.BaseOffer;
 import com.softserveinc.charity.model.offer.Offer;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -40,11 +43,13 @@ public class User implements UserDetails {
     private Set<UserRole> roles = new HashSet<>();
 
 
-    @OneToMany(mappedBy = "userCreated")
-    private Set<Need> createdNeeds;
+   @OneToMany(mappedBy = "userCreated")
+   @JsonIgnoreProperties("userCreated")
+    private Set<Need> needs;
 
     @OneToMany(mappedBy = "userCreated")
-    private Set<Offer> createdOffers;
+    @JsonIgnoreProperties("userCreated")
+    private Set<Offer> offers;
 
     @Column
     private String name;
@@ -198,23 +203,23 @@ public class User implements UserDetails {
         return needResponse;
     }
 
-    public Set<Need> getCreatedNeeds() {
-        return createdNeeds;
+    public Set<Need> getNeeds() {
+        return needs;
     }
 
-    public void setCreatedNeeds(Set<Need> createdNeeds) {
-        this.createdNeeds = createdNeeds;
+    public void setCreatedNeeds(Set<Need> needs) {
+        this.needs = needs;
     }
 
     public Set<OfferResponse> getOfferResponse() {
         return offerResponse;
    }
 
-    public Set<Offer> getCreatedOffers() {
-        return createdOffers;
+    public Set<Offer> getOffers() {
+        return offers;
     }
 
-    public void setCreatedOffers(Set<Offer> createdOffers) {
-        this.createdOffers = createdOffers;
+    public void setOffers(Set<Offer> offers) {
+        this.offers = offers;
     }
 }
