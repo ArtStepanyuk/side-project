@@ -1,22 +1,15 @@
 package com.softserveinc.charity.config;
 
-import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
-import com.softserveinc.charity.model.NeedResponse;
-import com.softserveinc.charity.model.OfferResponse;
-import com.softserveinc.charity.model.Region;
-import com.softserveinc.charity.model.User;
+import com.softserveinc.charity.model.*;
 import com.softserveinc.charity.model.need.Need;
-import com.softserveinc.charity.model.need.NeedDetails;
 import com.softserveinc.charity.model.offer.Offer;
-import com.softserveinc.charity.model.offer.OfferDetails;
-import com.softserveinc.charity.repository.handler.NeedEventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
-import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -33,6 +26,9 @@ import static org.hibernate.cfg.AvailableSettings.DIALECT;
 import static org.hibernate.cfg.AvailableSettings.HBM2DDL_AUTO;
 import static org.hibernate.cfg.AvailableSettings.SHOW_SQL;
 import static org.hibernate.cfg.AvailableSettings.FORMAT_SQL;
+import static org.hibernate.cfg.AvailableSettings.CACHE_REGION_FACTORY;
+import static org.hibernate.cfg.AvailableSettings.USE_QUERY_CACHE;
+import static org.hibernate.cfg.AvailableSettings.USE_SECOND_LEVEL_CACHE;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.softserveinc.charity.repository.jpa")
@@ -43,13 +39,13 @@ import static org.hibernate.cfg.AvailableSettings.FORMAT_SQL;
 })
 @EnableTransactionManagement
 @PropertySource(value = "classpath:db.properties")
-public class AppConfig extends RepositoryRestMvcConfiguration {
+public class AppConfig extends RepositoryRestConfigurerAdapter {
 
     @Autowired
     private Environment env;
 
     @Override
-    protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+    public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         super.configureRepositoryRestConfiguration(config);
         config.setBasePath("/api");
         config.exposeIdsFor(User.class);
@@ -58,6 +54,7 @@ public class AppConfig extends RepositoryRestMvcConfiguration {
         config.exposeIdsFor(OfferResponse.class);
         config.exposeIdsFor(Need.class);
         config.exposeIdsFor(Offer.class);
+        config.exposeIdsFor(Category.class);
     }
 
     @Bean
@@ -105,11 +102,10 @@ public class AppConfig extends RepositoryRestMvcConfiguration {
         properties.put(DIALECT, env.getProperty("hibernate.dialect"));
         properties.put(SHOW_SQL, env.getProperty("hibernate.show_sql"));
         properties.put(FORMAT_SQL, env.getProperty("hibernate.format_sql"));
+        properties.put(USE_SECOND_LEVEL_CACHE, env.getProperty("hibernate.cache.use_second_level_cache"));
+        properties.put(USE_QUERY_CACHE, env.getProperty("hibernate.cache.use_query_cache"));
+        properties.put(CACHE_REGION_FACTORY, env.getProperty("hibernate.cache.region.factory_class"));
+        properties.put("javax.persistence.sharedCache.mode", env.getProperty("javax.persistence.sharedCache.mode"));
         return properties;
-    }
-
-    @Bean
-    public Hibernate4Module hibernate4Module() {
-        return new Hibernate4Module();
     }
 }
