@@ -43,11 +43,11 @@ public class User implements UserDetails {
     private Set<UserRole> roles = new HashSet<>();
 
 
-   @OneToMany(mappedBy = "userCreated")
+   @OneToMany(mappedBy = "userCreated", fetch = FetchType.EAGER)
    @JsonIgnoreProperties("userCreated")
     private Set<Need> needs;
 
-    @OneToMany(mappedBy = "userCreated")
+    @OneToMany(mappedBy = "userCreated", fetch = FetchType.EAGER)
     @JsonIgnoreProperties("userCreated")
     private Set<Offer> offers;
 
@@ -74,11 +74,11 @@ public class User implements UserDetails {
     @Transient
     private String token;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
     private Set<OfferResponse>  offerResponse;
 
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
     private Set<NeedResponse> needResponse;
 
 
