@@ -61,7 +61,7 @@ public class ApiDocumentation {
                         linkWithRel("need_response").description("description3"),
                         linkWithRel("offer_response").description("description3"),
                         linkWithRel("categories").description("description4"),
-                        linkWithRel("userroles").description("description5"),
+                        linkWithRel("/api/category/root").description("description5"),
                         linkWithRel("addresses").description("description6"),
                         linkWithRel("regions").description("description7"),
                         linkWithRel("cities").description("description8"),
@@ -69,8 +69,9 @@ public class ApiDocumentation {
                         linkWithRel("/api/search/needs").description("description10"),
                         linkWithRel("/api/search/offers").description("description11"),
                         linkWithRel("/api/users/current").description("description12"),
-                        linkWithRel("profile").description("description13")
-                )));
+                        linkWithRel("profile").description("description13"),
+                        linkWithRel("userroles").description("description14")
+                        )));
 
     }
 
@@ -100,6 +101,13 @@ public class ApiDocumentation {
         this.mockMvc.perform(get("/api/categories?1,1,1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(document("categories"));
+    }
+
+    @Test
+    public void categoryRoot() throws Exception {
+        this.mockMvc.perform(get("/api/category/root").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(document("category/root"));
     }
 
     @Test
