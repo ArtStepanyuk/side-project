@@ -31,6 +31,7 @@ public class OfferResponse implements Serializable {
     private Offer offer;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column
