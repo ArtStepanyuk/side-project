@@ -18,7 +18,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-
+/**
+ * Basic class for offer model.
+ */
 @NamedEntityGraph(name = "Offer.detail", includeAllAttributes = true)
 @MappedSuperclass
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

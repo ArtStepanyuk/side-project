@@ -14,6 +14,9 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Search service that encapsulates creation of search query via builder and performs search.
+ */
 @Service
 @Transactional
 public class ElasticSearchService {
@@ -24,11 +27,35 @@ public class ElasticSearchService {
     @Autowired
     OfferSearchRepository offerSearchRepository;
 
+    /**
+     * Create search query for needs based on input parameters.
+     *
+     * @param wildcard - flag that defines type of search
+     * @param query - query string
+     * @param region - name of region
+     * @param city - name of city
+     * @param category - name of category
+     * @param pageable - Pageable(page, size, sort)
+     * @return page with need documents
+     */
     public FacetedPage<NeedDetails> findNeeds(Boolean wildcard, String query, String region, String city, String category, Pageable pageable) {
         SearchQuery searchQuery = createSearchQuery(wildcard, query, region, city, category, pageable);
         return needSearchRepository.search(searchQuery);
     }
 
+    /**
+     * Create search query for offers based on input parameters.
+     *
+     * @param wildcard - flag that defines type of search
+     * @param query - query string
+     * @param region - name of region
+     * @param city - name of city
+     * @param category - name of category
+     * @param pageable - Pageable(page, size, sort)
+     * @return page with offer documents
+     *
+     * TODO refactor needDetails, offerDetails in way to get rid of duplicated logic for elasticsearch documents.
+     */
     public FacetedPage<OfferDetails> findOffers(Boolean wildcard, String query, String region, String city, String category, Pageable pageable) {
         SearchQuery searchQuery = createSearchQuery(wildcard, query, region, city, category, pageable);
         return offerSearchRepository.search(searchQuery);

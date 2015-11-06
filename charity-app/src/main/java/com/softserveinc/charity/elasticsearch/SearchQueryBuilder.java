@@ -8,6 +8,9 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
+/**
+ * Builder that encapsulates creation of plain and wildcard search.
+ */
 public class SearchQueryBuilder {
 
     private static final String WILDCARD_POSTFIX = "*";
@@ -55,8 +58,9 @@ public class SearchQueryBuilder {
     }
 
     /**
+     * Main creation method.
      *
-     * @return query builder.
+     * @return query builder depending on wildcard flag.
      */
     public QueryBuilder build(){
         return wildcard ? buildWildcardQuery() : buildQueryWithParameters();
