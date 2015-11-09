@@ -1,11 +1,14 @@
 package com.softserveinc.charity.facade.impl;
 
 import com.softserveinc.charity.facade.NeedFacade;
+import com.softserveinc.charity.model.Category;
 import com.softserveinc.charity.model.City;
 import com.softserveinc.charity.model.need.Need;
 import com.softserveinc.charity.model.request.NeedRequestData;
+import com.softserveinc.charity.repository.jpa.CategoryRepository;
 import com.softserveinc.charity.repository.jpa.CityRepository;
 import com.softserveinc.charity.service.NeedService;
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,6 +22,9 @@ public class DefaultNeedFacade implements NeedFacade {
 
     @Autowired
     private CityRepository cityRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Autowired
     private NeedService needService;
@@ -39,8 +45,11 @@ public class DefaultNeedFacade implements NeedFacade {
         final City city = getCityFromRequest(requestData.getCity());
         need.setCity(city);
 
+        final Category category = getCategoryFromRequest(requestData.getCategories());
+        need.setCategory(category);
+
         needService.save(need);
-                //categories and city and current user
+                //categories and current user and picture
 
         return need;
     }
@@ -57,4 +66,10 @@ public class DefaultNeedFacade implements NeedFacade {
         return cityRepository.findByNameAndRegionId(cityName, Integer.valueOf(regionId));
 
     }
+
+    private Category getCategoryFromRequest(final String categoryString) {
+        final String[] category = categoryString.split(",");
+        return categoryRepository.findByNameAndParent(category[2], StringUtils.isNotBlank(category[1]) ? category[1] : category[0]);
+    }
+
 }
