@@ -12,5 +12,6 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "cities", path = "cities", excerptProjection = CityInLine.class)
 public interface CityRepository extends JpaRepository<City, Integer> {
     List<City> findByRegionId(@Param("region_id") Integer regionId);
+    City findByNameAndRegionId(@Param("name") String name, @Param("region_id") Integer regionId);
     List<City> findAll();
 }
