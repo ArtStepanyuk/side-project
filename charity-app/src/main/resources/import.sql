@@ -179,7 +179,6 @@ INSERT INTO cities (region_id, name) VALUES (7, 'Andreevka');
 INSERT INTO cities (region_id, name) VALUES (6, 'Andreevka');
 INSERT INTO cities (region_id, name) VALUES (8, 'Andreevka');
 INSERT INTO cities (region_id, name) VALUES (4, 'Andreevka');
-INSERT INTO cities (region_id, name) VALUES (4, 'Andreevka');
 INSERT INTO cities (region_id, name) VALUES (18, 'Andrijashivka');
 INSERT INTO cities (region_id, name) VALUES (6, 'Andrushevka');
 INSERT INTO cities (region_id, name) VALUES (6, 'Andrushki');

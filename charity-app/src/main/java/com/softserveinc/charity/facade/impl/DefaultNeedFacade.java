@@ -8,6 +8,7 @@ import com.softserveinc.charity.model.request.NeedRequestData;
 import com.softserveinc.charity.repository.jpa.CategoryRepository;
 import com.softserveinc.charity.repository.jpa.CityRepository;
 import com.softserveinc.charity.service.NeedService;
+import com.softserveinc.charity.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class DefaultNeedFacade implements NeedFacade {
     @Autowired
     private NeedService needService;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public Need save(final NeedRequestData requestData) {
 
@@ -48,10 +52,10 @@ public class DefaultNeedFacade implements NeedFacade {
         final Category category = getCategoryFromRequest(requestData.getCategories());
         need.setCategory(category);
 
-        needService.save(need);
-                //categories and current user and picture
+        need.setUserCreated(userService.getCurrentUser());
+        // TODO: picture
 
-        return need;
+        return needService.save(need);
     }
 
     private City getCityFromRequest(final String cityString) {

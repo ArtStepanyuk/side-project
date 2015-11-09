@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 @Repository
 @Transactional(readOnly = true)
-public class DefaultNeedServiceImpl implements NeedService {
+public class DefaultNeedService implements NeedService {
 
     @Autowired
     private NeedRepository repository;
