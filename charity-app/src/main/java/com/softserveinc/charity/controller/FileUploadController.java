@@ -22,24 +22,23 @@ public class FileUploadController {
     }
 
     @RequestMapping(value = "/api//upload", method = RequestMethod.POST)
-    public @ResponseBody String handleFileUpload(@RequestParam("name") String name,
-                                                 MultiPartFileUploadBean files) {
+    public @ResponseBody String handleFileUpload(MultiPartFileUploadBean files) {
         if (files != null) {
             try {
                 for (final MultipartFile file : files.getFiles()) {
                     byte[] bytes = file.getBytes();
                     BufferedOutputStream stream =
-                            new BufferedOutputStream(new FileOutputStream(new File(name)));
+                            new BufferedOutputStream(new FileOutputStream(new File(files.getName())));
                     stream.write(bytes);
                     stream.close();
                 }
-                    return "You successfully uploaded files" + name + "!";
+                    return "You successfully uploaded files" + files.getName() + "!";
 
             } catch (Exception e) {
-                return "You failed to upload " + name + " => " + e.getMessage();
+                return "You failed to upload " + files.getName() + " => " + e.getMessage();
             }
         } else {
-            return "You failed to upload " + name + " because the file was empty.";
+            return "You failed to upload " + files.getName() + " because the file was empty.";
         }
     }
 }

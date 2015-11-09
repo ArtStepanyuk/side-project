@@ -8,11 +8,21 @@ public class MultiPartFileUploadBean {
 
     private List<MultipartFile> files;
 
+    private String name;
+
     public void setFiles(List<MultipartFile> files) {
         this.files = files;
     }
 
     public List<MultipartFile> getFiles() {
         return files;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
