@@ -3,8 +3,6 @@ package com.softserveinc.charity.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.softserveinc.charity.model.need.BaseNeed;
-import com.softserveinc.charity.model.offer.BaseOffer;
 import com.softserveinc.charity.model.offer.Offer;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -75,11 +73,11 @@ public class User implements UserDetails {
     private String token;
 
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
-    private Set<OfferResponse>  offerResponse;
+    private Set<OfferResponse> offerResponses;
 
 
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
-    private Set<NeedResponse> needResponse;
+    private Set<NeedResponse> needResponses;
 
 
     public Integer getId() {
@@ -191,16 +189,16 @@ public class User implements UserDetails {
         this.address = address;
     }
     @JsonProperty
-    public void setOfferResponse(Set<OfferResponse> offerResponse) {
-        this.offerResponse = offerResponse;
+    public void setOfferResponses(Set<OfferResponse> offerResponses) {
+        this.offerResponses = offerResponses;
     }
     @JsonProperty
-    public void setNeedResponse(Set<NeedResponse> needResponse) {
-        this.needResponse = needResponse;
+    public void setNeedResponses(Set<NeedResponse> needResponses) {
+        this.needResponses = needResponses;
     }
 
-    public Set<NeedResponse> getNeedResponse() {
-        return needResponse;
+    public Set<NeedResponse> getNeedResponses() {
+        return needResponses;
     }
 
     public Set<Need> getNeeds() {
@@ -211,8 +209,8 @@ public class User implements UserDetails {
         this.needs = needs;
     }
 
-    public Set<OfferResponse> getOfferResponse() {
-        return offerResponse;
+    public Set<OfferResponse> getOfferResponses() {
+        return offerResponses;
    }
 
     public Set<Offer> getOffers() {

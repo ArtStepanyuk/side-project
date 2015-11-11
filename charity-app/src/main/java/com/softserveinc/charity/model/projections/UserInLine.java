@@ -1,15 +1,14 @@
 package com.softserveinc.charity.model.projections;
 
-import com.softserveinc.charity.model.Address;
-import com.softserveinc.charity.model.City;
-import com.softserveinc.charity.model.User;
-import com.softserveinc.charity.model.UserRole;
+import com.softserveinc.charity.model.*;
+import com.softserveinc.charity.model.need.Need;
+import com.softserveinc.charity.model.offer.Offer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.util.Set;
 
-@Projection(name = "InLine", types = { User.class })
+@Projection(name = "inLine", types = {User.class})
 public interface UserInLine {
 
     Address getAddress();
@@ -26,4 +25,12 @@ public interface UserInLine {
     String getEmail();
 
     String getToken();
+
+    Set<Need> getNeeds();
+
+    Set<NeedResponse> getNeedResponses();
+
+    Set<Offer> getOffers();
+
+    Set<OfferResponse> getOfferResponses();
 }
