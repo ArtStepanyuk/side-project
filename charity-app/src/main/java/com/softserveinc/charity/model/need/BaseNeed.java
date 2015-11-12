@@ -21,6 +21,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+/**
+ * Basic class for need model.
+ */
 @NamedEntityGraph(name = "Need.detail", includeAllAttributes = true)
 @MappedSuperclass
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

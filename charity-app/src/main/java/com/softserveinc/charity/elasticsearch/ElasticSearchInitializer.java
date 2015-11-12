@@ -14,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Intializer for need and offer documents on startup.
+ */
 @Service
 @Transactional
 public class ElasticSearchInitializer {

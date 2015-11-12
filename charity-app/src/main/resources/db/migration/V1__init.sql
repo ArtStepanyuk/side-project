@@ -1,0 +1,1 @@
+--EMPTY SQL FILE for migration version 1, see http://flywaydb.org/

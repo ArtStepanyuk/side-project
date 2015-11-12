@@ -8,8 +8,9 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-// custom Token based authentication based on
-// the header previously given to the client
+/**
+ * Сustom token based authentication based on the header previously given to the client.
+ */
 public class StatelessAuthenticationFilter extends GenericFilterBean implements Filter {
 
 	private final TokenAuthenticationService tokenAuthenticationService;

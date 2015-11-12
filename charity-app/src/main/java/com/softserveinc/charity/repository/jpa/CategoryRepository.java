@@ -12,4 +12,7 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
     @RestResource(path = "root", rel="root")
     @Query("select c from Category c where c.parent=NULL")
     Category getRoot();
+
+    @Query("select c from Category c where c.name=?1 and c.parent.name=?2")
+    Category findByNameAndParent(String name, String parentName);
 }
