@@ -3,6 +3,7 @@ package com.softserveinc.charity.model.need;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.softserveinc.charity.model.Category;
 import com.softserveinc.charity.model.City;
 import com.softserveinc.charity.model.NeedResponse;
@@ -26,7 +27,7 @@ import java.util.Set;
  */
 @NamedEntityGraph(name = "Need.detail", includeAllAttributes = true)
 @MappedSuperclass
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 public class BaseNeed implements Serializable {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 
