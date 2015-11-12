@@ -69,7 +69,7 @@ public class BaseNeed implements Serializable {
     private User userCreated;
 
     /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "need")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "need", fetch = FetchType.EAGER)
     private Set<NeedResponse> needResponses;
 
     @OneToOne
