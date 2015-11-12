@@ -73,10 +73,12 @@ public class User implements UserDetails {
     private String token;
 
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("user")
     private Set<OfferResponse> offerResponses;
 
 
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("user")
     private Set<NeedResponse> needResponses;
 
 
