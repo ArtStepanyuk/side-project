@@ -3,8 +3,6 @@ package com.softserveinc.charity.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.softserveinc.charity.model.need.BaseNeed;
-import com.softserveinc.charity.model.offer.BaseOffer;
 import com.softserveinc.charity.model.offer.Offer;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -75,10 +73,12 @@ public class User implements UserDetails {
     private String token;
 
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("user")
     private Set<OfferResponse>  offerResponse;
 
 
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("user")
     private Set<NeedResponse> needResponse;
 
 

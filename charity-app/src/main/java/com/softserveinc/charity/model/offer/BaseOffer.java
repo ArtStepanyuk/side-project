@@ -68,7 +68,7 @@ public class BaseOffer implements Serializable {
     private User userCreated;
 
     /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "offer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "offer",fetch=FetchType.EAGER)
     private Set<OfferResponse> offerResponses;
 
     @Column
