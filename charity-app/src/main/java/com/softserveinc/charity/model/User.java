@@ -207,7 +207,7 @@ public class User implements UserDetails {
         return needs;
     }
 
-    public void setCreatedNeeds(Set<Need> needs) {
+    public void setNeeds(Set<Need> needs) {
         this.needs = needs;
     }
 
