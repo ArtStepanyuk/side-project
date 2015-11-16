@@ -27,25 +27,11 @@ public class CreateNeedController {
     @RequestMapping(value = "/api//createNeed", method = RequestMethod.POST)
     public @ResponseBody Need handleFileUpload(final MultipartHttpServletRequest request, final NeedRequestData requestData) {
 
-        LOG.info("Creating New Need");
+        LOG.debug("Creating Need");
 
-        final Need createdNeed = needFacade.save(requestData);
+        final Need createdNeed = needFacade.save(requestData, request.getFileMap());
 
-        LOG.info("New Need Created");
-//        if (!file.isEmpty()) {
-//            try {
-//                byte[] bytes = file.getBytes();
-//                BufferedOutputStream stream =
-//                        new BufferedOutputStream(new FileOutputStream(new File(name)));
-//                stream.write(bytes);
-//                stream.close();
-//                return "You successfully uploaded " + name + "!";
-//            } catch (Exception e) {
-//                return "You failed to upload " + name + " => " + e.getMessage();
-//            }
-//        } else {
-//            return "You failed to upload " + name + " because the file was empty.";
-//        }
+        LOG.info("Need Created");
 
         return createdNeed;
     }

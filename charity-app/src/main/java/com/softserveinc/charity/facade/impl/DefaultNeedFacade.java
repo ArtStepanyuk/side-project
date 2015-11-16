@@ -10,15 +10,21 @@ import com.softserveinc.charity.repository.jpa.CityRepository;
 import com.softserveinc.charity.service.NeedService;
 import com.softserveinc.charity.service.UserService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 @Component
 public class DefaultNeedFacade implements NeedFacade {
 
-    public static final String CITY_BEFORE_STRING   = "name\":\"";
+    private static final Logger LOG = Logger.getLogger(DefaultNeedFacade.class);
+
+    public static final String CITY_BEFORE_STRING = "name\":\"";
     public static final String REGION_BEFORE_STRING = "region\":{\"id\":";
 
     @Autowired
@@ -34,7 +40,7 @@ public class DefaultNeedFacade implements NeedFacade {
     private UserService userService;
 
     @Override
-    public Need save(final NeedRequestData requestData) {
+    public Need save(final NeedRequestData requestData, final Map<String, MultipartFile> files) {
 
         Assert.notNull(requestData, "Request Data can not be null");
         final Need need = new Need();
@@ -53,9 +59,10 @@ public class DefaultNeedFacade implements NeedFacade {
         need.setCategory(category);
 
         need.setUserCreated(userService.getCurrentUser());
-        // TODO: picture
 
-        return needService.save(need);
+        // TODO: Check images format and extension
+
+        return needService.save(need, files);
     }
 
     private City getCityFromRequest(final String cityString) {

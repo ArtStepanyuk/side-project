@@ -3,10 +3,7 @@ package com.softserveinc.charity.model.need;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.softserveinc.charity.model.Category;
-import com.softserveinc.charity.model.City;
-import com.softserveinc.charity.model.NeedResponse;
-import com.softserveinc.charity.model.User;
+import com.softserveinc.charity.model.*;
 import com.softserveinc.charity.model.support.ResponseStatus;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
@@ -41,6 +38,10 @@ public class BaseNeed implements Serializable {
 
     @Column
     private String description;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Image> images;
 
     @OneToOne
     @Field(type = FieldType.Nested)
@@ -136,6 +137,14 @@ public class BaseNeed implements Serializable {
 
     public String getDescription() {
         return description;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
 
     public void setDescription(String description) {

@@ -75,4 +75,5 @@ public class NeedRequestData {
     public void setPickup(final Boolean pickup) {
         this.pickup = pickup;
     }
+
 }

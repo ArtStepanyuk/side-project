@@ -1,17 +1,13 @@
-package com.softserveinc.charity.model.offer.projection;
+package com.softserveinc.charity.model.need;
 
-import com.softserveinc.charity.model.Category;
-import com.softserveinc.charity.model.City;
-import com.softserveinc.charity.model.NeedResponse;
-import com.softserveinc.charity.model.User;
-import com.softserveinc.charity.model.need.Need;
+import com.softserveinc.charity.model.*;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.util.Date;
 import java.util.Set;
 
 @Projection(name = "inLine", types = {Need.class})
-public interface NeedInLine {
+public interface NeedInLineProjection {
     Integer getId();
 
     City getCity();
@@ -39,4 +35,6 @@ public interface NeedInLine {
     Set<NeedResponse> getNeedResponses();
 
     boolean getOpen();
+
+    Set<Image> getImages();
 }
