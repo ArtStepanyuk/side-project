@@ -23,7 +23,6 @@ public class UserController extends AbstractController implements
 
     private static final Logger LOG = LoggerFactory.getLogger("com.softservinc.charity");
 
-    // TODO could be implemented with projections
     @RequestMapping(value = "/current", method = RequestMethod.GET)
     public User getCurrent(final HttpServletRequest request) {
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

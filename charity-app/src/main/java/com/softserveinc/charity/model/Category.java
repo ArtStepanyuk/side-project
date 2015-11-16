@@ -28,7 +28,7 @@ public class Category implements Serializable {
     @JsonIgnoreProperties(value = "children")
     private Category parent;
 
-    @OneToMany(mappedBy="parent")
+    @OneToMany(mappedBy="parent", fetch=FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "categories")
     @JsonIgnoreProperties(value = "parent")
     public List<Category> children = new ArrayList<>();

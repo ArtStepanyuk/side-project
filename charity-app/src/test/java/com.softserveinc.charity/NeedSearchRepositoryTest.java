@@ -1,6 +1,5 @@
 package com.softserveinc.charity;
 
-import com.softserveinc.charity.elasticsearch.ElasticSearchInitializer;
 import com.softserveinc.charity.model.*;
 import com.softserveinc.charity.model.need.Need;
 import com.softserveinc.charity.model.need.NeedDetails;

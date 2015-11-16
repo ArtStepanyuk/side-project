@@ -1,11 +1,13 @@
 package com.softserveinc.charity.model;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.softserveinc.charity.model.offer.Offer;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.security.core.userdetails.UserDetails;
+import com.softserveinc.charity.model.need.Need;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -38,6 +40,15 @@ public class User implements UserDetails {
     @JoinTable(name = "roles_users", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private Set<UserRole> roles = new HashSet<>();
 
+
+   @OneToMany(mappedBy = "userCreated", fetch = FetchType.EAGER)
+   @JsonIgnoreProperties("userCreated")
+    private Set<Need> needs;
+
+    @OneToMany(mappedBy = "userCreated", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("userCreated")
+    private Set<Offer> offers;
+
     @Column
     private String name;
 
@@ -60,6 +71,16 @@ public class User implements UserDetails {
 
     @Transient
     private String token;
+
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("user")
+    private Set<OfferResponse> offerResponses;
+
+
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("user")
+    private Set<NeedResponse> needResponses;
+
 
     public Integer getId() {
         return id;
@@ -168,5 +189,37 @@ public class User implements UserDetails {
     @JsonProperty
     public void setAddress(Address address) {
         this.address = address;
+    }
+    @JsonProperty
+    public void setOfferResponses(Set<OfferResponse> offerResponses) {
+        this.offerResponses = offerResponses;
+    }
+    @JsonProperty
+    public void setNeedResponses(Set<NeedResponse> needResponses) {
+        this.needResponses = needResponses;
+    }
+
+    public Set<NeedResponse> getNeedResponses() {
+        return needResponses;
+    }
+
+    public Set<Need> getNeeds() {
+        return needs;
+    }
+
+    public void setNeeds(Set<Need> needs) {
+        this.needs = needs;
+    }
+
+    public Set<OfferResponse> getOfferResponses() {
+        return offerResponses;
+   }
+
+    public Set<Offer> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(Set<Offer> offers) {
+        this.offers = offers;
     }
 }

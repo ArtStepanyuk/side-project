@@ -3,6 +3,7 @@ package com.softserveinc.charity.model.offer;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.softserveinc.charity.model.*;
 import com.softserveinc.charity.model.support.ResponseStatus;
 import org.hibernate.annotations.Type;
@@ -18,10 +19,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-
+/**
+ * Basic class for offer model.
+ */
 @NamedEntityGraph(name = "Offer.detail", includeAllAttributes = true)
 @MappedSuperclass
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 public class BaseOffer implements Serializable {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
 
@@ -62,12 +65,13 @@ public class BaseOffer implements Serializable {
     @Field(type = FieldType.Nested)
     private Category category;
 
-    @OneToOne
+    @ManyToOne
     @Field(type = FieldType.Nested)
+    @JoinColumn(name = "userCreated_id")
     private User userCreated;
 
     /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "offer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "offer",fetch=FetchType.EAGER)
     private Set<OfferResponse> offerResponses;
 
     @Column
