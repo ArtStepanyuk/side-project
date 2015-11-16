@@ -3,12 +3,14 @@ package com.softserveinc.charity.service.impl;
 import com.softserveinc.charity.service.FileService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 
 @Service
+@PropertySource("classpath:application.properties")
 public class DefaultFileService implements FileService {
 
     private static final Logger LOG = Logger.getLogger(DefaultFileService.class);
