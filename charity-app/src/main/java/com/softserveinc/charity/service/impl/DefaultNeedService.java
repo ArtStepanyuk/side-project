@@ -2,8 +2,10 @@ package com.softserveinc.charity.service.impl;
 
 import com.softserveinc.charity.model.Image;
 import com.softserveinc.charity.model.need.Need;
+import com.softserveinc.charity.repository.converter.Converter;
 import com.softserveinc.charity.repository.jpa.ImageRepository;
 import com.softserveinc.charity.repository.jpa.NeedRepository;
+import com.softserveinc.charity.repository.search.NeedSearchRepository;
 import com.softserveinc.charity.service.FileService;
 import com.softserveinc.charity.service.NeedService;
 import org.apache.log4j.Logger;
@@ -24,6 +26,9 @@ public class DefaultNeedService implements NeedService {
 
     @Autowired
     private NeedRepository needRepository;
+
+    @Autowired
+    private NeedSearchRepository needSearchRepository;
 
     @Autowired
     private ImageRepository imageRepository;
@@ -47,6 +52,8 @@ public class DefaultNeedService implements NeedService {
             savedNeed.setImages(images);
             needRepository.save(savedNeed);
         }
+
+        needSearchRepository.save(Converter.convert(savedNeed));
 
         return savedNeed;
     }
