@@ -179,6 +179,7 @@ public class User implements UserDetails {
         return roles;
     }
 
+    @JsonIgnore
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
     }
