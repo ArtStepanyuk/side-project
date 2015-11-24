@@ -11,12 +11,9 @@ import java.util.Set;
 @Projection(name = "inLine", types = {User.class})
 public interface UserInLine {
 
-    Address getAddress();
-
-    @Value("#{target.address.city}")
-    City getCity();
-
     Set<UserRole> getRoles();
+
+    String getToken();
 
     long getExpires();
 
@@ -24,7 +21,14 @@ public interface UserInLine {
 
     String getEmail();
 
-    String getToken();
+    String getFirstName();
+
+    String getLastName();
+
+    Address getAddress();
+
+    @Value("#{target.address.city}")
+    City getCity();
 
     Set<Need> getNeeds();
 

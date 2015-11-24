@@ -2616,9 +2616,9 @@ insert into addresses(description, phone, city_id) VALUES ("House 4 appartment 2
 insert into addresses(description, phone, city_id) VALUES ("House 14 appartment 2", "077-213-44-44", 2);
 insert into addresses(description, phone, city_id) VALUES ("Skycraper 43 appartment 2", "077-213-44-44", 3);
 
-insert into users (name, email, password, address_id) VALUES ('admin', 'admin@gmail.com', '$2a$11$ilYAuWk/iKWJdF9INr0KIuVTKMUkfivrj840hSNzurkLuuaUtgmqq', 1);
-insert into users (name, email, password, address_id) VALUES ('volunteer', 'volunteer@gmail.com', '$2a$11$xVEVTGKA5mtgfPMdPPCvDOuMARk75c1GwRLgKZhhhNm.59wuVeYCS', 2);
-insert into users (name, email, password, address_id) VALUES ('user', 'user@gmail.com', '$2a$10$U.4xVs8hQ9HYPYm/u7uJOee/bGh41QFOhd/jWdD57cdSvlSQ6zfzG', 3);
+insert into users (name, first_name, last_name, email, password, address_id) VALUES ('admin', 'adminFirstName', 'adminLastName', 'admin@gmail.com', '$2a$11$ilYAuWk/iKWJdF9INr0KIuVTKMUkfivrj840hSNzurkLuuaUtgmqq', 1);
+insert into users (name, first_name, last_name, email, password, address_id) VALUES ('volunteer', 'volunteerFirstName', 'volunteerLastName', 'volunteer@gmail.com', '$2a$11$xVEVTGKA5mtgfPMdPPCvDOuMARk75c1GwRLgKZhhhNm.59wuVeYCS', 2);
+insert into users (name, first_name, last_name, email, password, address_id) VALUES ('user', 'userFirstName', 'userLastName', 'user@gmail.com', '$2a$10$U.4xVs8hQ9HYPYm/u7uJOee/bGh41QFOhd/jWdD57cdSvlSQ6zfzG', 3);
 
 insert into user_roles (description, role) VALUES ('admin', 'ADMIN');
 insert into user_roles (description, role) VALUES ('volunteer', 'VOLUNTEER');
