@@ -19,20 +19,24 @@ public class CreateNeedController {
     @Autowired
     private NeedFacade needFacade;
 
-    @RequestMapping(value = "/api/createNeed", method = RequestMethod.GET)
+    @RequestMapping(value = {"/api/createNeed", "/api/createOffer"}, method = RequestMethod.GET)
     public @ResponseBody String provideUploadInfo() {
         return "You can create need by posting to this same URL.";
     }
 
-    @RequestMapping(value = "/api//createNeed", method = RequestMethod.POST)
-    public @ResponseBody Need handleFileUpload(final MultipartHttpServletRequest request, final NeedRequestData requestData) {
-
+    @RequestMapping(value = "/api/createNeed", method = RequestMethod.POST)
+    public @ResponseBody Need createNeed(final MultipartHttpServletRequest request, final NeedRequestData requestData) {
         LOG.debug("Creating Need");
-
         final Need createdNeed = needFacade.save(requestData, request.getFileMap());
-
         LOG.info("Need Created");
+        return createdNeed;
+    }
 
+    @RequestMapping(value = "/api/createOffer", method = RequestMethod.POST)
+    public @ResponseBody Need createOffer(final MultipartHttpServletRequest request, final NeedRequestData requestData) {
+        LOG.debug("Creating Need");
+        final Need createdNeed = needFacade.save(requestData, request.getFileMap());
+        LOG.info("Need Created");
         return createdNeed;
     }
 }
