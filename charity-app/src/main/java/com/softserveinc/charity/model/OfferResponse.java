@@ -1,6 +1,7 @@
 package com.softserveinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.softserveinc.charity.model.offer.Offer;
 import com.softserveinc.charity.model.support.ResponseStatus;
 
@@ -28,6 +29,7 @@ public class OfferResponse implements Serializable {
     /* Do not put lazy fetch case offerResponses/1/offer will fail (https://jira.spring.io/browse/DATAJPA-630) */
     @ManyToOne
     @JoinColumn(name = "offer_id")
+    @JsonIgnoreProperties({"offerResponses", "userCreated"})
     private Offer offer;
 
     @ManyToOne

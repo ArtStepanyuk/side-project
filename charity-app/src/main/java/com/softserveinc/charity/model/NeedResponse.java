@@ -1,6 +1,8 @@
 package com.softserveinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.softserveinc.charity.model.need.Need;
 import com.softserveinc.charity.model.support.ResponseStatus;
 
@@ -25,6 +27,7 @@ public class NeedResponse implements Serializable {
     /* Do not put lazy fetch case needResponses/1/need will fail (https://jira.spring.io/browse/DATAJPA-630) */
     @ManyToOne
     @JoinColumn(name = "need_id")
+    @JsonIgnoreProperties({"needResponses", "userCreated"})
     private Need need;
 
     @ManyToOne

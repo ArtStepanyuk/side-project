@@ -2,6 +2,7 @@ package com.softserveinc.charity.security.service;
 
 import com.softserveinc.charity.model.User;
 import com.softserveinc.charity.model.UserAuthentication;
+import com.softserveinc.charity.model.UserToken;
 import com.softserveinc.charity.repository.jpa.UserRepository;
 import com.softserveinc.charity.security.util.TokenHandler;
 import com.softserveinc.charity.util.Constants;
@@ -32,15 +33,20 @@ public class TokenAuthenticationService {
 	public void addAuthentication(HttpServletResponse response, UserAuthentication authentication) {
 		final User user = authentication.getDetails();
 		user.setExpires(System.currentTimeMillis() + Constants.TEN_DAYS);
-		response.addHeader(Constants.AUTH_HEADER_NAME, tokenHandler.createTokenForUser(user));
+		UserToken userToken
+				= new UserToken(user.getEmail(), user.getPassword(), user.getExpires());
+		response.addHeader(Constants.AUTH_HEADER_NAME, tokenHandler.createTokenForUser(userToken));
 	}
 
 	public Authentication getAuthentication(HttpServletRequest request) {
 		final String token = request.getHeader(Constants.AUTH_HEADER_NAME);
 		if (token != null) {
-			final User user = tokenHandler.parseUserFromToken(token);
-			if (user != null) {
-				return new UserAuthentication(user);
+			final UserToken userToken = tokenHandler.parseUserFromToken(token);
+			if (userToken != null) {
+				User user = userRepo.findByEmail(userToken.getName());
+				if (user != null) {
+					return new UserAuthentication(user);
+				}
 			}
 		}
 		return null;
