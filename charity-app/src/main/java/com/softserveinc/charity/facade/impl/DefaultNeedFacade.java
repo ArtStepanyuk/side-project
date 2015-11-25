@@ -80,10 +80,13 @@ public class DefaultNeedFacade implements NeedFacade {
     }
 
     private Category getCategoryFromRequest(final String categoryString) {
-        final String[] category = categoryString.split(",");
-        final int last = category.length - 1;
-        return categoryRepository.findByNameAndParent(category[last],
-                StringUtils.isNotBlank(category[last - 1]) ? category[last - 1] : "root");
+        if (categoryString.contains(",")){
+            final String[] category = categoryString.split(",");
+            final int lastIndex = category.length - 1;
+            return categoryRepository.findByNameAndParent(category[lastIndex],
+                    StringUtils.isNotBlank(category[lastIndex - 1]) ? category[lastIndex - 1] : "root");
+        }
+        return categoryRepository.findByNameAndParent(categoryString, "root");
     }
 
 }
