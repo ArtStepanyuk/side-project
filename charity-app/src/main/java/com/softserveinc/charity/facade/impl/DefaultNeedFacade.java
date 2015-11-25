@@ -9,6 +9,7 @@ import com.softserveinc.charity.repository.jpa.CategoryRepository;
 import com.softserveinc.charity.repository.jpa.CityRepository;
 import com.softserveinc.charity.service.NeedService;
 import com.softserveinc.charity.service.UserService;
+import com.softserveinc.charity.validator.NeedValidator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
@@ -61,7 +62,7 @@ public class DefaultNeedFacade implements NeedFacade {
         need.setUserCreated(userService.getCurrentUser());
 
         // TODO: Check images format and extension
-
+        NeedValidator.validate(need);
         return needService.save(need, files);
     }
 
@@ -79,8 +80,13 @@ public class DefaultNeedFacade implements NeedFacade {
     }
 
     private Category getCategoryFromRequest(final String categoryString) {
-        final String[] category = categoryString.split(",");
-        return categoryRepository.findByNameAndParent(category[2], StringUtils.isNotBlank(category[1]) ? category[1] : category[0]);
+        if (categoryString.contains(",")){
+            final String[] category = categoryString.split(",");
+            final int lastIndex = category.length - 1;
+            return categoryRepository.findByNameAndParent(category[lastIndex],
+                    StringUtils.isNotBlank(category[lastIndex - 1]) ? category[lastIndex - 1] : "root");
+        }
+        return categoryRepository.findByNameAndParent(categoryString, "root");
     }
 
 }
