@@ -1,6 +1,7 @@
 package com.softserveinc.charity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.softserveinc.charity.util.Constants;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +14,7 @@ public class Address implements Serializable{
     @javax.persistence.Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    @Column
+    @Column(length = Constants.DEFAULT_DESCRIPTION_LENGTH)
     private String description;
     @Column
     private String phone;

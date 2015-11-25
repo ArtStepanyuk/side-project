@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.softserveinc.charity.model.*;
 import com.softserveinc.charity.model.support.ResponseStatus;
+import com.softserveinc.charity.util.Constants;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -40,7 +41,7 @@ public class BaseNeed implements Serializable {
     @Column
     private String name;
 
-    @Column
+    @Column(length = Constants.DEFAULT_DESCRIPTION_LENGTH)
     private String description;
 
     @OneToMany(fetch = FetchType.LAZY)

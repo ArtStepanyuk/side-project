@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.softserveinc.charity.model.offer.Offer;
 import com.softserveinc.charity.model.support.ResponseStatus;
+import com.softserveinc.charity.util.Constants;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,7 +21,7 @@ public class OfferResponse implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(length = Constants.DEFAULT_DESCRIPTION_LENGTH)
     private String description;
 
     @Column

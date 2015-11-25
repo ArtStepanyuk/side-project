@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.softserveinc.charity.model.need.Need;
 import com.softserveinc.charity.model.support.ResponseStatus;
+import com.softserveinc.charity.util.Constants;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +19,7 @@ public class NeedResponse implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(length = Constants.DEFAULT_DESCRIPTION_LENGTH)
     private String description;
 
     @Column
