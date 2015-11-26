@@ -8,7 +8,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
 @Repository(value = OfferRepository.NAME)
-@RepositoryRestResource(collectionResourceRel = "offers", path = "offers", excerptProjection = OfferInLineProjection.class)
+@RepositoryRestResource(collectionResourceRel = "offers", path = "offers")
 public interface OfferRepository extends JpaRepository<Offer, Integer> {
     String NAME = "offerRepository";
 

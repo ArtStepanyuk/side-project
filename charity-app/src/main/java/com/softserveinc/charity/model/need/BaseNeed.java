@@ -128,6 +128,11 @@ public class BaseNeed implements Serializable {
         return true;
     }
 
+    @JsonGetter
+    public Set<NeedResponse> getResponses()
+    {
+        return this.needResponses;
+    }
 
     public void setId(Integer id) {
         this.id = id;
