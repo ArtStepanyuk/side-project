@@ -1,5 +1,6 @@
 package com.softserveinc.charity.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -27,6 +28,14 @@ public class Category implements Serializable {
     @ManyToOne(cascade = {CascadeType.ALL})
     @JsonIgnoreProperties(value = "children")
     private Category parent;
+
+    @Column
+    @JsonIgnore
+    private Integer lvl;
+
+    @Column
+    @JsonIgnore
+    private Integer maxLvl;
 
     @OneToMany(mappedBy="parent", fetch=FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "categories")
@@ -59,5 +68,25 @@ public class Category implements Serializable {
 
     public void setChildren(List<Category> children) {
         this.children = children;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(Integer lvl) {
+        this.lvl = lvl;
+    }
+
+    public Integer getMaxLvl() {
+        return maxLvl;
+    }
+
+    public void setMaxLvl(Integer maxLvl) {
+        this.maxLvl = maxLvl;
     }
 }

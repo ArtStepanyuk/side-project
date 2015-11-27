@@ -2,6 +2,7 @@ package com.softserveinc.charity.elasticsearch;
 
 import com.softserveinc.charity.model.need.NeedDetails;
 import com.softserveinc.charity.model.offer.OfferDetails;
+import com.softserveinc.charity.repository.jpa.CategoryRepository;
 import com.softserveinc.charity.repository.search.NeedSearchRepository;
 import com.softserveinc.charity.repository.search.OfferSearchRepository;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -26,6 +27,9 @@ public class ElasticSearchService {
 
     @Autowired
     OfferSearchRepository offerSearchRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     /**
      * Create search query for needs based on input parameters.
@@ -66,6 +70,7 @@ public class ElasticSearchService {
 
         boolean isWildcard = wildcard.equals(Boolean.TRUE);
         searchQueryBuilder = new SearchQueryBuilder(isWildcard, query, region, city, category);
+        searchQueryBuilder.setCategoryRepository(categoryRepository);
 
         QueryBuilder queryBuilder = searchQueryBuilder.build();
 

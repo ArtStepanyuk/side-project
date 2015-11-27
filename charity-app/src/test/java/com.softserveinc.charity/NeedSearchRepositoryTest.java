@@ -55,6 +55,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     Category subCategory2;
     Category subCategory3;
     Category subCategory4;
+    Category subCategory5;
     Pageable pageable;
 
     @Before
@@ -64,6 +65,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         subCategory2 = categoryRepository.findByNameAndParent("sweater", "child's");
         subCategory3 = categoryRepository.findByNameAndParent("PC", "technique");
         subCategory4 = categoryRepository.findByNameAndParent("etc", "root");
+        subCategory5 = categoryRepository.findByNameAndParent("etc", "stationery");
         city1 = cityRepository.findByRegionId(6).get(0);
         city2 = cityRepository.findByRegionId(6).get(1);
         city3 = cityRepository.findByRegionId(6).get(2);
@@ -122,11 +124,22 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         need5.setName("Some stuff");
         need5.setUserCreated(user);
 
+        Need need6 = new Need();
+        need6.setActualTo(LocalDate.now());
+        need6.setAddress("new sumochka");
+        need6.setCategory(subCategory5);
+        need6.setCity(city3);
+        need6.setConvenientTime("1442850455478");
+        need6.setDescription("Some stuff");
+        need6.setName("Some stuff");
+        need6.setUserCreated(user);
+
         needs.add(need1);
         needs.add(need2);
         needs.add(need3);
         needs.add(need4);
         needs.add(need5);
+        needs.add(need6);
 
         needSearchRepository.deleteAll();
 
@@ -189,17 +202,23 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
     @Test
     public void find_by_some_input_category_and_region(){
         FacetedPage<NeedDetails> needs_
-                = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, subCategory1.getName(), pageable);
+                = searchService.findNeeds(false, "need", city1.getRegion().getName(), null,
+                subCategory1.getParent().getParent().getName() + "," + subCategory1.getParent().getName() + ","+ subCategory1.getName()
+                , pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(2));
 
-        needs_ = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, subCategory2.getName(), pageable);
+        needs_ = searchService.findNeeds(false, "need", city1.getRegion().getName(), null,
+                subCategory1.getParent().getParent().getName() + ","  + subCategory1.getParent().getName() + ","+ subCategory2.getName()
+                , pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(1));
 
-        needs_ = searchService.findNeeds(false, "need", city1.getRegion().getName(), null, subCategory1.getParent().getName(), pageable);
+        needs_ = searchService.findNeeds(false, "need", city1.getRegion().getName(), null,
+                subCategory1.getParent().getParent().getName() + "," + subCategory1.getParent().getName()
+                , pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(3));
@@ -211,7 +230,7 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
                 = searchService.findNeeds(false, null, null, null, null, pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
-        Assert.assertThat(needs_.getContent().size(), is(5));
+        Assert.assertThat(needs_.getContent().size(), is(6));
     }
 
     @Test
@@ -221,7 +240,10 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(3));
 
-        needs_ = searchService.findNeeds(true, "Na", null, null, subCategory1.getName(), pageable);
+        needs_ = searchService.findNeeds(true, "Na", null, null,
+                subCategory1.getParent().getParent().getName()
+                + "," + subCategory1.getParent().getName()
+                + ","+ subCategory1.getName(), pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(2));
@@ -229,9 +251,16 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
         needs_ = searchService.findNeeds(true, "So", null, null, null, pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
-        Assert.assertThat(needs_.getContent().size(), is(1));
+        Assert.assertThat(needs_.getContent().size(), is(2));
 
         needs_ = searchService.findNeeds(true, "So", null, null, subCategory4.getName(), pageable);
+        Assert.assertNotNull(needs_);
+        Assert.assertNotNull(needs_.getContent());
+        Assert.assertThat(needs_.getContent().size(), is(1));
+
+        needs_ = searchService.findNeeds(true, "So", null, null,
+                subCategory5.getParent().getName()
+                + "," + subCategory5.getName(), pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(1));
@@ -239,7 +268,10 @@ public class NeedSearchRepositoryTest extends AbstractWebIntegrationTest {
 
     @Test
     public void find_by_some_input_wildcard_with_city_and_category(){
-        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(true, "Na", null, city2.getName(), subCategory1.getName(), pageable);
+        FacetedPage<NeedDetails> needs_ = searchService.findNeeds(true, "Na", null, city2.getName(),
+                subCategory1.getParent().getParent().getName()
+                        + "," + subCategory1.getParent().getName()
+                        + "," + subCategory1.getName(), pageable);
         Assert.assertNotNull(needs_);
         Assert.assertNotNull(needs_.getContent());
         Assert.assertThat(needs_.getContent().size(), is(1));

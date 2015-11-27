@@ -1,8 +1,13 @@
 package com.softserveinc.charity.elasticsearch;
 
+import com.google.common.collect.ImmutableMap;
+import com.softserveinc.charity.model.Category;
+import com.softserveinc.charity.repository.jpa.CategoryRepository;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
+
+import java.util.Map;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
@@ -30,11 +35,20 @@ public class SearchQueryBuilder {
     private static final String CATEGORY_GRANDGRANDPARENT_NAME = "category.parent.parent.parent.name";
     private static final String ROOT = "root";
 
+    private static final Map<Integer, String> map = ImmutableMap.of(
+            0, CATEGORY_NAME,
+            1, CATEGORY_PARENT_NAME,
+            2, CATEGORY_GRANDPARENT_NAME,
+            3, CATEGORY_GRANDGRANDPARENT_NAME
+    );
+
     private String city;
     private String region;
     private String category;
     private String query;
     private boolean wildcard;
+
+    private CategoryRepository categoryRepository;
 
     private SearchQueryBuilder(){
         //
@@ -115,24 +129,71 @@ public class SearchQueryBuilder {
      * City and region is not mandatory.
      */
     private void attachCommonQueryParameters(BoolQueryBuilder builder) {
+        attachCategory(builder);
+        attachCity(builder);
+        attachRegion(builder);
+    }
+
+
+    /**
+     * Attach category to boolQuery.
+     * Input format for categories is "category1,category1.1,category1.1.1"
+     *
+     *
+     * @param builder - boolQueryBuilder
+     */
+    private void attachCategory(BoolQueryBuilder builder){
+        BoolQueryBuilder boolQuery = boolQuery();
         if (category != null && StringUtils.isNotEmpty(category)){
-            builder.must(boolQuery()
-                    .should(nestedQuery(CATEGORY, termQuery(CATEGORY_NAME, category)))
-                    .should(nestedQuery(CATEGORY, termQuery(CATEGORY_PARENT_NAME, category)))
-                    .should(nestedQuery(CATEGORY, termQuery(CATEGORY_GRANDPARENT_NAME, category))));
+                String categoryStr = ROOT + "," + category;
+                String [] categories = categoryStr.split(",");
+                Category categoryEntity =
+                                categoryRepository.findByNameAndParent(
+                                        categories[categories.length - 1], categories[categories.length - 2]);
+                Integer level = categoryEntity.getMaxLvl() - categoryEntity.getLvl();
+
+                for (int i = level, k =  categories.length - 1;i < categories.length; i++, k--){
+                    boolQuery.must(nestedQuery(CATEGORY, termQuery(map.get(i), categories[k])));
+                }
         }
         else {
-            builder.must(boolQuery()
+            boolQuery
                     .should(nestedQuery(CATEGORY, termQuery(CATEGORY_PARENT_NAME, ROOT)))
                     .should(nestedQuery(CATEGORY, termQuery(CATEGORY_GRANDPARENT_NAME, ROOT)))
-                    .should(nestedQuery(CATEGORY, termQuery(CATEGORY_GRANDGRANDPARENT_NAME, ROOT))));
+                    .should(nestedQuery(CATEGORY, termQuery(CATEGORY_GRANDGRANDPARENT_NAME, ROOT)));
         }
+        builder.must(boolQuery);
+    }
+
+    /**
+     * Attach city to boolQuery
+     *
+     * @param builder - boolQueryBuilder
+     */
+    private void attachCity(BoolQueryBuilder builder){
         if (city != null && StringUtils.isNotEmpty(city)) {
             builder.must(nestedQuery(CITY, termQuery(CITY_NAME, city)));
         }
+    }
+
+    /**
+     * Attach region to boolQuery
+     *
+     * @param builder - boolQueryBuilder
+     */
+    private void attachRegion(BoolQueryBuilder builder){
         if (region != null && StringUtils.isNotEmpty(region)) {
             builder.must(nestedQuery(CITY_REGION, queryString(region).field(CITY_REGION_NAME)));
         }
+    }
+
+    /**
+     * Setter for categoryRepository
+     *
+     * @param categoryRepository - repository for categories
+     */
+    public void setCategoryRepository(CategoryRepository categoryRepository){
+        this.categoryRepository = categoryRepository;
     }
 
 }
