@@ -31,11 +31,11 @@ public class Category implements Serializable {
 
     @Column
     @JsonIgnore
-    private Integer lvl;
+    private Integer depth;
 
     @Column
     @JsonIgnore
-    private Integer maxLvl;
+    private Integer maxDepth;
 
     @OneToMany(mappedBy="parent", fetch=FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "categories")
@@ -74,19 +74,19 @@ public class Category implements Serializable {
         this.id = id;
     }
 
-    public Integer getLvl() {
-        return lvl;
+    public Integer getDepth() {
+        return depth;
     }
 
-    public void setLvl(Integer lvl) {
-        this.lvl = lvl;
+    public void setDepth(Integer depth) {
+        this.depth = depth;
     }
 
-    public Integer getMaxLvl() {
-        return maxLvl;
+    public Integer getMaxDepth() {
+        return maxDepth;
     }
 
-    public void setMaxLvl(Integer maxLvl) {
-        this.maxLvl = maxLvl;
+    public void setMaxDepth(Integer maxDepth) {
+        this.maxDepth = maxDepth;
     }
 }
