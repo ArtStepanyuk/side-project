@@ -218,4 +218,10 @@ public class BaseOffer implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    @JsonGetter
+    public Set<OfferResponse> getResponses()
+    {
+        return this.offerResponses;
+    }
 }

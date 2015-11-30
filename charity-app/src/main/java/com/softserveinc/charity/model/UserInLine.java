@@ -1,6 +1,5 @@
-package com.softserveinc.charity.model.projections;
+package com.softserveinc.charity.model;
 
-import com.softserveinc.charity.model.*;
 import com.softserveinc.charity.model.need.Need;
 import com.softserveinc.charity.model.offer.Offer;
 import org.springframework.beans.factory.annotation.Value;
